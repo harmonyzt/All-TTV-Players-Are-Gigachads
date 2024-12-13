@@ -9,7 +9,7 @@ class ttvPlayers {
         const logger = container.resolve("WinstonLogger");
         const pathToSAINPersonalities = './BepInEx/plugins/SAIN/NicknamePersonalities.json';
         const pathToCallsigns = "./user/mods/BotCallsigns";
-        const pathToTTVNames = "./user/mods/All-TTV-Players-Are-Gigachads/names/ttv_names.json";
+        const pathToTTVNames = "./user/mods/TTV-Players/names/ttv_names.json";
 
         // Loading ttvNames and yourNames inside method
         const ttvNames = require("../names/ttv_names.json");
@@ -17,16 +17,17 @@ class ttvPlayers {
 
         // Generate a new file with twitch names if we have BotCallsigns installed and liveMode is enabled
         if (fs.existsSync(pathToCallsigns) && this.CFG.liveMode) {
-            logger.log("[TTV PLAYERS | LIVE MODE] BotCallsigns detected! Getting all Twitch Names now...", "green");
+            logger.log("[TTV PLAYERS | LIVE MODE] Live mode is ENABLED! This will parse the data from BotCallsign names and make a new file with filtered names...", "yellow");
 
             const callsignAllNames = require("../names/names.json");
             const TTVNames = JSON.stringify(callsignAllNames.names.filter(exportedTTVName => /twitch|ttv/i.test(exportedTTVName)));
             const parsedTTVNames = JSON.parse(TTVNames);
             const updatedTTVNames = { generatedTwitchNames: {} };
+            
             parsedTTVNames.forEach(name => {
-                updatedTTVNames.generatedTwitchNames[name] = "Wreckless";
+                updatedTTVNames.generatedTwitchNames[name] = this.CFG.personalityLiveMode;
             });
-
+            
             // Reading ttv_names
             fs.readFile(pathToTTVNames, 'utf8', (err, data) => {
                 if (err) throw err;
@@ -36,16 +37,18 @@ class ttvPlayers {
                 // Writing our changes back
                 fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                     if (err) throw err;
-                    logger.log("[TTV PLAYERS | LIVE MODE] Data written to ttv_names.json successfully!", "green");
+                    logger.log("[TTV PLAYERS | LIVE MODE] Data updated at ttv_names.json successfully!", "yellow");
                 });
             });
         }
 
-        // Combining ttvNames and yourNames
-        const combinedNames = {
-                ...ttvNames.generatedTwitchNames,
-                ...yourNames.generatedTwitchNames
-        };
+        if(this.CFG.useIncludedNames){
+            // Combining ttvNames and yourNames
+            const combinedNames = {
+                    ...ttvNames.generatedTwitchNames,
+                    ...yourNames.customNames
+            };
+        }
 
         // If SAIN's file exists, push the personalities and nicknames
         if (fs.existsSync(pathToSAINPersonalities)) {
@@ -56,7 +59,9 @@ class ttvPlayers {
                 if (err) throw err;
                 const SAINPersData = JSON.parse(data);
                 // Modifying
-                SAINPersData.NicknamePersonalityMatches = combinedNames;
+                if(this.CFG.useIncludedNames) SAINPersData.NicknamePersonalityMatches = combinedNames;
+
+                SAINPersData.NicknamePersonalityMatches = ttvNames.generatedTwitchNames;
                 // Writing our changes back
                 fs.writeFile(pathToSAINPersonalities, JSON.stringify(SAINPersData, null, 2), (err) => {
                     if (err) throw err;
@@ -64,7 +69,7 @@ class ttvPlayers {
                 });
             });
         } else {
-            logger.log("[TTV PLAYERS] Couldn't find SAIN's personalities file. If you have just updated SAIN, launch the game at least once for this mod to work.", "red");
+            logger.log("[TTV PLAYERS] Couldn't find SAIN's personalities file. If you have just updated SAIN, launch the game client at least once for this mod to work.", "red");
             return;
         }
     }
