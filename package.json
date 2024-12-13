@@ -1,6 +1,6 @@
 {
-    "name": "All TTV Players are Gigachads",
-    "version": "1.0.0",
+    "name": "TTV Players are Gigachads",
+    "version": "1.0.1",
     "main": "src/mod.js",
     "license": "MIT",
     "author": "harmony",
