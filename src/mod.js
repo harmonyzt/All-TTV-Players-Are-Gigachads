@@ -11,11 +11,11 @@ class ttvPlayers {
         const pathToCallsigns = "./user/mods/BotCallsigns";
         const pathToTTVNames = "./user/mods/TTV-Players/names/ttv_names.json";
 
-        // Loading ttvNames and yourNames inside method
+        // Loading ttvNames and yourNames
         const ttvNames = require("../names/ttv_names.json");
         const yourNames = require("../names/your_names.json");
 
-        // Generate a new file with twitch names if we have BotCallsigns installed and liveMode is enabled
+        // Generate a new file with twitch names if we have BotCallsigns installed and liveMode is enabled. This file will be pushed to SAIN's personalities once done
         if (fs.existsSync(pathToCallsigns) && this.CFG.liveMode) {
             logger.log("[TTV PLAYERS | LIVE MODE] Live mode is ENABLED! This will parse the data from BotCallsign names and make a new file with filtered names...", "yellow");
 
