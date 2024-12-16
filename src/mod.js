@@ -4,7 +4,6 @@ const fs = require('fs');
 
 class ttvPlayers {
     CFG = require("../cfg/config.json");
-    sharedCFG = require("../cfg/shared_config.json");
 
     postDBLoad(container) {
         const logger = container.resolve("WinstonLogger");
@@ -22,9 +21,9 @@ class ttvPlayers {
 
             let callsignAllNames;
 
-            // 
+            // This is just sad.
             try {
-                callsignAllNames = require("../names_temp/names_temp.json");
+                callsignAllNames = require("../temp/names_temp.json");
 
                 if (!callsignAllNames) {
                     logger.log("[TTV PLAYERS | LIVE MODE] File names_temp.json is empty... This shouldn't happen! Report this to the developer ASAP! You may disable live mode!", "red");
@@ -37,6 +36,8 @@ class ttvPlayers {
                 return;
             }
 
+            // Names fell on the floor like empty shells.. Regex stood. The silence was never so loud before.
+            // The eternal judge whispered: "Let there be valid names... and nothing else."
             const TTVNames = JSON.stringify(callsignAllNames.names.filter(exportedTTVName => /twitch|ttv/i.test(exportedTTVName)));
             const parsedTTVNames = JSON.parse(TTVNames);
             const updatedTTVNames = { generatedTwitchNames: {} };
@@ -44,14 +45,12 @@ class ttvPlayers {
             parsedTTVNames.forEach(name => {
                 updatedTTVNames.generatedTwitchNames[name] = this.CFG.personalityLiveMode;
             });
-            
-            // Reading ttv_names
+
             fs.readFile(pathToTTVNames, 'utf8', (err, data) => {
                 if (err) throw err;
+
                 const ttvNameData = JSON.parse(data);
-                // Modifying
                 ttvNameData.generatedTwitchNames = updatedTTVNames.generatedTwitchNames;
-                // Writing our changes back
                 fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                     if (err) throw err;
                     logger.log("[TTV PLAYERS | LIVE MODE] Data updated at ttv_names.json successfully!", "yellow");
@@ -75,11 +74,10 @@ class ttvPlayers {
             fs.readFile(pathToSAINPersonalities, 'utf8', (err, data) => {
                 if (err) throw err;
                 const SAINPersData = JSON.parse(data);
-                // Modifying
+
                 if(this.CFG.useIncludedNames) SAINPersData.NicknamePersonalityMatches = combinedNames;
 
                 SAINPersData.NicknamePersonalityMatches = ttvNames.generatedTwitchNames;
-                // Writing our changes back
                 fs.writeFile(pathToSAINPersonalities, JSON.stringify(SAINPersData, null, 2), (err) => {
                     if (err) throw err;
                     logger.log("[TTV PLAYERS] Data written to SAIN's personalities by nickname file successfully!", "green");
