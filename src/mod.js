@@ -38,7 +38,7 @@ class ttvPlayers {
 
             // Names fell on the floor like empty shells.. Regex stood. The PC was never so loud before.
             // The eternal judge whispered: "Let there be valid names... and nothing else." and snapped his finger.
-            const TTVNames = JSON.stringify(callsignAllNames.names.filter(exportedTTVName => /twitch|ttv/i.test(exportedTTVName)));
+            const TTVNames = JSON.stringify(callsignAllNames.names.filter(exportedTTVName => /twitch|ttv|twiitch/i.test(exportedTTVName)));
             const parsedTTVNames = JSON.parse(TTVNames);
             const updatedTTVNames = { generatedTwitchNames: {} };
             
