@@ -4,6 +4,7 @@ const fs = require('fs');
 
 class ttvPlayers {
     CFG = require("../cfg/config.json");
+    sharedCFG = require("../cfg/shared_config.json");
 
     postDBLoad(container) {
         const logger = container.resolve("WinstonLogger");
@@ -19,7 +20,23 @@ class ttvPlayers {
         if (fs.existsSync(pathToCallsigns) && this.CFG.liveMode) {
             logger.log("[TTV PLAYERS | LIVE MODE] Live mode is ENABLED! This will parse the data from BotCallsign names and make a new file with filtered names...", "yellow");
 
-            const callsignAllNames = require("../names/names.json");
+            let callsignAllNames;
+
+            // 
+            try {
+                callsignAllNames = require("../names_temp/names_temp.json");
+
+                if (!callsignAllNames) {
+                    logger.log("[TTV PLAYERS | LIVE MODE] File names_temp.json is empty... This shouldn't happen! Report this to the developer ASAP! You may disable live mode!", "red");
+                    return;
+                }
+
+                logger.log("[TTV PLAYERS | LIVE MODE] Just loaded BotCallsigns names, all good! Proceeding...", "green");
+            } catch (error) {
+                logger.log("[TTV PLAYERS | LIVE MODE] There was an error with loading names_temp.json! Make sure it exists in the mod directory temp!", "red");
+                return;
+            }
+
             const TTVNames = JSON.stringify(callsignAllNames.names.filter(exportedTTVName => /twitch|ttv/i.test(exportedTTVName)));
             const parsedTTVNames = JSON.parse(TTVNames);
             const updatedTTVNames = { generatedTwitchNames: {} };
