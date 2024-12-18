@@ -26,7 +26,7 @@ class ttvPlayers {
                 callsignAllNames = require("../temp/names_temp.json");
 
                 if (!callsignAllNames) {
-                    logger.log("[TTV PLAYERS | LIVE MODE] File names_temp.json is empty... This shouldn't happen! Report this to the developer ASAP! You may disable live mode!", "red");
+                    logger.log("[TTV PLAYERS | LIVE MODE] File names_temp.json is empty... This shouldn't happen! Report this to the developer ASAP! You may want to disable live mode!", "red");
                     return;
                 }
 
@@ -59,7 +59,7 @@ class ttvPlayers {
         }
 
         if(this.CFG.useIncludedNames){
-            // Combining ttvNames and yourNames
+            // Combining ttvNames and yourNames if this was enabled
             const combinedNames = {
                     ...ttvNames.generatedTwitchNames,
                     ...yourNames.customNames
@@ -84,7 +84,7 @@ class ttvPlayers {
                 });
             });
         } else {
-            logger.log("[TTV PLAYERS] Couldn't find SAIN's personalities file. If you have just updated SAIN, launch the game client at least once for this mod to work.", "red");
+            logger.log("[TTV PLAYERS] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.", "yellow");
             return;
         }
     }
