@@ -24,7 +24,7 @@ class ttvPlayers {
             const namesReadyPath = path.join(__dirname, '../temp/names.ready');
             const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
         
-            // Watch for the presence of 'names.ready' file
+            // Watch for the presence of 'names.ready' file inside temp
             const checkForNamesReady = setInterval(() => {
                 if (fs.existsSync(namesReadyPath)) {
                     // Stop checking for the flag
