@@ -1,5 +1,5 @@
 {
-    "useIncludedNames": false,
-    "liveMode": false,
-    "personalityLiveMode": "Wreckless"
+    "useCustomNamesAndPersonalities": true,
+    "personalityLiveMode": "Wreckless",
+    "liveMode": false
 }

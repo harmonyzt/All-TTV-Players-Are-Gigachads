@@ -23,7 +23,7 @@ class ttvPlayers {
         
             const namesReadyPath = path.join(__dirname, '../temp/names.ready');
             const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
-        
+
             // Watch for the presence of 'names.ready' file inside temp
             const checkForNamesReady = setInterval(() => {
                 if (fs.existsSync(namesReadyPath)) {
@@ -44,7 +44,7 @@ class ttvPlayers {
                             return;
                         }
         
-                        logger.log("[Twitch Players | LIVE MODE] Loaded fresh BotCallsigns names...", "green");
+                        logger.log("[Twitch Players | LIVE MODE] Loaded BotCallsigns names...", "green");
                     } catch (error) {
                         logger.log("[Twitch Players | LIVE MODE] There was an error with loading names_temp.json! Make sure it exists in the temp mod directory!", "red");
                         return;
@@ -74,14 +74,6 @@ class ttvPlayers {
             }, 1000); // Check every 1 second
         }
 
-        if(config.useIncludedNames){
-            // Combining ttvNames and yourNames if this was enabled
-            const combinedNames = {
-                    ...ttvNames.generatedTwitchNames,
-                    ...yourNames.customNames
-            };
-        }
-
         // If SAIN's file exists, push the personalities and nicknames
         if (!config.liveMode) {
             if(fs.existsSync(pathToSAINPersonalities)){
@@ -92,12 +84,21 @@ class ttvPlayers {
                 if (err) throw err;
                 const SAINPersData = JSON.parse(data);
 
-                if(config.useIncludedNames) SAINPersData.NicknamePersonalityMatches = combinedNames;
+                if(config.useCustomNamesAndPersonalities){
+                    // Combining ttvNames and yourNames if this was enabled
+                    const combinedNames = {
+                            ...ttvNames.generatedTwitchNames,
+                            ...yourNames.customNames
+                    };
 
-                SAINPersData.NicknamePersonalityMatches = ttvNames.generatedTwitchNames;
+                    SAINPersData.NicknamePersonalityMatches = combinedNames;
+                } else {
+                    SAINPersData.NicknamePersonalityMatches = ttvNames.generatedTwitchNames;
+                }
+
                 fs.writeFile(pathToSAINPersonalities, JSON.stringify(SAINPersData, null, 2), (err) => {
                     if (err) throw err;
-                    logger.log("[Twitch Players] Data written to SAIN's personalities by nickname file successfully!", "green");
+                    logger.log("[Twitch Players] Data was written to SAIN file successfully!", "green");
                 });
             });
         } else {
@@ -117,12 +118,21 @@ class ttvPlayers {
                         if (err) throw err;
                         const SAINPersData = JSON.parse(data);
         
-                        if(config.useIncludedNames) SAINPersData.NicknamePersonalityMatches = combinedNames;
+                        if(config.useCustomNamesAndPersonalities){
+                            // Combining ttvNames and yourNames if this was enabled
+                            const combinedNames = {
+                                    ...ttvNames.generatedTwitchNames,
+                                    ...yourNames.customNames
+                            };
         
-                        SAINPersData.NicknamePersonalityMatches = ttvNames.generatedTwitchNames;
+                            SAINPersData.NicknamePersonalityMatches = combinedNames;
+                        } else {
+                            SAINPersData.NicknamePersonalityMatches = ttvNames.generatedTwitchNames;
+                        }
+
                         fs.writeFile(pathToSAINPersonalities, JSON.stringify(SAINPersData, null, 2), (err) => {
                             if (err) throw err;
-                            logger.log("[Twitch Players | LIVE MODE] Data written to SAIN's personalities by nickname file successfully!", "green");
+                            logger.log("[Twitch Players | LIVE MODE] Data was written to SAIN file successfully!", "green");
                         });
                     });
                 } else {
