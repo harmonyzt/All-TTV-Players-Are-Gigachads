@@ -5,5 +5,5 @@
         "GigaChad"
     ],
     "randomisePersonalitiesOnServerStart": true,
-    "liveMode": true
+    "liveMode": false
 }
