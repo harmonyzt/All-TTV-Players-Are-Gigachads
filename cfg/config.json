@@ -1,5 +1,9 @@
 {
     "useCustomNamesAndPersonalities": true,
-    "personalityLiveMode": "Wreckless",
-    "liveMode": false
+    "personalitiesToUse":[
+        "Wreckless",
+        "GigaChad"
+    ],
+    "randomisePersonalitiesOnServerStart": true,
+    "liveMode": true
 }
