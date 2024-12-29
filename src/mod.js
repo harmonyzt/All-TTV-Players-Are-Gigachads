@@ -6,19 +6,41 @@ const path = require('path');
 class ttvPlayers {
     CFG = require("../cfg/config.json");
 
+    // Using BotCallsigns config file
+    constructor() {
+        this.BotCallsignsConfigPath = path.resolve(__dirname, '../../BotCallsigns/config/config.json');
+        this.BotCallsignsConfig = null;
+
+        try {
+            const data = fs.readFileSync(this.BotCallsignsConfigPath, 'utf8');
+            this.BotCallsignsConfig = JSON.parse(data);
+        } catch (err) {
+            logger.log("[Twitch Players] ERROR! Couldn't load BotCallsigns configuration file! MOD WILL NOT WORK.", "red");
+            return;
+        }
+    }
+
+
     postDBLoad(container) {
         const logger = container.resolve("WinstonLogger");
         const config = this.CFG;
+        const BCConfig = this.BotCallsignsConfig
         const pathToSAINPersonalities = './BepInEx/plugins/SAIN/NicknamePersonalities.json';
         const pathToCallsigns = "./user/mods/BotCallsigns";
         const pathToTTVNames = "./user/mods/TTV-Players/names/ttv_names.json";
+        const firstRun = path.join(__dirname, '../temp/first.run');
+
+        if(this.BotCallsignsConfig == null){
+            logger.log("[Twitch Players] COULD NOT LOAD BOT CALLSIGNS CONFIG FILE. MAKE SURE YOU HAVE THE MOD INSTALLED RIGHT. MOD WILL NOT WORK.", "red");
+            return
+        }
 
         // Loading ttvNames and yourNames
         const ttvNames = require("../names/ttv_names.json");
         const yourNames = require("../names/your_names.json");
 
         // Generate a new file with twitch names if we have BotCallsigns installed and liveMode is enabled. This file will be pushed to SAIN's personalities once done
-        if (fs.existsSync(pathToCallsigns) && config.liveMode) {
+        if (fs.existsSync(pathToCallsigns) && BCConfig.liveMode) {
             logger.log("[Twitch Players | LIVE MODE] Live mode is ENABLED! This will parse the data from BotCallsign names and make a new file with filtered names...", "yellow");
 
             const namesReadyPath = path.join(__dirname, '../temp/names.ready');
@@ -35,14 +57,14 @@ class ttvPlayers {
 
                     generateTTVPersonalities();
                 }
-            }, 1000); // Check every 1 second
-        } else if (config.randomisePersonalitiesOnServerStart && !config.liveMode) {
+            }, 1000); // Check every 1 second for names.ready
+        } else if (config.randomisePersonalitiesOnServerStart && !BCConfig.liveMode) {
             generateTTVPersonalities(true);
         }
 
         // Separately push the update if livemode is enabled
         function pushNewestUpdateToSAIN() {
-            if (config.liveMode) {
+            if (BCConfig.liveMode) {
                 if (fs.existsSync(pathToSAINPersonalities)) {
                     logger.log("[Twitch Players | LIVE MODE] SAIN personalities file detected!", "green");
 
@@ -72,7 +94,7 @@ class ttvPlayers {
                     logger.log("[Twitch Players | LIVE MODE] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.", "yellow");
                     return;
                 }
-            } else if (!config.liveMode) {
+            } else if (!BCConfig.liveMode) {
                 if (fs.existsSync(pathToSAINPersonalities)) {
                     logger.log("[Twitch Players] SAIN personalities file detected!", "green");
     
@@ -140,7 +162,7 @@ class ttvPlayers {
             }
 
             // Process names
-            const TTVNames = JSON.stringify(callsignAllNames.names.filter(exportedTTVName => /twitch|ttv|twiitch/i.test(exportedTTVName)));
+            const TTVNames = JSON.stringify(callsignAllNames.names.filter(exportedTTVName => /twitch|ttv|twiitch|_TV/i.test(exportedTTVName)));
             const parsedTTVNames = JSON.parse(TTVNames);
             const updatedTTVNames = { generatedTwitchNames: {} };
 
@@ -190,6 +212,45 @@ class ttvPlayers {
             }
 
         }
+
+        function copyFolder(srcFolder, destFolder) {
+            try {
+                fs.cpSync(srcFolder, destFolder, { recursive: true, force: true });
+                logger.log("[Twitch Players] Moved our custom preset to SAIN presets! Feel free to use it at F6 menu :)", "green");
+            } catch (error) {
+                logger.log("[Twitch Players] Error when was moving our preset to SAIN! ${error.message}", "red");
+            }
+        }
+
+        // Deploying custom SAIN preset for better experience
+        if (config.deployCustomSAINPreset) {
+            const sourceFolder = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]');
+
+            // Creating folder if it doesn't exist
+            if (!fs.existsSync(sourceFolder)){
+                fs.mkdirSync(sourceFolder);
+            }
+
+            const destinationFolder = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]');
+        
+            copyFolder(sourceFolder, destinationFolder);
+        } else if (fs.existsSync(firstRun)){
+
+            logger.log("[Twitch Players] Initiating first time mod run...", "blue");
+
+            const sourceFolder = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]');
+
+            // Creating folder if it doesn't exist
+            if (!fs.existsSync(sourceFolder)){
+                fs.mkdirSync(sourceFolder);
+            }
+
+            const destinationFolder = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]');
+        
+            copyFolder(sourceFolder, destinationFolder);
+            fs.unlinkSync(firstRun);
+        }
+        
     }
 }
 module.exports = { mod: new ttvPlayers() };

@@ -4,6 +4,6 @@
         "Wreckless",
         "GigaChad"
     ],
-    "randomisePersonalitiesOnServerStart": true,
-    "liveMode": false
+    "randomisePersonalitiesOnServerStart": false,
+    "deployCustomSAINPreset": false
 }
