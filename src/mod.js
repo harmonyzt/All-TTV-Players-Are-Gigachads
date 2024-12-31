@@ -166,7 +166,6 @@ class ttvPlayers {
                     })
                 });
 
-
             } else if (Object.keys(personalityModes).length > 1) {
                 fs.readFile(pathToTTVNames, 'utf8', (err, data) => {
                     if (err) throw err;
