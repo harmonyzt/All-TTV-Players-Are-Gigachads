@@ -17,22 +17,22 @@
       "VanillaFollowers": true,
       "VanillaGoons": false,
       "VanillaBloodHounds": false,
-      "VanillaRogues": true,
+      "VanillaRogues": false,
       "VanillaCultists": false
     },
     "Performance": {
-      "PerformanceMode": false,
+      "PerformanceMode": true,
       "MaxBotsToCheckVisionPerFrame": 5.0
     },
     "AILimit": {
-      "LimitAIvsAIGlobal": false,
+      "LimitAIvsAIGlobal": true,
       "AILimitUpdateFrequency": 3.0,
       "AILimitRanges": {
         "Far": 150.0,
         "VeryFar": 250.0,
         "Narnia": 400.0
       },
-      "LimitAIvsAIVision": false,
+      "LimitAIvsAIVision": true,
       "MaxVisionRanges": {
         "Far": 200.0,
         "VeryFar": 100.0,
@@ -64,7 +64,7 @@
       "DisableAllDoors": false
     },
     "Extract": {
-      "SAIN_EXTRACT_TOGGLE": false
+      "SAIN_EXTRACT_TOGGLE": true
     },
     "Flashlight": {
       "DazzleEffectiveness": 3.0,
