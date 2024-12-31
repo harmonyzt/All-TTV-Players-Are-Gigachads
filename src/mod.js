@@ -30,7 +30,7 @@ class ttvPlayers {
         const pathToGlobalNames = "./user/mods/TTV-Players/names/global_names.json";
 
         if (this.BotCallsignsConfig == null) {
-            logger.log("[Twitch Players] COULD NOT LOAD BOT CALLSIGNS CONFIG FILE. MAKE SURE YOU HAVE THAT MOD INSTALLED RIGHT. TWITCH PLAYERS MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players] COULD NOT LOAD BOT CALLSIGNS CONFIG FILE. MAKE SURE YOU HAVE THAT MOD INSTALLED RIGHT. MOD WILL NOT WORK.", "red");
             return;
         }
 
@@ -41,7 +41,7 @@ class ttvPlayers {
         // Check and install/update SAIN preset
         checkForUpdate(ourVersionPath, InstalledVersionPath);
 
-        // Loading ttvNames and yourNames
+        // Loading names
         const ttvNames = require("../names/ttv_names.json");
         const yourNames = require("../names/your_names.json");
         const globalNames = require("../names/global_names.json");
@@ -78,7 +78,7 @@ class ttvPlayers {
             }
         }
 
-        // This function use weightings from config file in %. Without global mode it won't do that.
+        // This function use weightings from config file from 0 to 100. Without global mode it won't do that.
         function getRandomPersonalityForGlobalMode(personalities) {
             const totalWeight = Object.values(personalities).reduce((sum, weight) => sum + weight, 0);
             const random = Math.random() * totalWeight;
@@ -161,7 +161,7 @@ class ttvPlayers {
                     ttvNameData.generatedGlobalNames = updatedAllGlobalNames.generatedGlobalNames;
                     fs.writeFile(pathToGlobalNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                         if (err) throw err;
-                        logger.log("[Twitch Players | Global Mode] Data updated at global_names.json successfully! Pushing changes to SAIN...", "cyan");
+                        logger.log("[Twitch Players | Global Mode] Data updated at global_names.json successfully. This mode doesn't support custom names and personalities. Pushing changes to SAIN...", "cyan");
                         pushNewestUpdateToSAIN(config.globalMode);
                     })
                 });

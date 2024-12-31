@@ -3,7 +3,7 @@
     "useCustomNamesAndPersonalities": true,
     "personalitiesToUse": {
         "Wreckless": 10,
-        "GigaChad": 10
+        "GigaChad": 40
     },
     "randomizePersonalitiesOnServerStart": true,
     "autoUpdateSAINPreset": true
