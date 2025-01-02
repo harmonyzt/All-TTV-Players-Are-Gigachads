@@ -1,7 +1,7 @@
 {
   "Difficulty": {
-    "VisibleDistCoef": 3.0,
-    "GainSightCoef": 0.65,
+    "VisibleDistCoef": 2.0,
+    "GainSightCoef": 0.8,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
@@ -17,7 +17,7 @@
       "VanillaFollowers": true,
       "VanillaGoons": false,
       "VanillaBloodHounds": false,
-      "VanillaRogues": false,
+      "VanillaRogues": true,
       "VanillaCultists": false
     },
     "Performance": {
@@ -61,7 +61,7 @@
       "NewDoorOpening": true,
       "NoDoorAnimations": true,
       "InvertDoors": true,
-      "DisableAllDoors": false
+      "DisableAllDoors": true
     },
     "Extract": {
       "SAIN_EXTRACT_TOGGLE": true

@@ -87,7 +87,7 @@
       "BunnyHopChance": 50.0
     },
     "Cover": {
-      "CanShiftCoverPosition": false,
+      "CanShiftCoverPosition": true,
       "ShiftCoverTimeMultiplier": 0.5,
       "MoveToCoverNoEnemySpeed": 1.0,
       "MoveToCoverNoEnemyPose": 1.0,
@@ -110,10 +110,10 @@
   "Difficulty": {
     "VisibleDistCoef": 1.5,
     "GainSightCoef": 0.6,
-    "ScatteringCoef": 0.6,
+    "ScatteringCoef": 0.5,
     "HearingDistanceCoef": 1.5,
-    "AggressionCoef": 1.5,
-    "PrecisionSpeedCoef": 0.6,
-    "AccuracySpeedCoef": 0.6
+    "AggressionCoef": 1.2,
+    "PrecisionSpeedCoef": 0.5,
+    "AccuracySpeedCoef": 0.5
   }
 }
