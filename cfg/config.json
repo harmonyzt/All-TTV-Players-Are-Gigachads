@@ -2,8 +2,8 @@
     "globalMode": false,
     "useCustomNamesAndPersonalities": true,
     "personalitiesToUse": {
-        "Wreckless": 10,
-        "GigaChad": 40
+        "Wreckless": 60,
+        "GigaChad": 30
     },
     "randomizePersonalitiesOnServerStart": true,
     "autoUpdateSAINPreset": true
