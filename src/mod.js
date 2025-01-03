@@ -27,7 +27,7 @@ class ttvPlayers {
         const pathToTTVNames = "./user/mods/TTV-Players/names/ttv_names.json";
         const pathToGlobalNames = "./user/mods/TTV-Players/names/global_names.json";
 
-        if (this.BotCallsignsConfig == null) {
+        if (!BCConfig) {
             logger.log("[Twitch Players] COULD NOT LOAD BOT CALLSIGNS CONFIG FILE. MAKE SURE YOU HAVE THAT MOD INSTALLED RIGHT. MOD WILL NOT WORK.", "red");
             return;
         }
@@ -46,7 +46,7 @@ class ttvPlayers {
 
         // Generate a new file with twitch names if we have liveMode enabled. This file will be pushed to SAIN's personalities once done
         if (fs.existsSync(pathToCallsigns) && BCConfig.liveMode && !config.globalMode) {
-            logger.log("[Twitch Players | LIVE MODE] Live mode is ENABLED! This will parse the data from BotCallsign names and make a new file with filtered names...", "yellow");
+            logger.log("[Twitch Players | Live Mode] Live mode is ENABLED! This will parse the data from BotCallsign names and make a new file with filtered names...", "cyan");
 
             const namesReadyPath = path.join(__dirname, '../temp/names.ready');
 
@@ -58,13 +58,13 @@ class ttvPlayers {
 
                     // Delete that flag
                     fs.unlinkSync(namesReadyPath);
-                    logger.log("[Twitch Players | LIVE MODE] Detected and removed flag file from BotCallsigns mod for the next liveMode run", "yellow");
+                    logger.log("[Twitch Players | Live Mode] Detected and removed flag file from BotCallsigns mod for the next run", "cyan");
 
-                    generateTTVPersonalities(false, false);
+                    generateTTVPersonalities(config.randomizePersonalitiesOnServerStart, config.globalMode);
                 }
             }, 1000); // Check every 1 second for names.ready
         } else if (config.randomizePersonalitiesOnServerStart) {
-            generateTTVPersonalities(config.randomizePersonalitiesOnServerStart, config.globalMode);
+            randomizePersonalitiesWithoutRegenerate();
         }
 
         //function getRandomPersonalityIgnoreWeights(personalities) {
@@ -76,7 +76,9 @@ class ttvPlayers {
         //    }
         //}
 
-        // This function use weightings from config file from 0 to 100. Without global mode it won't do that.
+        //*************************************************
+        //*        RANDOM PERSONALITY ASSIGMENT           *
+        //*************************************************
         function getRandomPersonalityWithWeighting(personalities) {
             const totalWeight = Object.values(personalities).reduce((sum, weight) => sum + weight, 0);
             const random = Math.random() * totalWeight;
@@ -90,10 +92,11 @@ class ttvPlayers {
             }
         }
 
-
-        function generateTTVPersonalities(randomizePersonalities, globalMode) {
-            if (randomizePersonalities) {
-                randomizePersonalitiesWithoutRegenerate(globalMode);
+        // Main Function
+        // Proccesses and pushes changes from fresh names_temp.json file if liveMode was enabled
+        function generateTTVPersonalities(randomizePersonalities, _globalMode) {
+            if (_globalMode && !BCConfig.liveMode) {
+                randomizePersonalitiesGlobalMode();
                 return;
             }
 
@@ -104,13 +107,13 @@ class ttvPlayers {
                 callsignAllNames = require(namesTempPath);
 
                 if (!callsignAllNames) {
-                    logger.log("[Twitch Players | LIVE MODE] File names_temp.json is empty... This shouldn't happen! Report this to the developer ASAP! You may want to disable live mode!", "red");
+                    logger.log("[Twitch Players | Live Mode] File names_temp.json is empty... This shouldn't happen! Report this to the developer ASAP! You may want to disable live mode!", "red");
                     return;
                 }
 
-                logger.log("[Twitch Players | LIVE MODE] Loaded BotCallsigns names...", "green");
+                logger.log("[Twitch Players | Live Mode] Loaded BotCallsigns names...", "cyan");
             } catch (error) {
-                logger.log("[Twitch Players | LIVE MODE] There was an error with loading names_temp.json! Make sure it exists in the temp mod directory!", "red");
+                logger.log("[Twitch Players | Live Mode] There was an error with loading names_temp.json! Make sure it exists in the temp mod directory!", "red");
                 return;
             }
 
@@ -130,40 +133,16 @@ class ttvPlayers {
                 ttvNameData.generatedTwitchNames = updatedTTVNames.generatedTwitchNames;
                 fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                     if (err) throw err;
-                    logger.log("[Twitch Players | LIVE MODE] Data updated at ttv_names.json successfully! Pushing changes to SAIN...", "yellow");
-                    pushNewestUpdateToSAIN(BCConfig.liveMode);
+                    logger.log("[Twitch Players | Live Mode] Data updated at ttv_names.json successfully! Pushing changes to SAIN...", "cyan");
+                    pushNewestUpdateToSAIN(config.globalMode, BCConfig.liveMode);
                 })
             });
         }
 
-        function randomizePersonalitiesWithoutRegenerate(_globalMode) {
+        function randomizePersonalitiesWithoutRegenerate() {
             const configPersonalities = config.personalitiesToUse;
 
-            if (_globalMode) {
-                const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
-                let callsignAllNames = require(namesTempPath);
-
-                const AllNames = JSON.stringify(callsignAllNames.names);
-                const parsedAllNames = JSON.parse(AllNames);
-                const updatedAllGlobalNames = { generatedGlobalNames: {} };
-
-                parsedAllNames.forEach(name => {
-                    updatedAllGlobalNames.generatedGlobalNames[name] = getRandomPersonalityWithWeighting(configPersonalities);
-                });
-
-                fs.readFile(pathToGlobalNames, 'utf8', (err, data) => {
-                    if (err) throw err;
-
-                    const ttvNameData = JSON.parse(data);
-                    ttvNameData.generatedGlobalNames = updatedAllGlobalNames.generatedGlobalNames;
-                    fs.writeFile(pathToGlobalNames, JSON.stringify(ttvNameData, null, 2), (err) => {
-                        if (err) throw err;
-                        logger.log("[Twitch Players | Global Mode] Data updated at global_names.json successfully. This mode doesn't support custom names and personalities. Pushing changes to SAIN...", "cyan");
-                        pushNewestUpdateToSAIN(config.globalMode);
-                    })
-                });
-
-            } else if (Object.keys(configPersonalities).length > 1) {
+            if (Object.keys(configPersonalities).length > 1) {
                 fs.readFile(pathToTTVNames, 'utf8', (err, data) => {
                     if (err) throw err;
 
@@ -179,22 +158,58 @@ class ttvPlayers {
                     fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                         if (err) throw err;
                         logger.log("[Twitch Players] Randomized personalities. Pushing changes to SAIN...", "cyan");
-                        pushNewestUpdateToSAIN(config.globalMode);
+                        pushNewestUpdateToSAIN(config.globalMode, BCConfig.liveMode);
+                    })
+                });
+            } else {
+                logger.log("[Twitch Players] There was only one personality chosen in the config file. Falling back and pushing updates. Global mod won't make any changes.", "yellow");
+                pushNewestUpdateToSAIN(config.globalMode, BCConfig.liveMode);
+            }
+        }
+
+        function randomizePersonalitiesGlobalMode() {
+            const configPersonalities = config.personalitiesToUse;
+
+            const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
+
+            if (Object.keys(configPersonalities).length > 1) {
+                const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
+                let callsignAllNames = require(namesTempPath);
+
+
+                const AllNames = JSON.stringify(callsignAllNames.names);
+                const parsedAllNames = JSON.parse(AllNames);
+                const updatedAllGlobalNames = { generatedGlobalNames: {} };
+
+                parsedAllNames.forEach(name => {
+                    updatedAllGlobalNames.generatedGlobalNames[name] = getRandomPersonalityForGlobalMode(personalityModes);
+                });
+
+                fs.readFile(pathToGlobalNames, 'utf8', (err, data) => {
+                    if (err) throw err;
+
+                    const ttvNameData = JSON.parse(data);
+                    ttvNameData.generatedGlobalNames = updatedAllGlobalNames.generatedGlobalNames;
+                    fs.writeFile(pathToGlobalNames, JSON.stringify(ttvNameData, null, 2), (err) => {
+                        if (err) throw err;
+                        logger.log("[Twitch Players | Global Mode] Data updated at global_names.json successfully. This mode doesn't support custom names and personalities. Pushing changes to SAIN...", "cyan");
+                        pushNewestUpdateToSAIN(config.globalMode, BCConfig.liveMode);
                     })
                 });
             } else {
                 logger.log("[Twitch Players] There was only one personality chosen in the config file. Falling back and pushing updates. Disable randomizePersonalitiesOnServerStart or add one more personality for this to work.", "yellow");
-                pushNewestUpdateToSAIN(config.globalMode);
+                pushNewestUpdateToSAIN(config.globalMode, BCConfig.liveMode);
             }
         }
 
-        // Push update to SAIN file
-        function pushNewestUpdateToSAIN(__globalMode) {
-            if (BCConfig.liveMode) {
+        //*************************************************
+        //*        UPDATE SAIN PERSONALITIES FILE         *
+        //*************************************************
+        function pushNewestUpdateToSAIN(_globalMode, _liveMode) {
+            if (_liveMode && !_globalMode) {
                 if (fs.existsSync(pathToSAINPersonalities)) {
-                    logger.log("[Twitch Players | LIVE MODE] SAIN personalities file detected!", "green");
+                    logger.log("[Twitch Players | Live Mode] SAIN personalities file detected!", "green");
 
-                    // Reading SAIN's personalities file...
                     fs.readFile(pathToSAINPersonalities, 'utf8', (err, data) => {
                         if (err) throw err;
                         const SAINPersData = JSON.parse(data);
@@ -213,25 +228,24 @@ class ttvPlayers {
 
                         fs.writeFile(pathToSAINPersonalities, JSON.stringify(SAINPersData, null, 2), (err) => {
                             if (err) throw err;
-                            logger.log("[Twitch Players | LIVE MODE] Data was written to SAIN file successfully!", "green");
+                            logger.log("[Twitch Players | Live Mode] Data was written to SAIN file successfully!", "green");
                         });
                     });
                 } else {
-                    logger.log("[Twitch Players | LIVE MODE] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.", "yellow");
+                    logger.log("[Twitch Players | Live Mode] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.", "yellow");
                     return;
                 }
                 // Normal Handling
-            } else if (!BCConfig.liveMode && !config.globalMode) {
+            } else if (!_liveMode && !_globalMode) {
                 if (fs.existsSync(pathToSAINPersonalities)) {
                     logger.log("[Twitch Players] SAIN personalities file detected!", "green");
 
-                    // Reading SAIN's personalities file...
                     fs.readFile(pathToSAINPersonalities, 'utf8', (err, data) => {
                         if (err) throw err;
                         const SAINPersData = JSON.parse(data);
 
+                        // Combining ttvNames and yourNames if this was enabled
                         if (config.useCustomNamesAndPersonalities) {
-                            // Combining ttvNames and yourNames if this was enabled
                             const combinedNames = {
                                 ...ttvNames.generatedTwitchNames,
                                 ...yourNames.customNames
@@ -248,11 +262,10 @@ class ttvPlayers {
                         });
                     });
                 }
-            } else if (__globalMode) {
+            } else if (_globalMode) {
                 if (fs.existsSync(pathToSAINPersonalities)) {
                     logger.log("[Twitch Players | Global Mode] SAIN personalities file detected!", "cyan");
 
-                    // Reading SAIN's personalities file...
                     fs.readFile(pathToSAINPersonalities, 'utf8', (err, data) => {
                         if (err) throw err;
                         const SAINPersData = JSON.parse(data);
@@ -271,7 +284,9 @@ class ttvPlayers {
             }
         }
 
-        // checkForUpdate()
+        //*************************************************
+        //*                 PRESET UPDATE                 *
+        //*************************************************
         function copyFolder(srcFolder, destFolder, update) {
             try {
                 fs.cpSync(srcFolder, destFolder, { recursive: true, force: true });
@@ -281,7 +296,6 @@ class ttvPlayers {
             }
         }
 
-        // checkForUpdate()
         function compareDates(date1, date2) {
             const d1 = new Date(date1);
             const d2 = new Date(date2);
@@ -291,7 +305,6 @@ class ttvPlayers {
             return 0;
         }
 
-        // Check for SAIN preset update/first mod run
         function checkForUpdate(localVersionPath, remoteVersionPath) {
             const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]');
             const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]');
@@ -313,7 +326,7 @@ class ttvPlayers {
 
                     if (comparison === 1) {
                         logger.log("[Twitch Players Auto-Updater] Detected outdated custom SAIN preset! Updating...", "cyan");
-                        copyFolder(sourceFolder, destinationFolder, true);
+                        copyFolder(source, destination, true);
                     } else {
                         logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
                     }

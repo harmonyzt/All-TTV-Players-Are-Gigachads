@@ -54,7 +54,7 @@
       "ShiftCoverNewCoverTime": 10.0,
       "ShiftCoverResetTime": 10.0,
       "CoverMinHeight": 0.75,
-      "CoverMinEnemyDistance": 8.0,
+      "CoverMinEnemyDistance": 15.0,
       "DebugCoverFinder": false
     },
     "Doors": {
@@ -84,7 +84,7 @@
       "MinLootValPMC": 500000.0,
       "MinLootValSCAV": 200000.0,
       "MinLootValOther": 350000.0,
-      "MinLootValException": 1500000.0
+      "MinLootValException": 1000000.0
     },
     "Jokes": {
       "RandomCheaters": false,
@@ -168,7 +168,7 @@
     "FasterCQBReactionsGlobal": true,
     "AimDownSightsAimTimeMultiplier": 0.8,
     "PMCSAimForHead": true,
-    "PMCAimForHeadChance": 33.0
+    "PMCAimForHeadChance": 30.0
   },
   "Hearing": {
     "MaxFootstepAudioDistance": 70.0,
@@ -240,13 +240,13 @@
     "BaseSoundRange_Looting": 40.0,
     "BaseSoundRange_MovementTurnSkid": 30.0,
     "BaseSoundRange_GrenadePinDraw": 35.0,
-    "BaseSoundRange_Prone": 50.0,
+    "BaseSoundRange_Prone": 40.0,
     "BaseSoundRange_Healing": 40.0,
     "BaseSoundRange_Reload": 30.0,
     "BaseSoundRange_Surgery": 55.0,
     "BaseSoundRange_DryFire": 10.0,
     "MaxSoundRange_FallLanding": 70.0,
-    "BaseSoundRange_AimingandGearRattle": 35.0,
+    "BaseSoundRange_AimingandGearRattle": 15.0,
     "BaseSoundRange_EatDrink": 40.0,
     "MaxRangeToReportEnemyActionNoHeadset": 50.0,
     "BaseHearingDelayWithEnemy": 0.2,
@@ -346,7 +346,7 @@
         "AccuracySpeedCoef": 1.0
       },
       "Lighthouse": {
-        "VisibleDistCoef": 1.0,
+        "VisibleDistCoef": 1.2,
         "GainSightCoef": 1.0,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
@@ -355,7 +355,7 @@
         "AccuracySpeedCoef": 1.0
       },
       "Shoreline": {
-        "VisibleDistCoef": 1.0,
+        "VisibleDistCoef": 1.2,
         "GainSightCoef": 1.0,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
@@ -373,7 +373,7 @@
         "AccuracySpeedCoef": 1.0
       },
       "Woods": {
-        "VisibleDistCoef": 1.0,
+        "VisibleDistCoef": 1.2,
         "GainSightCoef": 1.0,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
@@ -382,7 +382,7 @@
         "AccuracySpeedCoef": 1.0
       },
       "Interchange": {
-        "VisibleDistCoef": 1.0,
+        "VisibleDistCoef": 1.1,
         "GainSightCoef": 1.0,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
@@ -466,8 +466,8 @@
   "Mind": {
     "ENEMYSNIPER_ALWAYS_SPRINT_COVER": true,
     "ENEMYSNIPER_ALWAYS_SPRINT_SEARCH": true,
-    "ENEMYSNIPER_DISTANCE": 85.0,
-    "ENEMYSNIPER_DISTANCE_END": 75.0,
+    "ENEMYSNIPER_DISTANCE": 75.0,
+    "ENEMYSNIPER_DISTANCE_END": 60.0,
     "ForcePersonality": {
       "Wreckless": false,
       "GigaChad": false,
