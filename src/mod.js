@@ -122,7 +122,7 @@ class ttvPlayers {
             const updatedTTVNames = { generatedTwitchNames: {} };
 
             parsedTTVNames.forEach(name => {
-                updatedTTVNames.generatedTwitchNames[name] = getRandomPersonality();
+                updatedTTVNames.generatedTwitchNames[name] = getRandomPersonalityIgnoreWeights(config.personalitiesToUse);
             });
 
             fs.readFile(pathToTTVNames, 'utf8', (err, data) => {
