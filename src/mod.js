@@ -133,7 +133,7 @@ class ttvPlayers {
                 fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                     if (err) throw err;
                     logger.log("[Twitch Players | LIVE MODE] Data updated at ttv_names.json successfully! Pushing changes to SAIN...", "yellow");
-                    pushNewestUpdateToSAIN(false);
+                    pushNewestUpdateToSAIN(BCConfig.liveMode);
                 })
             });
         }
@@ -193,7 +193,7 @@ class ttvPlayers {
 
         // Push update to SAIN file
         function pushNewestUpdateToSAIN(__globalMode) {
-            if (BCConfig.liveMode) {
+            if (__globalMode) {
                 if (fs.existsSync(pathToSAINPersonalities)) {
                     logger.log("[Twitch Players | LIVE MODE] SAIN personalities file detected!", "green");
 
@@ -223,7 +223,7 @@ class ttvPlayers {
                     logger.log("[Twitch Players | LIVE MODE] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.", "yellow");
                     return;
                 }
-            } else if (!BCConfig.liveMode && !config.globalMode) {
+            } else if (!__globalMode && !config.globalMode) {
                 if (fs.existsSync(pathToSAINPersonalities)) {
                     logger.log("[Twitch Players] SAIN personalities file detected!", "green");
 
