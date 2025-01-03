@@ -287,7 +287,7 @@ class ttvPlayers {
         //*************************************************
         //*                 PRESET UPDATE                 *
         //*************************************************
-        function copyFolder(srcFolder, destFolder, update) {
+        function copyFolder(srcFolder, destFolder) {
             try {
                 fs.cpSync(srcFolder, destFolder, { recursive: true, force: true });
                 logger.log("[Twitch Players] Successfully installed latest custom SAIN preset! You can find in F6 menu", "cyan");
@@ -313,7 +313,7 @@ class ttvPlayers {
             if (!fs.existsSync(destination)) {
                 logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
                 fs.mkdirSync(destination, { recursive: true });
-                this.copyFolder(source, destination);
+                copyFolder(source, destination);
             } else if (config.autoUpdateSAINPreset) {
                 try {
                     const localSAINData = JSON.parse(fs.readFileSync(localVersionPath, 'utf-8'));
