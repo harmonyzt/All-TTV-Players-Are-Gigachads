@@ -99,17 +99,17 @@
     "normal": {
       "Difficulty": {
         "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
+        "GainSightCoef": 1.3,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
+        "PrecisionSpeedCoef": 1.3,
         "AccuracySpeedCoef": 1.0
       },
       "Core": {
-        "VisibleAngle": 180.0,
+        "VisibleAngle": 100.0,
         "VisibleDistance": 222.0,
-        "GainSightCoef": 0.0330000035,
+        "GainSightCoef": 0.033,
         "AccuratySpeed": 0.15,
         "ScatteringPerMeter": 0.045,
         "ScatteringClosePerMeter": 0.12,
@@ -120,7 +120,7 @@
         "AimCenterMass": false,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
-        "FasterCQBReactions": true,
+        "FasterCQBReactions": false,
         "FasterCQBReactionsDistance": 30.0,
         "FasterCQBReactionsMinimum": 0.33,
         "MAX_AIMING_UPGRADE_BY_TIME": 0.25,

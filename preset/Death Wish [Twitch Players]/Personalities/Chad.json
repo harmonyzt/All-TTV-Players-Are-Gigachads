@@ -61,7 +61,7 @@
     },
     "Talk": {
       "CanTaunt": true,
-      "FrequentTaunt": true,
+      "FrequentTaunt": false,
       "ConstantTaunt": false,
       "CanRespondToEnemyVoice": false,
       "TauntFrequency": 20.0,

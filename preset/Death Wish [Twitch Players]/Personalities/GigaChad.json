@@ -47,12 +47,12 @@
     "Rush": {
       "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 30.0,
+      "JumpCornerChance": 25.0,
       "CanBunnyHop": true,
       "BunnyHopChance": 50.0
     },
     "Cover": {
-      "CanShiftCoverPosition": true,
+      "CanShiftCoverPosition": false,
       "ShiftCoverTimeMultiplier": 0.5,
       "MoveToCoverNoEnemySpeed": 1.0,
       "MoveToCoverNoEnemyPose": 1.0,
