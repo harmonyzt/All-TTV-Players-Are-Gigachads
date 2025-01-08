@@ -60,7 +60,7 @@ class ttvPlayers {
                     fs.unlinkSync(namesReadyPath);
                     logger.log("[Twitch Players | Live Mode] Detected and removed flag file from BotCallsigns mod for the next run", "cyan");
 
-                    generateTTVPersonalities(config.randomizePersonalitiesOnServerStart, config.globalMode);
+                    generateTTVPersonalities(BCConfig.liveMode);
                 }
             }, 1000); // Check every 1 second for names.ready
         } else if (config.randomizePersonalitiesOnServerStart) {
@@ -94,8 +94,8 @@ class ttvPlayers {
 
         // Main Function
         // Proccesses and pushes changes from fresh names_temp.json file if liveMode was enabled
-        function generateTTVPersonalities(randomizePersonalities, _globalMode) {
-            if (_globalMode && !BCConfig.liveMode) {
+        function generateTTVPersonalities(_liveMode) {
+            if (!_liveMode && config.globalMode) {
                 randomizePersonalitiesGlobalMode();
                 return;
             }
