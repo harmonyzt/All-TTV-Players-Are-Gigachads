@@ -28,7 +28,7 @@ class ttvPlayers {
         const pathToGlobalNames = "./user/mods/TTV-Players/names/global_names.json";
 
         if (!BCConfig) {
-            logger.log("[Twitch Players] COULD NOT LOAD BOT CALLSIGNS CONFIG FILE. MAKE SURE YOU HAVE THAT MOD INSTALLED RIGHT. MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players] COULD NOT LOAD BOT CALLSIGNS CONFIG FILE. MAKE SURE YOU HAVE BOT CALLSIGNS MOD INSTALLED RIGHT. MOD WILL NOT WORK.", "red");
             return;
         }
 
