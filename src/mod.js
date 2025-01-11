@@ -77,7 +77,7 @@ class ttvPlayers {
         //}
 
         //*************************************************
-        //*        RANDOM PERSONALITY ASSIGMENT           *
+        //*        RANDOM PERSONALITY ASSIGNMENT           *
         //*************************************************
         function getRandomPersonalityWithWeighting(personalities) {
             const totalWeight = Object.values(personalities).reduce((sum, weight) => sum + weight, 0);

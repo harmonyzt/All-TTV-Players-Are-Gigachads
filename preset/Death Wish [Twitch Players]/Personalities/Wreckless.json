@@ -60,7 +60,7 @@
       "HoldGroundBaseTime": 2.0,
       "HoldGroundMinRandom": 0.75,
       "HoldGroundMaxRandom": 2.5,
-      "SuppressionResistance": 0.15
+      "SuppressionResistance": 0.6
     },
     "Search": {
       "WillSearchForEnemy": true,
@@ -110,10 +110,10 @@
   "Difficulty": {
     "VisibleDistCoef": 1.5,
     "GainSightCoef": 0.5,
-    "ScatteringCoef": 0.5,
+    "ScatteringCoef": 0.3,
     "HearingDistanceCoef": 1.5,
     "AggressionCoef": 1.2,
-    "PrecisionSpeedCoef": 0.7,
+    "PrecisionSpeedCoef": 0.5,
     "AccuracySpeedCoef": 0.4
   }
 }
