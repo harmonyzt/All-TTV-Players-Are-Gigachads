@@ -6,5 +6,6 @@
         "GigaChad": 30
     },
     "randomizePersonalitiesOnServerStart": true,
-    "autoUpdateSAINPreset": true
+    "SAINAutoUpdatePreset": true,
+    "SAINProgressiveDifficulty": false
 }

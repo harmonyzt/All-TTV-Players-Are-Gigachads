@@ -13,6 +13,153 @@ class ttvPlayers {
         this.BotCallsignsConfig = JSON.parse(data);
     }
 
+    preSptLoad(container) {
+        const RouterService = container.resolve("StaticRouterModService");
+        const logger = container.resolve("WinstonLogger");
+
+        RouterService.registerStaticRouter("CheckForProfileGet", [{
+            url: "/launcher/profile/info",
+            action: async (url, info, sessionId, output) => {
+                const profile = JSON.parse(output);
+                const playerLevel = profile.currlvl;
+
+                if (playerLevel >= 1 && this.CFG.SAINProgressiveDifficulty) {
+                    adjustDifficulty(playerLevel);
+                }
+
+                return output;
+            }
+        }], "aki");
+
+        //*************************************************
+        //*             DYNAMIC SAIN PRESET               *
+        //*************************************************
+        function calculateDifficulty(playerLevel) {
+
+            // This is just to track what's happening
+            const baseSettings = {
+                VisibleDistCoef: 1.0, //higher = hard
+                GainSightCoef: 1.0, //lower = hard
+                ScatteringCoef: 1.0, //lower = hard
+                HearingDistanceCoef: 1.0, //higher = hard
+                AggressionCoef: 1.0, //higher = hard
+                PrecisionSpeedCoef: 1.0, //lower = hard
+                AccuracySpeedCoef: 1.0, //lower = hard
+            };
+
+            const tiers = [
+                {
+                    levelRange: [1, 9],
+                    settings: {
+                        VisibleDistCoef: 0.8,
+                        GainSightCoef: 1.2,
+                        ScatteringCoef: 1.2,
+                        HearingDistanceCoef: 0.8,
+                        AggressionCoef: 0.8,
+                        PrecisionSpeedCoef: 1.2,
+                        AccuracySpeedCoef: 1.2,
+                    },
+                },
+                {
+                    levelRange: [10, 19],
+                    settings: {
+                        VisibleDistCoef: 1.0,
+                        GainSightCoef: 1.0,
+                        ScatteringCoef: 1.0,
+                        HearingDistanceCoef: 1.0,
+                        AggressionCoef: 1.0,
+                        PrecisionSpeedCoef: 1.0,
+                        AccuracySpeedCoef: 1.0,
+                    },
+                },
+                {
+                    levelRange: [20, 29],
+                    settings: {
+                        VisibleDistCoef: 1.2,
+                        GainSightCoef: 0.9,
+                        ScatteringCoef: 0.9,
+                        HearingDistanceCoef: 1.2,
+                        AggressionCoef: 1.2,
+                        PrecisionSpeedCoef: 0.9,
+                        AccuracySpeedCoef: 0.9,
+                    },
+                },
+                {
+                    levelRange: [30, 39],
+                    settings: {
+                        VisibleDistCoef: 1.4,
+                        GainSightCoef: 0.8,
+                        ScatteringCoef: 0.8,
+                        HearingDistanceCoef: 1.4,
+                        AggressionCoef: 1.4,
+                        PrecisionSpeedCoef: 0.8,
+                        AccuracySpeedCoef: 0.8,
+                    },
+                },
+                {
+                    levelRange: [40, 49],
+                    settings: {
+                        VisibleDistCoef: 1.6,
+                        GainSightCoef: 0.7,
+                        ScatteringCoef: 0.7,
+                        HearingDistanceCoef: 1.6,
+                        AggressionCoef: 1.6,
+                        PrecisionSpeedCoef: 0.7,
+                        AccuracySpeedCoef: 0.7,
+                    },
+                },
+                {
+                    levelRange: [50, 59],
+                    settings: {
+                        VisibleDistCoef: 1.8,
+                        GainSightCoef: 0.6,
+                        ScatteringCoef: 0.3,
+                        HearingDistanceCoef: 1.8,
+                        AggressionCoef: 1.8,
+                        PrecisionSpeedCoef: 0.6,
+                        AccuracySpeedCoef: 0.6,
+                    },
+                },
+                {
+                    levelRange: [60, 99],
+                    settings: {
+                        VisibleDistCoef: 2.5,
+                        GainSightCoef: 0.5,
+                        ScatteringCoef: 0.01,
+                        HearingDistanceCoef: 2.0,
+                        AggressionCoef: 2.0,
+                        PrecisionSpeedCoef: 0.45,
+                        AccuracySpeedCoef: 0.45,
+                    },
+                },
+            ];
+
+            //doesnt look too hard, but took me 1000000 years.
+            const tier = tiers.find((t) => playerLevel >= t.levelRange[0] && playerLevel <= t.levelRange[1]);
+            return tier ? { tierIndex: tiers.indexOf(tier) + 1, settings: tier.settings } : { tierIndex: 1, settings: tiers[0].settings }; // Defaulting to 1st tier if no match was found (should never happen tbh)
+        }
+
+
+        function adjustDifficulty(playerLevel) {
+            logger.log(`[Twitch Players] Adjusting difficulties for SAIN preset... Current PMC level: ${playerLevel}`, "cyan")
+            const difficultyData = calculateDifficulty(playerLevel);
+
+            const globalSettingsPath = path.join(__dirname, '../preset/Death Wish [Twitch Players]/GlobalSettings.json');
+            const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]');
+            const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]');
+
+            // Update GlobalSettings.json and push the preset
+            const globalSettings = JSON.parse(fs.readFileSync(globalSettingsPath, 'utf-8'));
+            globalSettings.Difficulty = difficultyData.settings;
+            fs.writeFileSync(globalSettingsPath, JSON.stringify(globalSettings, null, 2));
+
+            // Update SAIN preset fully
+            fs.cpSync(source, destination, { recursive: true, force: true });
+
+            logger.log(`[Twitch Players] Done! Current PMC Level: ${playerLevel}. SAIN Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
+        }
+    }
+
     postDBLoad(container) {
         const logger = container.resolve("WinstonLogger");
         const { CFG: config, BotCallsignsConfig: BCConfig } = this;
@@ -314,7 +461,7 @@ class ttvPlayers {
                 logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
                 fs.mkdirSync(destination, { recursive: true });
                 copyFolder(source, destination);
-            } else if (config.autoUpdateSAINPreset) {
+            } else if (config.SAINAutoUpdatePrese) {
                 try {
                     const localSAINData = JSON.parse(fs.readFileSync(localVersionPath, 'utf-8'));
                     const remoteSAINData = JSON.parse(fs.readFileSync(remoteVersionPath, 'utf-8'));
