@@ -17,14 +17,31 @@ class ttvPlayers {
         const RouterService = container.resolve("StaticRouterModService");
         const logger = container.resolve("WinstonLogger");
 
+        var runOnce = 1;
+
         RouterService.registerStaticRouter("CheckForProfileGet", [{
             url: "/launcher/profile/info",
             action: async (url, info, sessionId, output) => {
                 const profile = JSON.parse(output);
                 const playerLevel = profile.currlvl;
 
-                if (playerLevel >= 1 && this.CFG.SAINProgressiveDifficulty) {
+                if (playerLevel >= 1 && this.CFG.SAINProgressiveDifficulty && runOnce) {
                     adjustDifficulty(playerLevel);
+                    runOnce = 0;
+                }
+
+                return output;
+            }
+        }], "aki");
+
+        RouterService.registerStaticRouter("CheckProfileLogOut", [{
+            url: "/launcher/profiles",
+            action: async (url, info, sessionId, output) => {
+
+                // Can run level and difficulty tier once again
+                if(this.CFG.SAINProgressiveDifficulty && runOnce == 0){
+                    runOnce = 1;
+                    logger.log(`[Twitch Players] SAIN progressive difficulty adjustment can be ran again once user logs in`, "cyan")
                 }
 
                 return output;
