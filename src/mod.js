@@ -48,6 +48,21 @@ class ttvPlayers {
             }
         }], "aki");
 
+        RouterService.registerStaticRouter("CheckProfileRegister", [{
+            url: "/launcher/profile/register",
+            action: async (url, info, sessionId, output) => {
+
+                // Can run level and difficulty tier once again
+                if(this.CFG.SAINProgressiveDifficulty && runOnce == 0){
+                    runOnce = 1;
+                    logger.log(`[Twitch Players] New profile created. SAIN progressive difficulty adjustment can be ran again`, "cyan")
+                }
+
+                return output;
+            }
+        }], "aki");
+
+
         //*************************************************
         //*             DYNAMIC SAIN PRESET               *
         //*************************************************
