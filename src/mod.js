@@ -16,16 +16,75 @@ class ttvPlayers {
     preSptLoad(container) {
         const RouterService = container.resolve("StaticRouterModService");
         const logger = container.resolve("WinstonLogger");
-
+        const config = this.CFG;
         var runOnce = 1;
 
-        RouterService.registerStaticRouter("CheckForProfileGet", [{
+        // For updating SAIN preset
+        const ourVersionPath = path.resolve(process.cwd(), './user/mods/TTV-Players/preset/Death Wish [Twitch Players]/Info.json');
+        const InstalledVersionPath = path.resolve(process.cwd(), './BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]/Info.json');
+
+        //*************************************************
+        //*                 PRESET UPDATE                 *
+        //*************************************************
+        function copyFolder(srcFolder, destFolder) {
+            try {
+                fs.cpSync(srcFolder, destFolder, { recursive: true, force: true });
+                logger.log("[Twitch Players] Successfully installed latest custom SAIN preset! You can find in F6 menu", "cyan");
+            } catch (error) {
+                logger.log(`[Twitch Players] Error when tried updating/installing our SAIN preset! ${error.message}`, "red");
+            }
+        }
+
+        function compareDates(date1, date2) {
+            const d1 = new Date(date1);
+            const d2 = new Date(date2);
+
+            if (d1 > d2) return 1;
+            if (d1 < d2) return -1;
+            return 0;
+        }
+
+        function checkForUpdate(localVersionPath, remoteVersionPath) {
+            const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]');
+            const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]');
+
+            // Creating folder if it doesn't exist
+            if (!fs.existsSync(destination)) {
+                logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
+                fs.mkdirSync(destination, { recursive: true });
+                copyFolder(source, destination);
+            } else if (config.SAINAutoUpdatePreset) {
+                try {
+                    const localSAINData = JSON.parse(fs.readFileSync(localVersionPath, 'utf-8'));
+                    const remoteSAINData = JSON.parse(fs.readFileSync(remoteVersionPath, 'utf-8'));
+
+                    const localSAINDateVer = localSAINData.DateCreated;
+                    const remoteSAINDateVer = remoteSAINData.DateCreated;
+
+                    const comparison = compareDates(localSAINDateVer, remoteSAINDateVer);
+
+                    if (comparison === 1) {
+                        logger.log("[Twitch Players Auto-Updater] Detected outdated custom SAIN preset! Updating...", "cyan");
+                        copyFolder(source, destination, true);
+                    } else {
+                        logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
+                    }
+                } catch (error) {
+                    logger.log("[Twitch Players Auto-Updater] Error while trying to update SAIN preset! Please report this to the developer!", "red");
+                }
+            }
+        }
+
+        // Check and install/update SAIN preset
+        checkForUpdate(ourVersionPath, InstalledVersionPath);
+
+        RouterService.registerStaticRouter("TTVGetProfileInfo", [{
             url: "/launcher/profile/info",
             action: async (url, info, sessionId, output) => {
                 const profile = JSON.parse(output);
                 const playerLevel = profile.currlvl;
 
-                if (playerLevel >= 1 && this.CFG.SAINProgressiveDifficulty && runOnce) {
+                if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
                     adjustDifficulty(playerLevel);
                     runOnce = 0;
                 }
@@ -34,12 +93,12 @@ class ttvPlayers {
             }
         }], "aki");
 
-        RouterService.registerStaticRouter("CheckProfileLogOut", [{
+        RouterService.registerStaticRouter("TTVCheckProfileLogOut", [{
             url: "/launcher/profiles",
             action: async (url, info, sessionId, output) => {
 
                 // Can run level and difficulty tier once again
-                if(this.CFG.SAINProgressiveDifficulty && runOnce == 0){
+                if (config.SAINProgressiveDifficulty && runOnce == 0) {
                     runOnce = 1;
                     logger.log(`[Twitch Players] SAIN progressive difficulty adjustment can be ran again once user logs in`, "cyan")
                 }
@@ -47,21 +106,6 @@ class ttvPlayers {
                 return output;
             }
         }], "aki");
-
-        RouterService.registerStaticRouter("CheckPRegister", [{
-            url: "/launcher/profile/register",
-            action: async (url, info, sessionId, output) => {
-
-                // Can run level and difficulty tier once again
-                if(this.CFG.SAINProgressiveDifficulty && runOnce == 0){
-                    runOnce = 1;
-                    logger.log(`[Twitch Players] New profile created. SAIN progressive difficulty adjustment can be ran again`, "cyan")
-                }
-
-                return output;
-            }
-        }], "aki");
-
 
         //*************************************************
         //*             DYNAMIC SAIN PRESET               *
@@ -166,14 +210,14 @@ class ttvPlayers {
                 },
             ];
 
-            //doesnt look too hard, but took me 1000000 years.
+            // Doesnt look too hard ay?
             const tier = tiers.find((t) => playerLevel >= t.levelRange[0] && playerLevel <= t.levelRange[1]);
             return tier ? { tierIndex: tiers.indexOf(tier) + 1, settings: tier.settings } : { tierIndex: 1, settings: tiers[0].settings }; // Defaulting to 1st tier if no match was found (should never happen tbh)
         }
 
 
         function adjustDifficulty(playerLevel) {
-            logger.log(`[Twitch Players] Adjusting difficulties for SAIN preset... Current PMC level: ${playerLevel}`, "cyan")
+            logger.log(`[Twitch Players] Adjusting difficulties for SAIN preset...`, "cyan")
             const difficultyData = calculateDifficulty(playerLevel);
 
             const globalSettingsPath = path.join(__dirname, '../preset/Death Wish [Twitch Players]/GlobalSettings.json');
@@ -188,7 +232,7 @@ class ttvPlayers {
             // Update SAIN preset fully
             fs.cpSync(source, destination, { recursive: true, force: true });
 
-            logger.log(`[Twitch Players] Done! Current PMC Level: ${playerLevel}. SAIN Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
+            logger.log(`[Twitch Players] Done adjusting! Current PMC Level: ${playerLevel}. SAIN Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
         }
     }
 
@@ -210,13 +254,6 @@ class ttvPlayers {
             logger.log("[Twitch Players] COULD NOT LOAD BOT CALLSIGNS CONFIG FILE. MAKE SURE YOU HAVE BOT CALLSIGNS MOD INSTALLED RIGHT. MOD WILL NOT WORK.", "red");
             return;
         }
-
-        // For updating SAIN preset
-        const ourVersionPath = path.resolve(process.cwd(), './user/mods/TTV-Players/preset/Death Wish [Twitch Players]/Info.json');
-        const InstalledVersionPath = path.resolve(process.cwd(), './BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]/Info.json');
-
-        // Check and install/update SAIN preset
-        checkForUpdate(ourVersionPath, InstalledVersionPath);
 
         // Loading names
         const ttvNames = require("../names/ttv_names.json");
@@ -460,58 +497,6 @@ class ttvPlayers {
             } else {
                 logger.log("[Twitch Players] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.", "yellow");
                 return;
-            }
-        }
-
-        //*************************************************
-        //*                 PRESET UPDATE                 *
-        //*************************************************
-        function copyFolder(srcFolder, destFolder) {
-            try {
-                fs.cpSync(srcFolder, destFolder, { recursive: true, force: true });
-                logger.log("[Twitch Players] Successfully installed latest custom SAIN preset! You can find in F6 menu", "cyan");
-            } catch (error) {
-                logger.log(`[Twitch Players] Error when tried updating/installing our SAIN preset! ${error.message}`, "red");
-            }
-        }
-
-        function compareDates(date1, date2) {
-            const d1 = new Date(date1);
-            const d2 = new Date(date2);
-
-            if (d1 > d2) return 1;
-            if (d1 < d2) return -1;
-            return 0;
-        }
-
-        function checkForUpdate(localVersionPath, remoteVersionPath) {
-            const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]');
-            const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]');
-
-            // Creating folder if it doesn't exist
-            if (!fs.existsSync(destination)) {
-                logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
-                fs.mkdirSync(destination, { recursive: true });
-                copyFolder(source, destination);
-            } else if (config.SAINAutoUpdatePrese) {
-                try {
-                    const localSAINData = JSON.parse(fs.readFileSync(localVersionPath, 'utf-8'));
-                    const remoteSAINData = JSON.parse(fs.readFileSync(remoteVersionPath, 'utf-8'));
-
-                    const localSAINDateVer = localSAINData.DateCreated;
-                    const remoteSAINDateVer = remoteSAINData.DateCreated;
-
-                    const comparison = compareDates(localSAINDateVer, remoteSAINDateVer);
-
-                    if (comparison === 1) {
-                        logger.log("[Twitch Players Auto-Updater] Detected outdated custom SAIN preset! Updating...", "cyan");
-                        copyFolder(source, destination, true);
-                    } else {
-                        logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
-                    }
-                } catch (error) {
-                    logger.log("[Twitch Players Auto-Updater] Error while trying to update SAIN preset! Please report this to the developer!", "red");
-                }
             }
         }
 
