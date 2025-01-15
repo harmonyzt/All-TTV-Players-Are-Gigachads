@@ -48,7 +48,7 @@ class ttvPlayers {
             }
         }], "aki");
 
-        RouterService.registerStaticRouter("CheckProfileRegister", [{
+        RouterService.registerStaticRouter("CheckPRegister", [{
             url: "/launcher/profile/register",
             action: async (url, info, sessionId, output) => {
 
