@@ -7,5 +7,6 @@
     },
     "randomizePersonalitiesOnServerStart": true,
     "SAINAutoUpdatePreset": true,
-    "SAINProgressiveDifficulty": false
+    "SAINProgressiveDifficulty": true,
+    "fikaMaxCompatibility": false
 }
