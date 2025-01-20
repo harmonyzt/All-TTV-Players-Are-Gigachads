@@ -61,7 +61,7 @@
       "SuppressionResistance": 0.0
     },
     "Search": {
-      "WillSearchForEnemy": true,
+      "WillSearchForEnemy": false,
       "WillSearchFromAudio": false,
       "HeardFromPeaceBehavior": "Freeze",
       "WillChaseDistantGunshots": false,
@@ -85,7 +85,7 @@
       "BunnyHopChance": 0.0
     },
     "Cover": {
-      "CanShiftCoverPosition": false,
+      "CanShiftCoverPosition": true,
       "ShiftCoverTimeMultiplier": 0.5,
       "MoveToCoverNoEnemySpeed": 0.5,
       "MoveToCoverNoEnemyPose": 1.0,

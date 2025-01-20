@@ -3,7 +3,7 @@
   "Description": "An aggressive player. Typically wearing high tier equipment, and is more aggressive than usual.",
   "Assignment": {
     "Enabled": true,
-    "CanBeRandomlyAssigned": true,
+    "CanBeRandomlyAssigned": false,
     "RandomlyAssignedChance": 8.0,
     "MinLevel": 0.0,
     "MaxLevel": 100.0,
@@ -31,7 +31,7 @@
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
       "HeardFromPeaceBehavior": "Freeze",
-      "WillChaseDistantGunshots": true,
+      "WillChaseDistantGunshots": false,
       "AudioStraightDistanceToIgnore": 125.0,
       "SearchBaseTime": 16.0,
       "SearchWaitMultiplier": 1.0,
@@ -60,7 +60,7 @@
       "MoveToCoverHasEnemyPose": 1.0
     },
     "Talk": {
-      "CanTaunt": true,
+      "CanTaunt": false,
       "FrequentTaunt": false,
       "ConstantTaunt": false,
       "CanRespondToEnemyVoice": false,
@@ -77,7 +77,7 @@
     "GainSightCoef": 1.0,
     "ScatteringCoef": 1.0,
     "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 1.0,
+    "AggressionCoef": 2.0,
     "PrecisionSpeedCoef": 1.0,
     "AccuracySpeedCoef": 1.0
   }
