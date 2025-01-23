@@ -35,12 +35,12 @@ class ttvPlayers {
         //*************************************************
         // If live mode was enabled correctly
         if (!BCConfig) {
-            logger.log("[Twitch Players] Bot Callsigns config is missing. MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed that mod. MOD WILL NOT WORK.", "red");
             return;
         }
 
         if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
-            logger.log("[Twitch Players Config Manager] Global Mode and randomize personalities are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "cyan");
+            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "cyan");
             return;
         } else if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
             randomizePersonalitiesWithoutRegenerate();
@@ -262,14 +262,13 @@ class ttvPlayers {
             const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]/GlobalSettings.json');
             const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]/GlobalSettings.json');
 
-            // Update GlobalSettings.json and push the preset
+            // Update GlobalSettings.json
             const globalSettings = JSON.parse(fs.readFileSync(globalSettingsPath, 'utf-8'));
             globalSettings.Difficulty = difficultyData.settings;
             fs.writeFileSync(globalSettingsPath, JSON.stringify(globalSettings, null, 2));
 
-            // Update SAIN preset fully
+            // Push GlobalSettings.json
             fs.cpSync(source, destination, { recursive: true, force: true });
-
             logger.log(`[Twitch Players] Done adjusting! Current PMC Level: ${playerLevel}. SAIN Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
         }
 
