@@ -22,6 +22,15 @@ class ttvPlayers {
         const pathToTTVNames = "./user/mods/TTV-Players/names/ttv_names.json";
         const pathToGlobalNames = "./user/mods/TTV-Players/names/global_names.json";
 
+        // Check if player is running Performance Improvements mod that causes unknown crashes
+        const isRunningPerfImp = "./BepInEx/plugins/PerformanceImprovements.dll";
+        if(!fs.existsSync(isRunningPerfImp)){
+            logger.log("[Twitch Players] ATTENTION!", "yellow");
+            logger.log("[Twitch Players] You're running Performance Improvements mod which is known to cause crashes with Twitch Players mod. If you see this message and crash to desktop in raid, please consider disabling Experimental Patches in Performance Improvements mod settings (F12 Menu).", "yellow");
+            logger.log("[Twitch Players] This is just a warning. This mod will continue working as it should.", "yellow");
+            logger.log("[Twitch Players] ATTENTION!", "yellow");
+        }
+
         // Loading names
         const ttvNames = require("../names/ttv_names.json");
         const yourNames = require("../names/your_names.json");
@@ -40,7 +49,7 @@ class ttvPlayers {
         }
 
         if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
-            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "cyan");
+            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
             return;
         } else if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
             randomizePersonalitiesWithoutRegenerate();
@@ -52,6 +61,9 @@ class ttvPlayers {
         } else if (!BCConfig.liveMode && config.globalMode) {
             logger.log("[Twitch Players Config Manager] Enabling Global Mode...", "cyan");
             handleGlobalMode();
+        } else if(BCConfig.liveMode && config.globalMode){
+            logger.log("[Twitch Players Config Manager] Global Mode and (BotCallsigns)Live Mode are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
+            return;
         }
 
         // If nothing is turned on, simply push an update to SAIN.
