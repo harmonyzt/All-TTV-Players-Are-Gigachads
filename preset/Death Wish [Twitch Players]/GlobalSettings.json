@@ -171,8 +171,8 @@
     "PMCAimForHeadChance": 30.0
   },
   "Hearing": {
-    "MaxFootstepAudioDistance": 70.0,
-    "MaxFootstepAudioDistanceNoHeadphones": 40.0,
+    "MaxFootstepAudioDistance": 60.0,
+    "MaxFootstepAudioDistanceNoHeadphones": 30.0,
     "HEAR_DISPERSION_VALUES": {
       "Shot": 17.5,
       "SuppressedShot": 13.5,
