@@ -22,6 +22,15 @@ class ttvPlayers {
         const pathToTTVNames = "./user/mods/TTV-Players/names/ttv_names.json";
         const pathToGlobalNames = "./user/mods/TTV-Players/names/global_names.json";
 
+        // Check if player is running Performance Improvements mod that causes unknown crashes
+        const isRunningPerfImp = "./BepInEx/plugins/PerformanceImprovements.dll";
+        if(!fs.existsSync(isRunningPerfImp)){
+            logger.log("[Twitch Players] ATTENTION!", "yellow");
+            logger.log("[Twitch Players] You're running Performance Improvements mod which is known to cause crashes with Twitch Players mod. If you see this message and crash to desktop in raid, please consider disabling Experimental Patches in Performance Improvements mod settings (F12 Menu).", "yellow");
+            logger.log("[Twitch Players] This is just a warning. This mod will continue working as it should.", "yellow");
+            logger.log("[Twitch Players] ATTENTION!", "yellow");
+        }
+
         // Loading names
         const ttvNames = require("../names/ttv_names.json");
         const yourNames = require("../names/your_names.json");
@@ -35,7 +44,7 @@ class ttvPlayers {
         //*************************************************
         // If live mode was enabled correctly
         if (!BCConfig) {
-            logger.log("[Twitch Players] Bot Callsigns config is missing. MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed that mod. MOD WILL NOT WORK.", "red");
             return;
         }
 
@@ -56,6 +65,9 @@ class ttvPlayers {
                 logger.log("[Twitch Players Config Manager] Enabling Global Mode...", "cyan");
             
             handleGlobalMode();
+        } else if(BCConfig.liveMode && config.globalMode){
+            logger.log("[Twitch Players Config Manager] Global Mode and (BotCallsigns)Live Mode are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
+            return;
         }
 
         // If nothing is turned on, simply push an update to SAIN.
@@ -272,14 +284,13 @@ class ttvPlayers {
             const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]/GlobalSettings.json');
             const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]/GlobalSettings.json');
 
-            // Update GlobalSettings.json and push the preset
+            // Update GlobalSettings.json
             const globalSettings = JSON.parse(fs.readFileSync(globalSettingsPath, 'utf-8'));
             globalSettings.Difficulty = difficultyData.settings;
             fs.writeFileSync(globalSettingsPath, JSON.stringify(globalSettings, null, 2));
 
-            // Update SAIN preset fully
+            // Push GlobalSettings.json
             fs.cpSync(source, destination, { recursive: true, force: true });
-
             logger.log(`[Twitch Players] Done adjusting! Current PMC Level: ${playerLevel}. SAIN Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
         }
 

@@ -5,7 +5,7 @@
     "Enabled": true,
     "CanBeRandomlyAssigned": false,
     "RandomlyAssignedChance": 1.0,
-    "MinLevel": 0.0,
+    "MinLevel": 20.0,
     "MaxLevel": 100.0,
     "PowerLevelScaleStart": 250.0,
     "PowerLevelScaleEnd": 500.0,
@@ -55,7 +55,7 @@
   },
   "Behavior": {
     "General": {
-      "AggressionMultiplier": 1.3,
+      "AggressionMultiplier": 1.7,
       "KickOpenAllDoors": true,
       "HoldGroundBaseTime": 2.0,
       "HoldGroundMinRandom": 0.75,
@@ -66,7 +66,7 @@
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
       "HeardFromPeaceBehavior": "Charge",
-      "WillChaseDistantGunshots": true,
+      "WillChaseDistantGunshots": false,
       "AudioStraightDistanceToIgnore": 125.0,
       "SearchBaseTime": 0.1,
       "SearchWaitMultiplier": 1.5,
@@ -112,7 +112,7 @@
     "GainSightCoef": 0.5,
     "ScatteringCoef": 0.3,
     "HearingDistanceCoef": 1.5,
-    "AggressionCoef": 1.2,
+    "AggressionCoef": 2.0,
     "PrecisionSpeedCoef": 0.5,
     "AccuracySpeedCoef": 0.4
   }

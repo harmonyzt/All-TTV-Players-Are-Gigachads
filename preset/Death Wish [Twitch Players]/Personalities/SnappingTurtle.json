@@ -20,7 +20,7 @@
   },
   "Behavior": {
     "General": {
-      "AggressionMultiplier": 1.0,
+      "AggressionMultiplier": 1.5,
       "KickOpenAllDoors": false,
       "HoldGroundBaseTime": 1.5,
       "HoldGroundMinRandom": 0.8,
@@ -36,7 +36,7 @@
       "SearchBaseTime": 90.0,
       "SearchWaitMultiplier": 3.0,
       "SprintWhileSearchChance": 40.0,
-      "Sneaky": true,
+      "Sneaky": false,
       "SneakySpeed": 0.33,
       "SneakyPose": 1.0,
       "SearchNoEnemySpeed": 1.0,
@@ -77,7 +77,7 @@
     "GainSightCoef": 1.0,
     "ScatteringCoef": 1.0,
     "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 1.0,
+    "AggressionCoef": 2.0,
     "PrecisionSpeedCoef": 1.0,
     "AccuracySpeedCoef": 1.0
   }

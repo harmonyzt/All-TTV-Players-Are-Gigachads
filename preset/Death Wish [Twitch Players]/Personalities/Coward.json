@@ -85,7 +85,7 @@
       "BunnyHopChance": 5.0
     },
     "Cover": {
-      "CanShiftCoverPosition": false,
+      "CanShiftCoverPosition": true,
       "ShiftCoverTimeMultiplier": 1.0,
       "MoveToCoverNoEnemySpeed": 0.5,
       "MoveToCoverNoEnemyPose": 1.0,
@@ -96,7 +96,7 @@
       "CanTaunt": false,
       "FrequentTaunt": false,
       "ConstantTaunt": false,
-      "CanRespondToEnemyVoice": true,
+      "CanRespondToEnemyVoice": false,
       "TauntFrequency": 15.0,
       "TauntChance": 50.0,
       "TauntMaxDistance": 50.0,
