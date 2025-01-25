@@ -8,5 +8,8 @@
     "randomizePersonalitiesOnServerStart": true,
     "SAINAutoUpdatePreset": true,
     "SAINProgressiveDifficulty": true,
-    "fikaMaxCompatibility": false
+    "fikaMaxCompatibility": false,
+    "junklessLogging": true,
+    "__NOTE": "Don't turn this on down below if you don't know what it does.",
+    "liveMode": false
 }

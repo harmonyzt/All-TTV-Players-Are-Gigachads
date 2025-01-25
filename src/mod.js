@@ -40,17 +40,21 @@ class ttvPlayers {
         }
 
         if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
-            logger.log("[Twitch Players Config Manager] Global Mode and randomize personalities are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "cyan");
+            logger.log("[Twitch Players Config Manager] Global Mode and randomize personalities are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
             return;
         } else if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
             randomizePersonalitiesWithoutRegenerate();
         }
 
         if (BCConfig.liveMode && !config.globalMode) {
-            logger.log("[Twitch Players Config Manager] Enabling Live Mode...", "cyan");
+            if(!config.junklessLogging)
+                logger.log("[Twitch Players Config Manager] Enabling Live Mode...", "cyan");
+            
             liveModeChecker();
         } else if (!BCConfig.liveMode && config.globalMode) {
-            logger.log("[Twitch Players Config Manager] Enabling Global Mode...", "cyan");
+            if(!config.junklessLogging)
+                logger.log("[Twitch Players Config Manager] Enabling Global Mode...", "cyan");
+            
             handleGlobalMode();
         }
 
@@ -82,7 +86,9 @@ class ttvPlayers {
                 // Can run level and difficulty tier once again
                 if (config.SAINProgressiveDifficulty && runOnce == 0 && !config.fikaMaxCompatibility) {
                     runOnce = 1;
-                    logger.log(`[Twitch Players] SAIN progressive difficulty adjustment can be ran again once user logs in`, "cyan")
+
+                    if(!config.junklessLogging)
+                        logger.log(`[Twitch Players] SAIN progressive difficulty adjustment can be ran again once user logs in`, "cyan")
                 }
 
                 return output;
@@ -115,7 +121,9 @@ class ttvPlayers {
 
             // Creating folder if it doesn't exist
             if (!fs.existsSync(destination)) {
-                logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
+                if(!config.junklessLogging)
+                    logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
+                
                 fs.mkdirSync(destination, { recursive: true });
                 copyFolder(source, destination);
             } else if (config.SAINAutoUpdatePreset) {
@@ -132,7 +140,9 @@ class ttvPlayers {
                         logger.log("[Twitch Players Auto-Updater] Detected outdated custom SAIN preset! Updating...", "cyan");
                         copyFolder(source, destination, true);
                     } else {
-                        logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
+                        if(!config.junklessLogging){
+                            logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
+                        }
                     }
                 } catch (error) {
                     logger.log("[Twitch Players Auto-Updater] Error while trying to update SAIN preset! Please report this to the developer!", "red");
@@ -321,7 +331,9 @@ class ttvPlayers {
 
                         // Delete that flag
                         fs.unlinkSync(namesReadyPath);
-                        logger.log("[Twitch Players | Live Mode] Detected and removed flag file from BotCallsigns mod for the next run", "cyan");
+
+                        if(!config.junklessLogging)
+                            logger.log("[Twitch Players | Live Mode] Detected and removed flag file from BotCallsigns mod for the next run", "cyan");
 
                         handleLiveMode();
                     }
@@ -361,7 +373,9 @@ class ttvPlayers {
 
                     fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                         if (err) throw err;
-                        logger.log("[Twitch Players] Randomized personalities. Pushing changes to SAIN...", "cyan");
+                        if(!config.junklessLogging)
+                            logger.log("[Twitch Players] Randomized personalities. Pushing changes to SAIN...", "cyan");
+
                         pushNewestUpdateToSAIN(config.globalMode, BCConfig.liveMode);
                     })
                 });
@@ -383,7 +397,8 @@ class ttvPlayers {
                     return;
                 }
 
-                logger.log("[Twitch Players | Live Mode] Loaded BotCallsigns names...", "cyan");
+                if(!config.junklessLogging)
+                    logger.log("[Twitch Players | Live Mode] Loaded BotCallsigns names...", "cyan");
             } catch (error) {
                 logger.log("[Twitch Players | Live Mode] There was an error with loading names_temp.json! Make sure it exists in the temp mod directory!", "red");
                 return;
@@ -414,7 +429,8 @@ class ttvPlayers {
         // Push update
         function pushNewestUpdateToSAIN() {
             if (fs.existsSync(pathToSAINPersonalities)) {
-                logger.log("[Twitch Players] SAIN personalities file detected!", "green");
+                if(!config.junklessLogging)
+                    logger.log("[Twitch Players] SAIN personalities file detected!", "green");
 
                 fs.readFile(pathToSAINPersonalities, 'utf8', (err, data) => {
                     if (err) throw err;

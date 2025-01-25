@@ -95,14 +95,14 @@
       "MoveToCoverHasEnemyPose": 1.0
     },
     "Talk": {
-      "CanTaunt": true,
+      "CanTaunt": false,
       "FrequentTaunt": false,
       "ConstantTaunt": false,
       "CanRespondToEnemyVoice": false,
       "TauntFrequency": 4.0,
       "TauntChance": 5.0,
       "TauntMaxDistance": 75.0,
-      "CanFakeDeathRare": true,
+      "CanFakeDeathRare": false,
       "FakeDeathChance": 5.0,
       "CanBegForLife": false
     }
