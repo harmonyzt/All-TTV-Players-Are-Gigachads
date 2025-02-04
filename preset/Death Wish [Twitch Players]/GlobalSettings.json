@@ -17,7 +17,7 @@
       "VanillaFollowers": true,
       "VanillaGoons": false,
       "VanillaBloodHounds": false,
-      "VanillaRogues": true,
+      "VanillaRogues": false,
       "VanillaCultists": false
     },
     "Performance": {
@@ -61,7 +61,7 @@
       "NewDoorOpening": true,
       "NoDoorAnimations": true,
       "InvertDoors": true,
-      "DisableAllDoors": true
+      "DisableAllDoors": false
     },
     "Extract": {
       "SAIN_EXTRACT_TOGGLE": true

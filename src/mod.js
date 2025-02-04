@@ -24,7 +24,8 @@ class ttvPlayers {
 
         // Check if player is running Performance Improvements mod that causes unknown crashes
         const isRunningPerfImp = "./BepInEx/plugins/PerformanceImprovements.dll";
-        if(!fs.existsSync(isRunningPerfImp)){
+
+        if (fs.existsSync(isRunningPerfImp)) {
             logger.log("[Twitch Players] You're running Performance Improvements mod which is known to cause crashes with Twitch Players mod. If you see this message and crash to desktop in raid, please consider disabling Experimental Patches in Performance Improvements mod settings (F12 Menu).", "yellow");
             logger.log("[Twitch Players] This is just a warning. This mod will continue working as it should.", "yellow");
         }
@@ -46,6 +47,53 @@ class ttvPlayers {
             return;
         }
 
+        const customNames = "./user/mods/TTV-Players/names/your_names.json";
+
+        // Check for name file and create
+        function createFileIfNotExists(path) {
+            if (!fs.existsSync(path)) {
+                const defaultStructure = {
+                    "RealCustomsRat": "Rat",
+                    "team-killer": "Timmy",
+                    "Ownage": "Normal",
+                    "jinglemyballs": "Chad",
+                    "Chad_Slayer": "GigaChad",
+                    "Solaraint": "SnappingTurtle",
+                    "LVNDMARK": "GigaChad",
+                    "zero_deaths": "Wreckless",
+                    "NoGenerals": "Wreckless",
+                    "inseq": "Wreckless",
+                    "MAZA4KST": "Wreckless",
+                    "JoinTheSystemm": "Wreckless",
+                    "rasty_airsoft": "Wreckless",
+                    "B_KOMHATE": "Wreckless",
+                    "fiolochka": "Wreckless",
+                    "impatiya": "Wreckless",
+                    "WithoutAim": "Wreckless",
+                    "kroshka_enot": "Wreckless",
+                    "amur_game": "Wreckless",
+                    "dezy_hhg": "Wreckless",
+                    "Gluhar": "Wreckless",
+                    "nesp": "Wreckless",
+                    "botinok": "Wreckless",
+                    "recrent": "Wreckless",
+                    "TheRudyGames": "Wreckless",
+                    "Yaros_Nefrit": "Wreckless",
+                    "Deadp47": "Wreckless",
+                    "DISTRUCT": "Wreckless",
+                    "GeorG": "Wreckless"
+                };
+                try {
+                    fs.writeFileSync(path, JSON.stringify(defaultStructure, null, 2));
+                    logger.log(`[Twitch Players] Created created file at first run: ${path}`, "cyan");
+                } catch (error) {
+                    logger.log(`[Twitch Players] Failed to create file: ${path}`, "red");
+                }
+            }
+        }
+
+        createFileIfNotExists(customNames);
+
         if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
             logger.log("[Twitch Players Config Manager] Global Mode and randomize personalities are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
             return;
@@ -54,16 +102,16 @@ class ttvPlayers {
         }
 
         if (BCConfig.liveMode && !config.globalMode) {
-            if(!config.junklessLogging)
+            if (!config.junklessLogging)
                 logger.log("[Twitch Players Config Manager] Enabling Live Mode...", "cyan");
-            
+
             liveModeChecker();
         } else if (!BCConfig.liveMode && config.globalMode) {
-            if(!config.junklessLogging)
+            if (!config.junklessLogging)
                 logger.log("[Twitch Players Config Manager] Enabling Global Mode...", "cyan");
-            
+
             handleGlobalMode();
-        } else if(BCConfig.liveMode && config.globalMode){
+        } else if (BCConfig.liveMode && config.globalMode) {
             logger.log("[Twitch Players Config Manager] Global Mode and (BotCallsigns)Live Mode are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
             return;
         }
@@ -97,7 +145,7 @@ class ttvPlayers {
                 if (config.SAINProgressiveDifficulty && runOnce == 0 && !config.fikaMaxCompatibility) {
                     runOnce = 1;
 
-                    if(!config.junklessLogging)
+                    if (!config.junklessLogging)
                         logger.log(`[Twitch Players] SAIN progressive difficulty adjustment can be ran again once user logs in`, "cyan")
                 }
 
@@ -131,9 +179,9 @@ class ttvPlayers {
 
             // Creating folder if it doesn't exist
             if (!fs.existsSync(destination)) {
-                if(!config.junklessLogging)
+                if (!config.junklessLogging)
                     logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
-                
+
                 fs.mkdirSync(destination, { recursive: true });
                 copyFolder(source, destination);
             } else if (config.SAINAutoUpdatePreset) {
@@ -150,7 +198,7 @@ class ttvPlayers {
                         logger.log("[Twitch Players Auto-Updater] Detected outdated custom SAIN preset! Updating...", "cyan");
                         copyFolder(source, destination, true);
                     } else {
-                        if(!config.junklessLogging){
+                        if (!config.junklessLogging) {
                             logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
                         }
                     }
@@ -341,7 +389,7 @@ class ttvPlayers {
                         // Delete that flag
                         fs.unlinkSync(namesReadyPath);
 
-                        if(!config.junklessLogging)
+                        if (!config.junklessLogging)
                             logger.log("[Twitch Players | Live Mode] Detected and removed flag file from BotCallsigns mod for the next run", "cyan");
 
                         handleLiveMode();
@@ -363,7 +411,7 @@ class ttvPlayers {
             }
         }
 
-        // default handling of randomizing personalities without generating new ttv_names.json
+        // Default handling of randomizing personalities without generating new ttv_names.json
         function randomizePersonalitiesWithoutRegenerate() {
             const configPersonalities = config.personalitiesToUse;
 
@@ -382,7 +430,7 @@ class ttvPlayers {
 
                     fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                         if (err) throw err;
-                        if(!config.junklessLogging)
+                        if (!config.junklessLogging)
                             logger.log("[Twitch Players] Randomized personalities. Pushing changes to SAIN...", "cyan");
 
                         pushNewestUpdateToSAIN(config.globalMode, BCConfig.liveMode);
@@ -406,7 +454,7 @@ class ttvPlayers {
                     return;
                 }
 
-                if(!config.junklessLogging)
+                if (!config.junklessLogging)
                     logger.log("[Twitch Players | Live Mode] Loaded BotCallsigns names...", "cyan");
             } catch (error) {
                 logger.log("[Twitch Players | Live Mode] There was an error with loading names_temp.json! Make sure it exists in the temp mod directory!", "red");
@@ -438,7 +486,7 @@ class ttvPlayers {
         // Push update
         function pushNewestUpdateToSAIN() {
             if (fs.existsSync(pathToSAINPersonalities)) {
-                if(!config.junklessLogging)
+                if (!config.junklessLogging)
                     logger.log("[Twitch Players] SAIN personalities file detected!", "green");
 
                 fs.readFile(pathToSAINPersonalities, 'utf8', (err, data) => {
