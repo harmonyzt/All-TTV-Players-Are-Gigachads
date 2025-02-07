@@ -24,7 +24,6 @@ class ttvPlayers {
 
         // Check if player is running Performance Improvements mod that causes unknown crashes
         const isRunningPerfImp = "./BepInEx/plugins/PerformanceImprovements.dll";
-
         if (fs.existsSync(isRunningPerfImp)) {
             logger.log("[Twitch Players] You're running Performance Improvements mod which is known to cause crashes with Twitch Players mod. If you see this message and crash to desktop in raid, please consider disabling Experimental Patches in Performance Improvements mod settings (F12 Menu).", "yellow");
             logger.log("[Twitch Players] This is just a warning. This mod will continue working as it should.", "yellow");
@@ -32,10 +31,9 @@ class ttvPlayers {
 
         // Loading names
         const ttvNames = require("../names/ttv_names.json");
-
         const customNamesForUser = "./user/mods/TTV-Players/names/your_names.json";
 
-        // Check for name file and create
+        // Check for custom name file and create if doesn't exist
         function createFileIfNotExists(path) {
             if (!fs.existsSync(path)) {
                 const defaultStructure = {
@@ -89,14 +87,13 @@ class ttvPlayers {
         //*************************************************
         //*               CONFIG MANAGER                  *
         //*************************************************
-        // If live mode was enabled correctly
         if (!BCConfig) {
             logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed that mod. MOD WILL NOT WORK.", "red");
             return;
         }
 
         if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
-            logger.log("[Twitch Players Config Manager] Global Mode and randomize personalities are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
             return;
         } else if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
             randomizePersonalitiesWithoutRegenerate();
