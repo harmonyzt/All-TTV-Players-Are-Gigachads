@@ -80,7 +80,16 @@
         "MaxExtractPercentage": 30.0,
         "MinExtractPercentage": 5.0
       },
-      "Move": {},
+      "Move": {
+        "LEAN_TOGGLE": true,
+        "LEAN_INCOVER_TOGGLE": true,
+        "JUMP_TOGGLE": true,
+        "AUTOCROUCH_TOGGLE": true,
+        "PRONE_TOGGLE": false,
+        "PRONE_SUPPRESS_TOGGLE": false,
+        "VAULT_TOGGLE": true,
+        "VAULT_UNSTUCK_TOGGLE": true
+      },
       "Patrol": {},
       "Scattering": {
         "HandDamageScatteringMinMax": 1.5,
@@ -173,7 +182,16 @@
         "MaxExtractPercentage": 30.0,
         "MinExtractPercentage": 5.0
       },
-      "Move": {},
+      "Move": {
+        "LEAN_TOGGLE": true,
+        "LEAN_INCOVER_TOGGLE": true,
+        "JUMP_TOGGLE": true,
+        "AUTOCROUCH_TOGGLE": true,
+        "PRONE_TOGGLE": false,
+        "PRONE_SUPPRESS_TOGGLE": false,
+        "VAULT_TOGGLE": true,
+        "VAULT_UNSTUCK_TOGGLE": true
+      },
       "Patrol": {},
       "Scattering": {
         "HandDamageScatteringMinMax": 1.5,
@@ -266,7 +284,16 @@
         "MaxExtractPercentage": 30.0,
         "MinExtractPercentage": 5.0
       },
-      "Move": {},
+      "Move": {
+        "LEAN_TOGGLE": true,
+        "LEAN_INCOVER_TOGGLE": true,
+        "JUMP_TOGGLE": true,
+        "AUTOCROUCH_TOGGLE": true,
+        "PRONE_TOGGLE": false,
+        "PRONE_SUPPRESS_TOGGLE": false,
+        "VAULT_TOGGLE": true,
+        "VAULT_UNSTUCK_TOGGLE": true
+      },
       "Patrol": {},
       "Scattering": {
         "HandDamageScatteringMinMax": 1.5,
@@ -359,7 +386,16 @@
         "MaxExtractPercentage": 30.0,
         "MinExtractPercentage": 5.0
       },
-      "Move": {},
+      "Move": {
+        "LEAN_TOGGLE": true,
+        "LEAN_INCOVER_TOGGLE": true,
+        "JUMP_TOGGLE": true,
+        "AUTOCROUCH_TOGGLE": true,
+        "PRONE_TOGGLE": false,
+        "PRONE_SUPPRESS_TOGGLE": false,
+        "VAULT_TOGGLE": true,
+        "VAULT_UNSTUCK_TOGGLE": true
+      },
       "Patrol": {},
       "Scattering": {
         "HandDamageScatteringMinMax": 1.5,
