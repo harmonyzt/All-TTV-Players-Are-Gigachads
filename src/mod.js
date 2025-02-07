@@ -32,22 +32,8 @@ class ttvPlayers {
 
         // Loading names
         const ttvNames = require("../names/ttv_names.json");
-        const yourNames = require("../names/your_names.json");
-        const globalNames = require("../names/global_names.json");
 
-        // To track so function runs once
-        var runOnce = 1;
-
-        //*************************************************
-        //*               CONFIG MANAGER                  *
-        //*************************************************
-        // If live mode was enabled correctly
-        if (!BCConfig) {
-            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed that mod. MOD WILL NOT WORK.", "red");
-            return;
-        }
-
-        const customNames = "./user/mods/TTV-Players/names/your_names.json";
+        const customNamesForUser = "./user/mods/TTV-Players/names/your_names.json";
 
         // Check for name file and create
         function createFileIfNotExists(path) {
@@ -92,7 +78,22 @@ class ttvPlayers {
             }
         }
 
-        createFileIfNotExists(customNames);
+        createFileIfNotExists(customNamesForUser);
+        
+        const yourNames = require("../names/your_names.json");
+        const globalNames = require("../names/global_names.json");
+
+        // To track so function runs once
+        var runOnce = 1;
+
+        //*************************************************
+        //*               CONFIG MANAGER                  *
+        //*************************************************
+        // If live mode was enabled correctly
+        if (!BCConfig) {
+            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed that mod. MOD WILL NOT WORK.", "red");
+            return;
+        }
 
         if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
             logger.log("[Twitch Players Config Manager] Global Mode and randomize personalities are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
@@ -497,7 +498,7 @@ class ttvPlayers {
                     if (config.useCustomNamesAndPersonalities && !config.globalMode) {
                         const combinedNames = {
                             ...ttvNames.generatedTwitchNames,
-                            ...yourNames.customNames
+                            ...yourNames
                         };
 
                         SAINPersData.NicknamePersonalityMatches = combinedNames;
