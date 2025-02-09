@@ -37,35 +37,37 @@ class ttvPlayers {
         function createFileIfNotExists(path) {
             if (!fs.existsSync(path)) {
                 const defaultStructure = {
-                    "RealCustomsRat": "Rat",
-                    "team-killer": "Timmy",
-                    "Ownage": "Normal",
-                    "jinglemyballs": "Chad",
-                    "Chad_Slayer": "GigaChad",
-                    "Solaraint": "SnappingTurtle",
-                    "LVNDMARK": "GigaChad",
-                    "zero_deaths": "Wreckless",
-                    "NoGenerals": "Wreckless",
-                    "inseq": "Wreckless",
-                    "MAZA4KST": "Wreckless",
-                    "JoinTheSystemm": "Wreckless",
-                    "rasty_airsoft": "Wreckless",
-                    "B_KOMHATE": "Wreckless",
-                    "fiolochka": "Wreckless",
-                    "impatiya": "Wreckless",
-                    "WithoutAim": "Wreckless",
-                    "kroshka_enot": "Wreckless",
-                    "amur_game": "Wreckless",
-                    "dezy_hhg": "Wreckless",
-                    "Gluhar": "Wreckless",
-                    "nesp": "Wreckless",
-                    "botinok": "Wreckless",
-                    "recrent": "Wreckless",
-                    "TheRudyGames": "Wreckless",
-                    "Yaros_Nefrit": "Wreckless",
-                    "Deadp47": "Wreckless",
-                    "DISTRUCT": "Wreckless",
-                    "GeorG": "Wreckless"
+                    customNames: {
+                        "RealCustomsRat": "Rat",
+                        "team-killer": "Timmy",
+                        "Ownage": "Normal",
+                        "jinglemyballs": "Chad",
+                        "Chad_Slayer": "GigaChad",
+                        "Solaraint": "SnappingTurtle",
+                        "LVNDMARK": "GigaChad",
+                        "zero_deaths": "Wreckless",
+                        "NoGenerals": "Wreckless",
+                        "inseq": "Wreckless",
+                        "MAZA4KST": "Wreckless",
+                        "JoinTheSystemm": "Wreckless",
+                        "rasty_airsoft": "Wreckless",
+                        "B_KOMHATE": "Wreckless",
+                        "fiolochka": "Wreckless",
+                        "impatiya": "Wreckless",
+                        "WithoutAim": "Wreckless",
+                        "kroshka_enot": "Wreckless",
+                        "amur_game": "Wreckless",
+                        "dezy_hhg": "Wreckless",
+                        "Gluhar": "Wreckless",
+                        "nesp": "Wreckless",
+                        "botinok": "Wreckless",
+                        "recrent": "Wreckless",
+                        "TheRudyGames": "Wreckless",
+                        "Yaros_Nefrit": "Wreckless",
+                        "Deadp47": "Wreckless",
+                        "DISTRUCT": "Wreckless",
+                        "GeorG": "Wreckless"
+                    }
                 };
                 try {
                     fs.writeFileSync(path, JSON.stringify(defaultStructure, null, 2));
@@ -77,7 +79,7 @@ class ttvPlayers {
         }
 
         createFileIfNotExists(customNamesForUser);
-        
+
         const yourNames = require("../names/your_names.json");
         const globalNames = require("../names/global_names.json");
 
@@ -493,9 +495,10 @@ class ttvPlayers {
 
                     // Combining ttvNames and yourNames if this was enabled
                     if (config.useCustomNamesAndPersonalities && !config.globalMode) {
+
                         const combinedNames = {
                             ...ttvNames.generatedTwitchNames,
-                            ...yourNames
+                            ...yourNames.customNames
                         };
 
                         SAINPersData.NicknamePersonalityMatches = combinedNames;
