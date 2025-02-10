@@ -22,7 +22,7 @@ class ttvPlayers {
         const pathToTTVNames = "./user/mods/TTV-Players/names/ttv_names.json";
         const pathToGlobalNames = "./user/mods/TTV-Players/names/global_names.json";
 
-        // Check if player is running Performance Improvements mod that causes unknown crashes
+        // Check if player is running Performance Improvements mod that causes unknown crashes with experimental patches on
         const isRunningPerfImp = "./BepInEx/plugins/PerformanceImprovements.dll";
         if (fs.existsSync(isRunningPerfImp)) {
             logger.log("[Twitch Players] You're running Performance Improvements mod which is known to cause crashes with Twitch Players mod. If you see this message and crash to desktop in raid, please consider disabling Experimental Patches in Performance Improvements mod settings (F12 Menu).", "yellow");
