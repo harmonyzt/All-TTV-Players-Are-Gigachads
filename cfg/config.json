@@ -15,5 +15,5 @@
     "_NOTE_FIKA": "USE THIS IF YOU'RE RUNNING FIKA.",
     "_NOTE_FIKA2": "This will make so the mod will apply changes only if THAT profile ID logs in/starts the game(tarkov itself, not the raid).",
     "_NOTE_FIKA3": "You can find your profile ID in your SPT Launcher right below your username when you login. It looks like this - 675c0c2d00043b5241599235",
-    "SAINProgressiveDifficultyDesiredProfile": "6782579f0001bc169b125e8d"
+    "SAINProgressiveDifficultyDesiredProfile": ""
 }
