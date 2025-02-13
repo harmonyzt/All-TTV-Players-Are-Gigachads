@@ -20,13 +20,12 @@ class ttvPlayers {
         const pathToSAINPersonalities = './BepInEx/plugins/SAIN/NicknamePersonalities.json';
         const pathToCallsigns = "./user/mods/BotCallsigns";
         const pathToTTVNames = "./user/mods/TTV-Players/names/ttv_names.json";
-        const pathToGlobalNames = "./user/mods/TTV-Players/names/global_names.json";
 
         // Check if player is running Performance Improvements mod that causes unknown crashes with experimental patches on
         const isRunningPerfImp = "./BepInEx/plugins/PerformanceImprovements.dll";
         if (fs.existsSync(isRunningPerfImp)) {
             logger.log("[Twitch Players] You're running Performance Improvements mod which is known to cause crashes with Twitch Players mod. If you see this message and crash to desktop in raid, please consider disabling Experimental Patches in Performance Improvements mod settings (F12 Menu).", "yellow");
-            logger.log("[Twitch Players] This is just a warning. This mod will continue working as it should.", "yellow");
+            logger.log("[Twitch Players] This is just a warning. The mod will continue to function as intended.", "yellow");
         }
 
         // Loading names
@@ -44,7 +43,7 @@ class ttvPlayers {
                         "jinglemyballs": "Chad",
                         "Chad_Slayer": "GigaChad",
                         "Solaraint": "SnappingTurtle",
-                        "LVNDMARK": "GigaChad",
+                        "LVNDMARK": "Wreckless",
                         "zero_deaths": "Wreckless",
                         "NoGenerals": "Wreckless",
                         "inseq": "Wreckless",
@@ -71,7 +70,7 @@ class ttvPlayers {
                 };
                 try {
                     fs.writeFileSync(path, JSON.stringify(defaultStructure, null, 2));
-                    logger.log(`[Twitch Players] Created created file at first run: ${path}`, "cyan");
+                    logger.log(`[Twitch Players] Created custom names file at first run: ${path}`, "cyan");
                 } catch (error) {
                     logger.log(`[Twitch Players] Failed to create file: ${path}`, "red");
                 }
@@ -80,40 +79,45 @@ class ttvPlayers {
 
         createFileIfNotExists(customNamesForUser);
 
-        const yourNames = require("../names/your_names.json");
+        // ???
         const globalNames = require("../names/global_names.json");
-
-        // To track so function runs once
-        var runOnce = 1;
 
         //*************************************************
         //*               CONFIG MANAGER                  *
         //*************************************************
         if (!BCConfig) {
-            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed that mod. MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed that mod. THIS MOD WILL NOT WORK.", "red");
             return;
         }
 
         if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
-            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. THIS MOD WILL NOT WORK.", "red");
             return;
         } else if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
             randomizePersonalitiesWithoutRegenerate();
         }
 
+        // Live Mode
         if (BCConfig.liveMode && !config.globalMode) {
             if (!config.junklessLogging)
                 logger.log("[Twitch Players Config Manager] Enabling Live Mode...", "cyan");
 
             liveModeChecker();
+
+            return;
         } else if (!BCConfig.liveMode && config.globalMode) {
             if (!config.junklessLogging)
                 logger.log("[Twitch Players Config Manager] Enabling Global Mode...", "cyan");
 
             handleGlobalMode();
         } else if (BCConfig.liveMode && config.globalMode) {
-            logger.log("[Twitch Players Config Manager] Global Mode and (BotCallsigns)Live Mode are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players Config Manager] Global Mode and (BotCallsigns)Live Mode are not compatible. Turn off one of the settings. THIS MOD WILL NOT WORK.", "red");
             return;
+        }
+
+        // If progressive difficulty is turned off, we will set the intended settings for the SAIN Preset silently
+        if(!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults){
+            adjustDifficulty(50, true);
         }
 
         // If nothing is turned on, simply push an update to SAIN.
@@ -128,9 +132,16 @@ class ttvPlayers {
                 const profile = JSON.parse(output);
                 const playerLevel = profile.currlvl;
 
-                if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
-                    adjustDifficulty(playerLevel);
-                    runOnce = 0;
+                if (playerLevel >= 1 && config.SAINProgressiveDifficulty) {
+                    if (config.SAINProgressiveDifficultyDesiredProfile == sessionId ) {
+                        logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
+                        adjustDifficulty(playerLevel, false);
+                    } else if (!config.SAINProgressiveDifficultyDesiredProfile) {
+                        logger.log(`[Twitch Players] No desired profile was set. Adjusting will run for every profile that logs in.`, "yellow")
+                        adjustDifficulty(playerLevel, false);
+                    } else if (config.SAINProgressiveDifficultyDesiredProfile != sessionId) {
+                        // Do nothing
+                    }
                 }
 
                 return output;
@@ -142,11 +153,10 @@ class ttvPlayers {
             action: async (url, info, sessionId, output) => {
 
                 // Can run level and difficulty tier once again
-                if (config.SAINProgressiveDifficulty && runOnce == 0 && !config.fikaMaxCompatibility) {
-                    runOnce = 1;
+                if (config.SAINProgressiveDifficulty && config.SAINProgressiveDifficultyDesiredProfile) {
 
-                    if (!config.junklessLogging)
-                        logger.log(`[Twitch Players] SAIN progressive difficulty adjustment can be ran again once user logs in`, "cyan")
+                    logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
+                    adjustDifficulty(1, true);
                 }
 
                 return output;
@@ -221,18 +231,18 @@ class ttvPlayers {
         function calculateDifficulty(playerLevel) {
             // This is just to track what's happening
             const baseSettings = {
-                VisibleDistCoef: 1.0, //higher = hard
-                GainSightCoef: 1.0, //lower = hard
-                ScatteringCoef: 1.0, //lower = hard
-                HearingDistanceCoef: 1.0, //higher = hard
-                AggressionCoef: 1.0, //higher = hard
-                PrecisionSpeedCoef: 1.0, //lower = hard
-                AccuracySpeedCoef: 1.0, //lower = hard
+                VisibleDistCoef: 1.0, //higher = harder
+                GainSightCoef: 1.0, //lower = harder
+                ScatteringCoef: 1.0, //lower = harder
+                HearingDistanceCoef: 1.0, //higher = harder
+                AggressionCoef: 1.0, //higher = harder
+                PrecisionSpeedCoef: 1.0, //lower = harder
+                AccuracySpeedCoef: 1.0, //lower = harder
             };
 
             const tiers = [
                 {
-                    levelRange: [1, 9],
+                    levelRange: [1, 4],
                     settings: {
                         VisibleDistCoef: 0.8,
                         GainSightCoef: 1.2,
@@ -244,7 +254,7 @@ class ttvPlayers {
                     },
                 },
                 {
-                    levelRange: [10, 19],
+                    levelRange: [5, 14],
                     settings: {
                         VisibleDistCoef: 1.0,
                         GainSightCoef: 1.0,
@@ -256,7 +266,7 @@ class ttvPlayers {
                     },
                 },
                 {
-                    levelRange: [20, 29],
+                    levelRange: [15, 29],
                     settings: {
                         VisibleDistCoef: 1.2,
                         GainSightCoef: 0.9,
@@ -312,7 +322,7 @@ class ttvPlayers {
                         HearingDistanceCoef: 2.0,
                         AggressionCoef: 1.5,
                         PrecisionSpeedCoef: 0.3,
-                        AccuracySpeedCoef: 0.45,
+                        AccuracySpeedCoef: 0.4,
                     },
                 },
             ];
@@ -322,8 +332,10 @@ class ttvPlayers {
         }
 
 
-        function adjustDifficulty(playerLevel) {
-            logger.log(`[Twitch Players] Adjusting difficulties for SAIN preset...`, "cyan")
+        function adjustDifficulty(playerLevel, silent) {
+            if(!silent)
+                logger.log(`[Twitch Players] Adjusting difficulties for SAIN preset...`, "cyan")
+
             const difficultyData = calculateDifficulty(playerLevel);
 
             const globalSettingsPath = path.join(__dirname, '../preset/Death Wish [Twitch Players]/GlobalSettings.json');
@@ -337,41 +349,65 @@ class ttvPlayers {
 
             // Push GlobalSettings.json
             fs.cpSync(source, destination, { recursive: true, force: true });
-            logger.log(`[Twitch Players] Done adjusting! Current PMC Level: ${playerLevel}. SAIN Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
+
+            if(!silent)
+                logger.log(`[Twitch Players] Done adjusting! Your PMC Level: ${playerLevel}. SAIN Custom Preset Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
         }
 
         function handleGlobalMode() {
             const configPersonalities = config.personalitiesToUse;
-
+        
             if (Object.keys(configPersonalities).length > 1) {
                 const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
+                const yourNamesPath = path.join(__dirname, '../names/your_names.json');
+        
                 let callsignAllNames = require(namesTempPath);
-
-                const AllNames = JSON.stringify(callsignAllNames.names);
-                const parsedAllNames = JSON.parse(AllNames);
-                const updatedAllGlobalNames = { generatedGlobalNames: {} };
-
-                parsedAllNames.forEach(name => {
+                let existingNamesData = JSON.parse(fs.readFileSync(yourNamesPath, 'utf8'));
+        
+                const allNames = callsignAllNames.names;
+                const existingNames = existingNamesData.generatedGlobalNames || {};
+                const customNames = existingNamesData.customNames || {};
+        
+                const updatedAllGlobalNames = { generatedGlobalNames: { ...existingNames } };
+        
+                console.log("Existing customNames:", customNames);
+        
+                allNames.forEach(name => {
+                    if (customNames[name]) {
+                        console.log(`Skipping ${name} because it exists in customNames`); 
+                        return;
+                    }
+                    if (existingNames[name]) {
+                        console.log(`Skipping ${name} because it exists in generatedGlobalNames`);
+                        return;
+                    }
                     updatedAllGlobalNames.generatedGlobalNames[name] = getRandomPersonalityWithWeighting(configPersonalities);
                 });
 
+                const pathToGlobalNames = "./user/mods/TTV-Players/names/global_names.json";
+
                 fs.readFile(pathToGlobalNames, 'utf8', (err, data) => {
                     if (err) throw err;
-
+        
                     const ttvNameData = JSON.parse(data);
-                    ttvNameData.generatedGlobalNames = updatedAllGlobalNames.generatedGlobalNames;
-
+                    ttvNameData.generatedGlobalNames = { ...ttvNameData.generatedGlobalNames, ...updatedAllGlobalNames.generatedGlobalNames, ...existingNamesData.customNames};
+        
+                    console.log("Final merged generatedGlobalNames:", JSON.stringify(ttvNameData.generatedGlobalNames, null, 2));
+        
                     fs.writeFile(pathToGlobalNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                         if (err) throw err;
-                        logger.log("[Twitch Players | Global Mode] Data updated at global_names.json successfully. This mode doesn't support custom names. Pushing changes to SAIN...", "cyan");
+                        logger.log("[Twitch Players | Global Mode] Data updated at global_names.json successfully. Pushing changes to SAIN...", "cyan");
                         pushNewestUpdateToSAIN();
-                    })
+                    });
                 });
             } else {
                 logger.log("[Twitch Players | Global Mode] There was only one personality chosen in the config file. Falling back and pushing updates. Disable randomizePersonalitiesOnServerStart or add one more personality for this to work.", "yellow");
                 pushNewestUpdateToSAIN();
             }
         }
+        
+        
+        
 
         // Check for Live Mode
         function liveModeChecker() {
@@ -493,8 +529,8 @@ class ttvPlayers {
                     if (err) throw err;
                     const SAINPersData = JSON.parse(data);
 
-                    // Combining ttvNames and yourNames if this was enabled
-                    if (config.useCustomNamesAndPersonalities && !config.globalMode) {
+                    // Combining ttvNames and yourNames
+                        const yourNames = require("../names/your_names.json");
 
                         const combinedNames = {
                             ...ttvNames.generatedTwitchNames,
@@ -502,7 +538,8 @@ class ttvPlayers {
                         };
 
                         SAINPersData.NicknamePersonalityMatches = combinedNames;
-                    } else if (config.globalMode) {
+
+                    if (config.globalMode) {
                         SAINPersData.NicknamePersonalityMatches = globalNames.generatedGlobalNames;
                     }
 

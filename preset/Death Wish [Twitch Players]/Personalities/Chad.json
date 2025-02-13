@@ -1,6 +1,6 @@
 {
   "Name": "Chad",
-  "Description": "An aggressive player. Typically wearing high tier equipment, and is more aggressive than usual.",
+  "Description": "An aggressive player. More aggressive than usual.",
   "Assignment": {
     "Enabled": true,
     "CanBeRandomlyAssigned": false,

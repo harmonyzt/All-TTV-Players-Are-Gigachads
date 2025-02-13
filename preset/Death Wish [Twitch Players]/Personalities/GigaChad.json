@@ -1,11 +1,11 @@
 {
   "Name": "GigaChad",
-  "Description": "A true alpha threat. Hyper Aggressive and typically wearing high tier equipment.",
+  "Description": "A true alpha threat. Hyper Aggressive.",
   "Assignment": {
     "Enabled": true,
     "CanBeRandomlyAssigned": false,
     "RandomlyAssignedChance": 3.0,
-    "MinLevel": 0.0,
+    "MinLevel": 20.0,
     "MaxLevel": 100.0,
     "PowerLevelScaleStart": 250.0,
     "PowerLevelScaleEnd": 500.0,
