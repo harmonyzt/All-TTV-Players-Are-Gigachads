@@ -370,15 +370,11 @@ class ttvPlayers {
         
                 const updatedAllGlobalNames = { generatedGlobalNames: { ...existingNames } };
         
-                console.log("Existing customNames:", customNames);
-        
                 allNames.forEach(name => {
                     if (customNames[name]) {
-                        console.log(`Skipping ${name} because it exists in customNames`); 
                         return;
                     }
                     if (existingNames[name]) {
-                        console.log(`Skipping ${name} because it exists in generatedGlobalNames`);
                         return;
                     }
                     updatedAllGlobalNames.generatedGlobalNames[name] = getRandomPersonalityWithWeighting(configPersonalities);
@@ -390,9 +386,7 @@ class ttvPlayers {
                     if (err) throw err;
         
                     const ttvNameData = JSON.parse(data);
-                    ttvNameData.generatedGlobalNames = { ...ttvNameData.generatedGlobalNames, ...updatedAllGlobalNames.generatedGlobalNames, ...existingNamesData.customNames};
-        
-                    console.log("Final merged generatedGlobalNames:", JSON.stringify(ttvNameData.generatedGlobalNames, null, 2));
+                    ttvNameData.generatedGlobalNames = { ...ttvNameData.generatedGlobalNames, ...updatedAllGlobalNames.generatedGlobalNames, ...existingNamesData.customNames}
         
                     fs.writeFile(pathToGlobalNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                         if (err) throw err;
