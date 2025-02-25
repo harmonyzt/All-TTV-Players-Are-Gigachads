@@ -79,9 +79,6 @@ class ttvPlayers {
 
         createFileIfNotExists(customNamesForUser);
 
-        // ???
-        const globalNames = require("../names/global_names.json");
-
         //*************************************************
         //*               CONFIG MANAGER                  *
         //*************************************************
@@ -125,22 +122,26 @@ class ttvPlayers {
             pushNewestUpdateToSAIN();
         }
 
-        // Routing
+        let runOnce = 1
+
+        // I am losing my sanity over this.
         RouterService.registerStaticRouter("TTVGetProfileInfo", [{
             url: "/launcher/profile/info",
             action: async (url, info, sessionId, output) => {
                 const profile = JSON.parse(output);
                 const playerLevel = profile.currlvl;
 
-                if (playerLevel >= 1 && config.SAINProgressiveDifficulty) {
+                if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
                     if (config.SAINProgressiveDifficultyDesiredProfile == sessionId ) {
                         logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
                         adjustDifficulty(playerLevel, false);
-                    } else if (!config.SAINProgressiveDifficultyDesiredProfile) {
-                        logger.log(`[Twitch Players] No desired profile was set. Adjusting will run for every profile that logs in.`, "yellow")
+                        runOnce = 0;
+                    } else if (!config.SAINProgressiveDifficultyDesiredProfile && runOnce) {
                         adjustDifficulty(playerLevel, false);
-                    } else if (config.SAINProgressiveDifficultyDesiredProfile != sessionId) {
-                        // Do nothing
+                        runOnce = 0;
+                    } else if (config.SAINProgressiveDifficultyDesiredProfile != sessionId && config.SAINProgressiveDifficulty && runOnce) {
+                        adjustDifficulty(playerLevel, false);
+                        runOnce = 0;
                     }
                 }
 
@@ -153,8 +154,8 @@ class ttvPlayers {
             action: async (url, info, sessionId, output) => {
 
                 // Can run level and difficulty tier once again
-                if (config.SAINProgressiveDifficulty && config.SAINProgressiveDifficultyDesiredProfile) {
-
+                if (config.SAINProgressiveDifficulty && !config.SAINProgressiveDifficultyDesiredProfile) {
+                    runOnce = 1;
                     logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
                     adjustDifficulty(1, true);
                 }

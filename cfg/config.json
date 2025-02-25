@@ -8,12 +8,12 @@
     "SAINProgressiveDifficulty": true,
     "SAINAlwaysSetPresetDefaults": true,
     "SAINAutoUpdatePreset": true,
-    "__NOTE": "Don't turn this on down below if you don't know what this does. Read mod page for more info.",
+    "_NOTE": "Before enabling Live Mode, make sure you've read the mod page about it. Otherwise you will never need it on.",
     "liveMode": false,
     "junklessLogging": true,
 
-    "_NOTE_FIKA": "USE THIS IF YOU'RE RUNNING FIKA.",
-    "_NOTE_FIKA2": "This will make so the mod will apply changes only if THAT profile ID logs in/starts the game(tarkov itself, not the raid).",
-    "_NOTE_FIKA3": "You can find your profile ID in your SPT Launcher right below your username when you login. It looks like this - 675c0c2d00043b5241599235",
+    "_NOTE_FIKA": "USE THIS IF YOU'RE RUNNING FIKA!",
+    "_NOTE_FIKA2": "This ensures that changes only apply if selected profile ID logs in/starts the game(tarkov itself, not the raid)",
+    "_NOTE_FIKA3": "You can find your profile ID in your SPT Launcher right below your username when you login. It will look like this - 675c0c2d00043b5241599235",
     "SAINProgressiveDifficultyDesiredProfile": ""
 }
