@@ -32,6 +32,8 @@ class ttvPlayers {
         const ttvNames = require("../names/ttv_names.json");
         const customNamesForUser = "./user/mods/TTV-Players/names/your_names.json";
 
+        const globalNames = require("../names/global_names.json");
+        
         // Check for custom name file and create if doesn't exist
         function createFileIfNotExists(path) {
             if (!fs.existsSync(path)) {
