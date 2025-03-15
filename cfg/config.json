@@ -5,11 +5,14 @@
         "GigaChad": 30
     },
     "randomizePersonalitiesOnServerStart": false,
+    
     "SAINProgressiveDifficulty": true,
     "SAINAlwaysSetPresetDefaults": true,
     "SAINAutoUpdatePreset": true,
+
     "_NOTE": "Before enabling Live Mode, make sure you've read the mod page about it. Otherwise you will never need it on.",
     "liveMode": false,
+    
     "junklessLogging": true,
 
     "_NOTE_FIKA": "USE THIS IF YOU'RE RUNNING FIKA!",

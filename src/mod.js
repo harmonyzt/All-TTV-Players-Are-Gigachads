@@ -31,9 +31,8 @@ class ttvPlayers {
         // Loading names
         const ttvNames = require("../names/ttv_names.json");
         const customNamesForUser = "./user/mods/TTV-Players/names/your_names.json";
-
         const globalNames = require("../names/global_names.json");
-        
+
         // Check for custom name file and create if doesn't exist
         function createFileIfNotExists(path) {
             if (!fs.existsSync(path)) {
@@ -85,12 +84,12 @@ class ttvPlayers {
         //*               CONFIG MANAGER                  *
         //*************************************************
         if (!BCConfig) {
-            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed that mod. THIS MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing, make sure you have installed the mod dependencies. MOD WILL NOT WORK.", "red");
             return;
         }
 
         if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
-            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. THIS MOD WILL NOT WORK.", "red");
+            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
             return;
         } else if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
             randomizePersonalitiesWithoutRegenerate();
@@ -115,7 +114,7 @@ class ttvPlayers {
         }
 
         // If progressive difficulty is turned off, we will set the intended settings for the SAIN Preset silently
-        if(!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults){
+        if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
             adjustDifficulty(50, true);
         }
 
@@ -134,7 +133,7 @@ class ttvPlayers {
                 const playerLevel = profile.currlvl;
 
                 if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
-                    if (config.SAINProgressiveDifficultyDesiredProfile == sessionId ) {
+                    if (config.SAINProgressiveDifficultyDesiredProfile == sessionId) {
                         logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
                         adjustDifficulty(playerLevel, false);
                         runOnce = 0;
@@ -155,7 +154,7 @@ class ttvPlayers {
             url: "/launcher/profiles",
             action: async (url, info, sessionId, output) => {
 
-                // Can run level and difficulty tier once again
+                // Can run level and difficulty tiering once again
                 if (config.SAINProgressiveDifficulty && !config.SAINProgressiveDifficultyDesiredProfile) {
                     runOnce = 1;
                     logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
@@ -336,7 +335,7 @@ class ttvPlayers {
 
 
         function adjustDifficulty(playerLevel, silent) {
-            if(!silent)
+            if (!silent)
                 logger.log(`[Twitch Players] Adjusting difficulties for SAIN preset...`, "cyan")
 
             const difficultyData = calculateDifficulty(playerLevel);
@@ -353,26 +352,26 @@ class ttvPlayers {
             // Push GlobalSettings.json
             fs.cpSync(source, destination, { recursive: true, force: true });
 
-            if(!silent)
+            if (!silent)
                 logger.log(`[Twitch Players] Done adjusting! Your PMC Level: ${playerLevel}. SAIN Custom Preset Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
         }
 
         function handleGlobalMode() {
             const configPersonalities = config.personalitiesToUse;
-        
+
             if (Object.keys(configPersonalities).length > 1) {
                 const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
                 const yourNamesPath = path.join(__dirname, '../names/your_names.json');
-        
+
                 let callsignAllNames = require(namesTempPath);
                 let existingNamesData = JSON.parse(fs.readFileSync(yourNamesPath, 'utf8'));
-        
+
                 const allNames = callsignAllNames.names;
                 const existingNames = existingNamesData.generatedGlobalNames || {};
                 const customNames = existingNamesData.customNames || {};
-        
+
                 const updatedAllGlobalNames = { generatedGlobalNames: { ...existingNames } };
-        
+
                 allNames.forEach(name => {
                     if (customNames[name]) {
                         return;
@@ -387,10 +386,10 @@ class ttvPlayers {
 
                 fs.readFile(pathToGlobalNames, 'utf8', (err, data) => {
                     if (err) throw err;
-        
+
                     const ttvNameData = JSON.parse(data);
-                    ttvNameData.generatedGlobalNames = { ...ttvNameData.generatedGlobalNames, ...updatedAllGlobalNames.generatedGlobalNames, ...existingNamesData.customNames}
-        
+                    ttvNameData.generatedGlobalNames = { ...ttvNameData.generatedGlobalNames, ...updatedAllGlobalNames.generatedGlobalNames, ...existingNamesData.customNames }
+
                     fs.writeFile(pathToGlobalNames, JSON.stringify(ttvNameData, null, 2), (err) => {
                         if (err) throw err;
                         logger.log("[Twitch Players | Global Mode] Data updated at global_names.json successfully. Pushing changes to SAIN...", "cyan");
@@ -402,9 +401,6 @@ class ttvPlayers {
                 pushNewestUpdateToSAIN();
             }
         }
-        
-        
-        
 
         // Check for Live Mode
         function liveModeChecker() {
@@ -527,14 +523,14 @@ class ttvPlayers {
                     const SAINPersData = JSON.parse(data);
 
                     // Combining ttvNames and yourNames
-                        const yourNames = require("../names/your_names.json");
+                    const yourNames = require("../names/your_names.json");
 
-                        const combinedNames = {
-                            ...ttvNames.generatedTwitchNames,
-                            ...yourNames.customNames
-                        };
+                    const combinedNames = {
+                        ...ttvNames.generatedTwitchNames,
+                        ...yourNames.customNames
+                    };
 
-                        SAINPersData.NicknamePersonalityMatches = combinedNames;
+                    SAINPersData.NicknamePersonalityMatches = combinedNames;
 
                     if (config.globalMode) {
                         SAINPersData.NicknamePersonalityMatches = globalNames.generatedGlobalNames;

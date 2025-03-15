@@ -12,7 +12,7 @@
     "BotsUseGrenades": true,
     "BotWeightEffects": true,
     "VanillaBots": {
-      "VanillaScavs": false,
+      "VanillaScavs": true,
       "VanillaBosses": true,
       "VanillaFollowers": true,
       "VanillaGoons": false,
@@ -603,7 +603,7 @@
     "JUMP_TOGGLE": true,
     "AUTOCROUCH_TOGGLE": true,
     "PRONE_TOGGLE": false,
-    "PRONE_SUPPRESS_TOGGLE":false,
+    "PRONE_SUPPRESS_TOGGLE": false,
     "VAULT_TOGGLE": true,
     "VAULT_UNSTUCK_TOGGLE": true,
     "EditSprintSpeed": false,
