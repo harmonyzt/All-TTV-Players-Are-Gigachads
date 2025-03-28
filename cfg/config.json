@@ -8,7 +8,7 @@
     "SAINAlwaysSetPresetDefaults": true,
     "SAINAutoUpdatePreset": true,
     "globalMode": false,
-    "junklessLogging": true,
+    "debugLogging": false,
 
     "_NOTE_FIKA": "USE THIS IF YOU'RE RUNNING FIKA!",
     "_NOTE_FIKA2": "This ensures that changes only apply if selected profile ID logs in/starts the game(tarkov itself, not the raid)",
