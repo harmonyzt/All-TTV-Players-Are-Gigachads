@@ -1,7 +1,7 @@
 {
     "name": "[SAIN] Twitch Players",
     "version": "1.7.7",
-    "main": "src/mod.js",
+    "main": "src/rewriteMod.js",
     "license": "MIT",
     "author": "harmony",
     "sptVersion": "3.10"
