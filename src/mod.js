@@ -1,33 +1,50 @@
+// WARNING TO THE "CURIOUS": TURN BACK NOW.
+//
+// This code is not optimized, not documented and is not meant to be understood.  
+//
+// USER ACKNOWLEDGES THAT:
+// - Looking at the code voids all warranties
+// - "It works on my machine" is the final ruling
+// - Any attempts to "fix" it will result in immediate karma
+//
+// harmony - 3/30/2025
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require('fs');
 const path = require('path');
 
-class ttvPlayers {
+class TwitchPlayers {
     CFG = require("../cfg/config.json");
-
-    // Using BotCallsigns config file to indicate if liveMode was enabled or not
+    // Using BotCallsigns config file
     constructor() {
-        this.BotCallsignsConfigPath = path.resolve(__dirname, '../../BotCallsigns/config/config.json');
-        const data = fs.readFileSync(this.BotCallsignsConfigPath, 'utf8');
-        this.BotCallsignsConfig = JSON.parse(data);
+        this.CallsignsConfigPath = path.resolve(__dirname, '../../BotCallsigns/config/config.json');
+        const data = fs.readFileSync(this.CallsignsConfigPath, 'utf8');
+        this.CallsignsConfig = JSON.parse(data);
     }
 
     preSptLoad(container) {
+        const { CFG: config, CallsignsConfig: CallsignConfig } = this;
+
+        // Other
         const RouterService = container.resolve("StaticRouterModService");
         const logger = container.resolve("WinstonLogger");
-        const { CFG: config, BotCallsignsConfig: BCConfig } = this;
-        const pathToSAINPersonalities = './BepInEx/plugins/SAIN/NicknamePersonalities.json';
-        const pathToCallsigns = "./user/mods/BotCallsigns";
-        const pathToTTVNames = "./user/mods/TwitchPlayers/names/ttv_names.json";
 
-        // Loading names
-        const ttvNames = require("../names/ttv_names.json");
-        const customNamesForUser = "./user/mods/TwitchPlayers/names/your_names.json";
+        // File/Folder Paths
+        const sain_NicknamePersonalities = './BepInEx/plugins/SAIN/NicknamePersonalities.json';
+        const CallsignsMod = "./user/mods/BotCallsigns";
+        const tempNamesPath = path.resolve(process.cwd(), 'user/mods/TwitchPlayers/temp/dont_touch.json')
+        const customNamesPath = path.resolve(process.cwd(), 'user/mods/TwitchPlayers/names/your_names.json')
+        
+        // Names/Personalities
+        const twitchNames = "./user/mods/TwitchPlayers/names/ttv_names.json";
         const globalNames = require("../names/global_names.json");
+        const tempNames = require("../temp/dont_touch.json");
 
-        // Check for custom name file and create if doesn't exist
-        if (!fs.existsSync(customNamesForUser)) {
+        // For running RouterService once
+        let runOnce = 1
+
+        // Check for custom names and personalities file and create if doesn't exist
+        if (!fs.existsSync(customNamesPath)) {
             const defaultStructure = {
                 customNames: {
                     "RealCustomsRat": "Rat",
@@ -62,159 +79,324 @@ class ttvPlayers {
                 }
             };
             try {
-                fs.writeFileSync(customNamesForUser, JSON.stringify(defaultStructure, null, 2));
-                logger.log(`[Twitch Players] Created custom names file at first run: ${customNamesForUser}`, "cyan");
+                fs.writeFileSync(customNamesPath, JSON.stringify(defaultStructure, null, 2));
+                logger.log(`[Twitch Players] Created missing file: ${customNamesPath}`, "cyan");
             } catch (error) {
-                logger.log(`[Twitch Players] Failed to create file: ${customNamesForUser}`, "red");
+                logger.log(`[Twitch Players] Failed to create missing file: ${customNamesPath}. Report to developer.`, "red");
             }
         }
-
 
         //*************************************************
-        //*               CONFIG MANAGER                  *
+        //*                  MISC                         *
         //*************************************************
-        if (!BCConfig) {
-            logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.", "red");
-            return;
+
+        // Check if player is running Performance Improvements mod that causes unknown crashes/bugs with experimental patches on
+        const isRunningPerfImp = "./BepInEx/plugins/PerformanceImprovements.dll";
+        if (fs.existsSync(isRunningPerfImp)) {
+            logger.log("[Twitch Players INFO] You're running Performance Improvements mod which is known to cause crashes/bugs. If you see this message and crash to desktop in raid/experience any bugs, please consider disabling Experimental Patches in Performance Improvements mod settings (F12 Menu).", "yellow");
+            logger.log("[Twitch Players INFO] This is just a warning. The mod will continue to function as intended.", "yellow");
         }
 
-        if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
-            logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
-            return;
-        }
+        flagChecker();
 
-        if (config.globalMode && BCConfig.liveMode) {
-            logger.log("[Twitch Players Config Manager] Global Mode and (BotCallsigns)Live Mode are not compatible. Turn off one of the settings. THIS MOD WILL NOT WORK.", "red");
-            return;
-        }
+        //*************************************************
+        //*                 MAIN FUNC                     *
+        //*************************************************
 
-        if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
-            randomizePersonalitiesWithoutRegenerate();
-        }
+        // Check when BotCallsigns mod will be ready
+        function flagChecker() {
+            if (!fs.existsSync(CallsignsMod)) {
+                logger.log("[Twitch Players Validator] 'BotCallsigns' folder is missing/was renamed. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.", "red");
+                return;
+            }
 
-        if (BCConfig.liveMode && !config.globalMode) {
             if (config.debugLogging)
-                logger.log("[Twitch Players Config Manager] Enabling Live Mode...", "cyan");
-            liveModeChecker();
-            return;
-        }
+                logger.log("[Twitch Players Validator] Waiting for flag...", "cyan");
+            
+            const namesReadyPath = path.resolve(__dirname, '../temp/mod.ready');
 
-        if (!BCConfig.liveMode && config.globalMode) {
-            if (config.debugLogging)
-                logger.log("[Twitch Players Config Manager] Enabling Global Mode...", "cyan");
-            handleGlobalMode();
-        }
+            // Check if it already exists (it shouldn't)
+            if (fs.existsSync(namesReadyPath)) {
+                fs.unlinkSync(namesReadyPath);
+            }
 
-        if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
-            adjustDifficulty(50, true);
-        }
-
-        if (!config.randomizePersonalitiesOnServerStart && !config.globalMode) {
-            pushNewestUpdateToSAIN();
-        }
-
-        let runOnce = 1
-
-        // I am losing my sanity over this.
-        RouterService.registerStaticRouter("TTVGetProfileInfo", [{
-            url: "/launcher/profile/info",
-            action: async (url, info, sessionId, output) => {
-                const profile = JSON.parse(output);
-                const playerLevel = profile.currlvl;
-
-                if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
-                    if (config.SAINProgressiveDifficultyDesiredProfile == sessionId) {
-                        logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
-                        adjustDifficulty(playerLevel, false);
-                        runOnce = 0;
-                    } else if (!config.SAINProgressiveDifficultyDesiredProfile && runOnce) {
-                        adjustDifficulty(playerLevel, false);
-                        runOnce = 0;
-                    } else if (config.SAINProgressiveDifficultyDesiredProfile != sessionId && config.SAINProgressiveDifficulty && runOnce) {
-                        adjustDifficulty(playerLevel, false);
-                        runOnce = 0;
-                    }
+            const checkForNamesReady = setInterval(() => {
+                if (fs.existsSync(namesReadyPath)) {
+                    handleFlagFound();
+                    clearInterval(checkForNamesReady);
                 }
+            }, 1000);
 
-                return output;
-            }
-        }], "aki");
-
-        RouterService.registerStaticRouter("TTVCheckProfileLogOut", [{
-            url: "/launcher/profiles",
-            action: async (url, info, sessionId, output) => {
-
-                // Can run level and difficulty tiering once again
-                if (config.SAINProgressiveDifficulty && !config.SAINProgressiveDifficultyDesiredProfile) {
-                    runOnce = 1;
-                    logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
-                    adjustDifficulty(1, true);
-                }
-
-                return output;
-            }
-        }], "aki");
-
-        // Util
-        function copyFolder(srcFolder, destFolder) {
-            try {
-                fs.cpSync(srcFolder, destFolder, { recursive: true, force: true });
-                logger.log("[Twitch Players Auto-Updater] Successfully installed latest custom SAIN preset. You can find it in F6 menu!", "cyan");
-            } catch (error) {
-                logger.log(`[Twitch Players Auto-Updater] Error when tried updating/installing our SAIN preset! ${error.message}`, "red");
+            function handleFlagFound() {
+                    fs.unlinkSync(namesReadyPath);
+                    if (config.debugLogging)
+                        logger.log("[Twitch Players Validator] Detected and removed flag file from BotCallsigns mod for the next run", "cyan");
+            
+                    nameChecker();
             }
         }
 
-        function compareDates(date1, date2) {
-            const d1 = new Date(date1);
-            const d2 = new Date(date2);
-
-            if (d1 > d2) return 1;
-            if (d1 < d2) return -1;
-            return 0;
-        }
-
-        // SAIN Preset Auto-Update
-        function checkForUpdate(localVersionPath, remoteVersionPath) {
-            const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]');
-            const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]');
-
-            // Creating folder if it doesn't exist
-            if (!fs.existsSync(destination)) {
-                if (config.debugLogging)
-                    logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
-
-                fs.mkdirSync(destination, { recursive: true });
-                copyFolder(source, destination);
-            } else if (config.SAINAutoUpdatePreset) {
+        function nameChecker() {
+            const BC_BEAR = path.resolve(process.cwd(), 'user/mods/BotCallsigns/names/bear.json');
+            const BC_USEC = path.resolve(process.cwd(), 'user/mods/BotCallsigns/names/usec.json');
+            const BC_BEARExtra = path.resolve(process.cwd(), 'user/mods/BotCallsigns/config/bear_extra_names.json');
+            const BC_USECExtra = path.resolve(process.cwd(), 'user/mods/BotCallsigns/config/usec_extra_names.json');
+            let allNames = [];
+            let isTTVfileUpdateNeeded = false;
+        
+            function loadNamesFromFile(filePath) {
                 try {
-                    const localSAINData = JSON.parse(fs.readFileSync(localVersionPath, 'utf-8'));
-                    const remoteSAINData = JSON.parse(fs.readFileSync(remoteVersionPath, 'utf-8'));
+                    const rawData = fs.readFileSync(filePath, 'utf-8');
+                    const data = JSON.parse(rawData);
+                    return data.Names && Array.isArray(data.Names) ? data.Names : [];
+                } catch (e) {
+                    logger.log(`[Twitch Players Validator] Error loading file ${filePath}: ${e.message}`, "red");
+                    return [];
+                }
+            }
+        
+            // Default names
+            const mainNames = [
+                ...loadNamesFromFile(BC_BEAR),
+                ...loadNamesFromFile(BC_USEC)
+            ];
+        
+            // Extra names if enabled in BotCallsigns
+            if (CallsignConfig.addExtraNames) {
+                if(config.debugLogging)
+                    logger.log("[Twitch Players Validator] Checking Extra names from BotCallsigns", "cyan");
+                
+                const extraNames = [
+                    ...loadNamesFromFile(BC_BEARExtra),
+                    ...loadNamesFromFile(BC_USECExtra)
+                ];
+                allNames = [...mainNames, ...extraNames];
+            } else {
+                if(config.debugLogging)
+                    logger.log("[Twitch Players Validator] Checking Names from BotCallsigns", "cyan");
+                
+                allNames = mainNames;
+            }
+        
+            const uniqueNames = [...new Set(allNames)];
+            const newTempData = { Names: uniqueNames };
+        
+            // Check if file update needed
+            const namesChanged = (
+                uniqueNames.length !== tempNames.Names.length ||
+                !uniqueNames.every(name => tempNames.Names.includes(name))
+            );
+        
+            if (namesChanged) {
+                try {
+                    fs.writeFileSync(tempNamesPath, JSON.stringify(newTempData, null, 2));
+                    isTTVfileUpdateNeeded = true;
 
-                    const localSAINDateVer = localSAINData.DateCreated;
-                    const remoteSAINDateVer = remoteSAINData.DateCreated;
+                    if(config.debugLogging)
+                        logger.log(`[Twitch Players Validator] Updated our temp file with ${uniqueNames.length} names`, "cyan");
+                } catch (error) {
+                    if(config.debugLogging)
+                        logger.log(`[Twitch Players Validator] Failed to update temp file: ${error.message}`, "red");
+                }
+            } else {
+                logger.log("[Twitch Players Validator] No name changes detected", "cyan");
+            }
+        
+            configManager(newTempData, isTTVfileUpdateNeeded);
+            
+            return newTempData;
+        }
 
-                    const comparison = compareDates(localSAINDateVer, remoteSAINDateVer);
+        //*************************************************
+        //*             CONFIG MANAGER                    *
+        //*************************************************
 
-                    if (comparison === 1) {
-                        logger.log("[Twitch Players Auto-Updater] Detected outdated custom SAIN preset! Updating...", "cyan");
-                        copyFolder(source, destination, true);
-                    } else {
-                        if (config.debugLogging) {
-                            logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
+        function configManager(NamesData, updateTTVfile = false) {
+
+            // Check and install/update SAIN preset
+            if (config.SAINAutoUpdatePreset) {
+                const ourVersionPath = path.resolve(process.cwd(), './user/mods/TwitchPlayers/preset/Death Wish [Twitch Players]/Info.json');
+                const InstalledVersionPath = path.resolve(process.cwd(), './BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]/Info.json');
+                checkForUpdate(ourVersionPath, InstalledVersionPath);
+            }
+
+            // If for some reason BotCallsigns config was not found
+            if (!CallsignConfig) {
+                logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.", "red");
+                return;
+            }
+
+            // Tell user to change one of the settings
+            if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
+                logger.log("[Twitch Players Config Manager] Global Mode and Randomize Personalities settings are not compatible. Turn off one of the settings. MOD WILL NOT WORK.", "red");
+                return;
+            }
+
+            // If user has progressive difficulty disabled, always set preset defaults
+            if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
+                adjustDifficulty(50, true);
+            }
+
+            // If update to the file needed, we do that, and then whatever we want after
+            if (updateTTVfile) {
+                updateTTVJSfile(NamesData);
+            } else {
+                modThink(NamesData);
+            }
+        }
+
+        // WTF to do?
+        function modThink(NamesData){
+                // If no changes were amde to config
+                if (!config.randomizePersonalitiesOnServerStart && !config.globalMode) {
+                    pushNewestUpdateToSAIN();
+                }
+
+                // If randomizePersonalitiesOnServerStart
+                if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
+                    randomizePersonalitiesWithoutRegenerate();
+                }
+
+                // If global mode
+                if(config.globalMode && !config.randomizePersonalitiesOnServerStart) {
+                    handleGlobalMode(NamesData);
+                }
+        }
+
+        //*************************************************
+        //*          PERSONALITIES GENERATION             *
+        //*************************************************
+
+        function updateTTVJSfile(BotNameData) {
+            // Process names
+            const TTVNames = BotNameData.Names.filter(exportedTTVName =>
+                /twitch|ttv|twiitch|_TV/i.test(exportedTTVName)
+            );
+
+            const updatedTTVNames = { generatedTwitchNames: {} };
+
+            TTVNames.forEach(name => {
+                updatedTTVNames.generatedTwitchNames[name] = getRandomPersonalityWithWeighting(config.personalitiesToUse);
+            });
+
+            fs.readFile(twitchNames, 'utf8', (err, data) => {
+                if (err) throw err;
+
+                const ttvNameData = JSON.parse(data);
+                ttvNameData.generatedTwitchNames = updatedTTVNames.generatedTwitchNames;
+                fs.writeFile(twitchNames, JSON.stringify(ttvNameData, null, 2), (err) => {
+                    if (err) throw err;
+
+                    if (config.debugLogging)
+                        logger.log("[Twitch Players] Updated our main file ttv_names.json", "cyan");
+
+                    // DONT FIXME
+                    modThink();
+                })
+            });
+        }
+
+        function handleGlobalMode(BotNameData) {
+            const configPersonalities = config.personalitiesToUse;
+
+            if (Object.keys(configPersonalities).length > 1) {
+                let existingNamesData = JSON.parse(fs.readFileSync(customNamesPath, 'utf8'));
+
+                const allNames = BotNameData.Names;
+                const existingNames = existingNamesData.generatedGlobalNames || {};
+                const customNames = existingNamesData.customNames || {};
+
+                const updatedAllGlobalNames = { generatedGlobalNames: { ...existingNames } };
+
+                allNames.forEach(name => {
+                    if (customNames[name]) {
+                        return;
+                    }
+                    if (existingNames[name]) {
+                        return;
+                    }
+                    updatedAllGlobalNames.generatedGlobalNames[name] = getRandomPersonalityWithWeighting(configPersonalities);
+                });
+
+                const pathToGlobalNames = "./user/mods/TwitchPlayers/names/global_names.json";
+
+                fs.readFile(pathToGlobalNames, 'utf8', (err, data) => {
+                    if (err) throw err;
+
+                    const ttvNameData = JSON.parse(data);
+                    ttvNameData.generatedGlobalNames = { ...ttvNameData.generatedGlobalNames, ...updatedAllGlobalNames.generatedGlobalNames, ...existingNamesData.customNames }
+
+                    fs.writeFile(pathToGlobalNames, JSON.stringify(ttvNameData, null, 2), (err) => {
+                        if (err) throw err;
+                        logger.log("[Twitch Players Global Mode] Data updated at global_names.json successfully. Pushing changes to SAIN...", "cyan");
+                        pushNewestUpdateToSAIN();
+                    });
+                });
+            } else {
+                logger.log("[Twitch Players Global Mode] There was only one personality chosen in the config file. Falling back and pushing updates. Disable randomizePersonalitiesOnServerStart or add one more personality for this to work.", "yellow");
+                pushNewestUpdateToSAIN();
+            }
+        }
+
+        // Default handling of randomizing personalities without generating new ttv_names.json
+        function randomizePersonalitiesWithoutRegenerate() {
+            const configPersonalities = config.personalitiesToUse;
+
+            if (Object.keys(configPersonalities).length > 1) {
+                fs.readFile(twitchNames, 'utf8', (err, data) => {
+                    if (err) throw err;
+
+                    const ttvNameData = JSON.parse(data);
+
+                    // Assigning new random personality to the name
+                    for (let key in ttvNameData.generatedTwitchNames) {
+                        if (ttvNameData.generatedTwitchNames.hasOwnProperty(key)) {
+                            ttvNameData.generatedTwitchNames[key] = getRandomPersonalityWithWeighting(configPersonalities);
                         }
                     }
-                } catch (error) {
-                    logger.log("[Twitch Players Auto-Updater] Error while trying to update SAIN preset! Please report this to the developer!", "red");
-                }
+
+                    fs.writeFile(twitchNames, JSON.stringify(ttvNameData, null, 2), (err) => {
+                        if (err) throw err;
+                        if (config.debugLogging)
+                            logger.log("[Twitch Players] Randomized personalities. Pushing changes to SAIN...", "cyan");
+
+                        pushNewestUpdateToSAIN();
+                    })
+                });
+            } else {
+                logger.log("[Twitch Players] There was only one personality chosen in the config file. Falling back and pushing existing names. Global mod won't make any changes.", "yellow");
+                pushNewestUpdateToSAIN();
             }
         }
 
-        // Check and install/update SAIN preset
-        if (config.SAINAutoUpdatePreset) {
-            const ourVersionPath = path.resolve(process.cwd(), './user/mods/TwitchPlayers/preset/Death Wish [Twitch Players]/Info.json');
-            const InstalledVersionPath = path.resolve(process.cwd(), './BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]/Info.json');
-            checkForUpdate(ourVersionPath, InstalledVersionPath);
+        // Push update
+        function pushNewestUpdateToSAIN() {
+            if (!fs.existsSync(sain_NicknamePersonalities)) {
+                logger.log("[Twitch Players] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.", "yellow");
+                return;
+            }
+
+            if (config.debugLogging)
+                logger.log("[Twitch Players] SAIN personalities file detected!", "green");
+
+            fs.readFile(sain_NicknamePersonalities, 'utf8', (err, data) => {
+                if (err) throw err;
+                const SAINPersData = JSON.parse(data);
+
+                const yourNames = require("../names/your_names.json");
+                const combinedNames = {
+                    ...twitchNames.generatedTwitchNames,
+                    ...yourNames.customNames
+                };
+
+                SAINPersData.NicknamePersonalityMatches = config.globalMode ? globalNames.generatedGlobalNames : combinedNames;
+
+                fs.writeFile(sain_NicknamePersonalities, JSON.stringify(SAINPersData, null, 2), (err) => {
+                    if (err) throw err;
+
+                    logger.log("[Twitch Players] Personalities data was written to SAIN file successfully!", "green");
+                });
+            });
         }
 
         //*************************************************
@@ -325,7 +507,7 @@ class ttvPlayers {
 
         function adjustDifficulty(playerLevel, silent) {
             if (!silent)
-                logger.log(`[Twitch Players] Adjusting difficulties for SAIN preset...`, "cyan")
+                logger.log(`[Twitch Players] Adjusting global difficulties for our SAIN preset...`, "cyan")
 
             const difficultyData = calculateDifficulty(playerLevel);
 
@@ -342,54 +524,97 @@ class ttvPlayers {
             fs.cpSync(source, destination, { recursive: true, force: true });
 
             if (!silent)
-                logger.log(`[Twitch Players] Done adjusting! Your PMC Level: ${playerLevel}. SAIN Custom Preset Difficulty Tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
+                logger.log(`[Twitch Players] Done adjusting! Your PMC Level: ${playerLevel}. Twitch Players SAIN preset difficulty tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
         }
 
-        function handleGlobalMode() {
-            const configPersonalities = config.personalitiesToUse;
+        //*************************************************
+        //*           SAIN PRESET AUTO-UPDATE             *
+        //*************************************************
+        function checkForUpdate(localVersionPath, remoteVersionPath) {
+            const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]');
+            const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]');
 
-            if (Object.keys(configPersonalities).length > 1) {
-                const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
-                const yourNamesPath = path.join(__dirname, '../names/your_names.json');
+            // Creating folder if it doesn't exist
+            if (!fs.existsSync(destination)) {
+                if (config.debugLogging)
+                    logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
 
-                let callsignAllNames = require(namesTempPath);
-                let existingNamesData = JSON.parse(fs.readFileSync(yourNamesPath, 'utf8'));
+                fs.mkdirSync(destination, { recursive: true });
+                copyFolder(source, destination);
+            } else if (config.SAINAutoUpdatePreset) {
+                try {
+                    const localSAINData = JSON.parse(fs.readFileSync(localVersionPath, 'utf-8'));
+                    const remoteSAINData = JSON.parse(fs.readFileSync(remoteVersionPath, 'utf-8'));
 
-                const allNames = callsignAllNames.names;
-                const existingNames = existingNamesData.generatedGlobalNames || {};
-                const customNames = existingNamesData.customNames || {};
+                    const localSAINDateVer = localSAINData.DateCreated;
+                    const remoteSAINDateVer = remoteSAINData.DateCreated;
 
-                const updatedAllGlobalNames = { generatedGlobalNames: { ...existingNames } };
+                    const comparison = compareDates(localSAINDateVer, remoteSAINDateVer);
 
-                allNames.forEach(name => {
-                    if (customNames[name]) {
-                        return;
+                    if (comparison === 1) {
+                        logger.log("[Twitch Players Auto-Updater] Detected outdated custom SAIN preset! Updating...", "cyan");
+                        copyFolder(source, destination, true);
+                    } else {
+                        if (!config.junklessLogging) {
+                            logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
+                        }
                     }
-                    if (existingNames[name]) {
-                        return;
-                    }
-                    updatedAllGlobalNames.generatedGlobalNames[name] = getRandomPersonalityWithWeighting(configPersonalities);
-                });
-
-                const pathToGlobalNames = "./user/mods/TwitchPlayers/names/global_names.json";
-
-                fs.readFile(pathToGlobalNames, 'utf8', (err, data) => {
-                    if (err) throw err;
-
-                    const ttvNameData = JSON.parse(data);
-                    ttvNameData.generatedGlobalNames = { ...ttvNameData.generatedGlobalNames, ...updatedAllGlobalNames.generatedGlobalNames, ...existingNamesData.customNames }
-
-                    fs.writeFile(pathToGlobalNames, JSON.stringify(ttvNameData, null, 2), (err) => {
-                        if (err) throw err;
-                        logger.log("[Twitch Players | Global Mode] Data updated at global_names.json successfully. Pushing changes to SAIN...", "cyan");
-                        pushNewestUpdateToSAIN();
-                    });
-                });
-            } else {
-                logger.log("[Twitch Players | Global Mode] There was only one personality chosen in the config file. Falling back and pushing updates. Disable randomizePersonalitiesOnServerStart or add one more personality for this to work.", "yellow");
-                pushNewestUpdateToSAIN();
+                } catch (error) {
+                    logger.log(`[Twitch Players Auto-Updater] Error while trying to update SAIN preset! Please report this to the developer! ${error}`, "red");
+                }
             }
         }
+
+        function compareDates(date1, date2) {
+            const d1 = new Date(date1);
+            const d2 = new Date(date2);
+
+            if (d1 > d2) return 1;
+            if (d1 < d2) return -1;
+            return 0;
+        }
+
+        //*************************************************
+        //*               ROUTERS AND UTILS               *
+        //*************************************************
+        RouterService.registerStaticRouter("TTVGetProfileInfo", [{
+            url: "/launcher/profile/info",
+            action: async (url, info, sessionId, output) => {
+                const profile = JSON.parse(output);
+                const playerLevel = profile.currlvl;
+
+                if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
+                    if (config.SAINProgressiveDifficultyDesiredProfile == sessionId) {
+                        logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
+                        adjustDifficulty(playerLevel, false);
+                        runOnce = 0;
+                    } else if (!config.SAINProgressiveDifficultyDesiredProfile && runOnce) {
+                        adjustDifficulty(playerLevel, false);
+                        runOnce = 0;
+                    } else if (config.SAINProgressiveDifficultyDesiredProfile != sessionId && config.SAINProgressiveDifficulty && runOnce) {
+                        adjustDifficulty(playerLevel, false);
+                        runOnce = 0;
+                    }
+                }
+
+                return output;
+            }
+        }], "aki");
+
+        RouterService.registerStaticRouter("TTVCheckProfileLogOut", [{
+            url: "/launcher/profiles",
+            action: async (url, info, sessionId, output) => {
+
+                // Can run level and difficulty tiering once again
+                if (config.SAINProgressiveDifficulty && config.SAINProgressiveDifficultyDesiredProfile == sessionId || config.SAINProgressiveDifficulty && !config.SAINProgressiveDifficultyDesiredProfile) {
+                    runOnce = 1;
+                    logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
+                    adjustDifficulty(1, true);
+                }
+
+                return output;
+            }
+        }], "aki");
 
         function getRandomPersonalityWithWeighting(personalities) {
             const totalWeight = Object.values(personalities).reduce((sum, weight) => sum + weight, 0);
@@ -404,106 +629,7 @@ class ttvPlayers {
             }
         }
 
-        // Default handling of randomizing personalities without generating new ttv_names.json
-        function randomizePersonalitiesWithoutRegenerate() {
-            const configPersonalities = config.personalitiesToUse;
-
-            if (Object.keys(configPersonalities).length > 1) {
-                fs.readFile(pathToTTVNames, 'utf8', (err, data) => {
-                    if (err) throw err;
-
-                    const ttvNameData = JSON.parse(data);
-
-                    // Assigning new random personality to the name
-                    for (let key in ttvNameData.generatedTwitchNames) {
-                        if (ttvNameData.generatedTwitchNames.hasOwnProperty(key)) {
-                            ttvNameData.generatedTwitchNames[key] = getRandomPersonalityWithWeighting(configPersonalities);
-                        }
-                    }
-
-                    fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
-                        if (err) throw err;
-                        if (config.debugLogging)
-                            logger.log("[Twitch Players] Randomized personalities. Pushing changes to SAIN...", "cyan");
-
-                        pushNewestUpdateToSAIN();
-                    })
-                });
-            } else {
-                logger.log("[Twitch Players] There was only one personality chosen in the config file. Falling back and pushing updates. Global mod won't make any changes.", "yellow");
-                pushNewestUpdateToSAIN();
-            }
-        }
-
-        function handleLiveMode() {
-            let callsignAllNames;
-            const namesTempPath = path.join(__dirname, '../temp/names_temp.json');
-
-            try {
-                callsignAllNames = require(namesTempPath);
-
-                if (!callsignAllNames) {
-                    logger.log("[Twitch Players | Live Mode] File names_temp.json is empty... This shouldn't happen! Report this to the developer ASAP! You may want to disable live mode!", "red");
-                    return;
-                }
-
-                if (config.debugLogging)
-                    logger.log("[Twitch Players | Live Mode] Loaded BotCallsigns names...", "cyan");
-            } catch (error) {
-                logger.log("[Twitch Players | Live Mode] There was an error with loading names_temp.json! Make sure it exists in the temp mod directory!", "red");
-                return;
-            }
-
-            // Process names
-            const TTVNames = JSON.stringify(callsignAllNames.names.filter(exportedTTVName => /twitch|ttv|twiitch|_TV/i.test(exportedTTVName)));
-            const parsedTTVNames = JSON.parse(TTVNames);
-            const updatedTTVNames = { generatedTwitchNames: {} };
-
-            parsedTTVNames.forEach(name => {
-                updatedTTVNames.generatedTwitchNames[name] = getRandomPersonalityWithWeighting(config.personalitiesToUse);
-            });
-
-            fs.readFile(pathToTTVNames, 'utf8', (err, data) => {
-                if (err) throw err;
-
-                const ttvNameData = JSON.parse(data);
-                ttvNameData.generatedTwitchNames = updatedTTVNames.generatedTwitchNames;
-                fs.writeFile(pathToTTVNames, JSON.stringify(ttvNameData, null, 2), (err) => {
-                    if (err) throw err;
-                    logger.log("[Twitch Players | Live Mode] Data updated at ttv_names.json successfully! Pushing changes to SAIN...", "cyan");
-                    pushNewestUpdateToSAIN();
-                })
-            });
-        }
-
-        // Push update
-        function pushNewestUpdateToSAIN() {
-            if (!fs.existsSync(pathToSAINPersonalities)) {
-                logger.log("[Twitch Players] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.", "yellow");
-                return;
-            }
-
-            if (config.debugLogging)
-                logger.log("[Twitch Players] SAIN personalities file detected!", "green");
-
-            fs.readFile(pathToSAINPersonalities, 'utf8', (err, data) => {
-                if (err) throw err;
-                const SAINPersData = JSON.parse(data);
-
-                const yourNames = require("../names/your_names.json");
-                const combinedNames = {
-                    ...ttvNames.generatedTwitchNames,
-                    ...yourNames.customNames
-                };
-
-                SAINPersData.NicknamePersonalityMatches = config.globalMode ? globalNames.generatedGlobalNames : combinedNames;
-
-                fs.writeFile(pathToSAINPersonalities, JSON.stringify(SAINPersData, null, 2), (err) => {
-                    if (err) throw err;
-                    logger.log("[Twitch Players] Personalities data was written to SAIN file successfully!", "green");
-                });
-            });
-        }
     }
 }
-module.exports = { mod: new ttvPlayers() };
+
+module.exports = { mod: new TwitchPlayers() };

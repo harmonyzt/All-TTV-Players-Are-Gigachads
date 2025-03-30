@@ -1,14 +1,18 @@
 {
     "randomizePersonalitiesOnServerStart": false,
     "personalitiesToUse": {
-        "Wreckless": 60,
-        "GigaChad": 30
+        "Wreckless": 50,
+        "GigaChad": 30,
+        "Chad": 20
     },
+
+    "_NOTE_SAIN": "SAIN Preset Settings",
     "SAINProgressiveDifficulty": true,
     "SAINAlwaysSetPresetDefaults": true,
     "SAINAutoUpdatePreset": true,
-    "globalMode": false,
-    "debugLogging": false,
+
+    "globalMode": true,
+    "debugLogging": true,
 
     "_NOTE_FIKA": "USE THIS IF YOU'RE RUNNING FIKA!",
     "_NOTE_FIKA2": "This ensures that changes only apply if selected profile ID logs in/starts the game(tarkov itself, not the raid)",
