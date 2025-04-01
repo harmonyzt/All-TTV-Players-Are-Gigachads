@@ -4,5 +4,5 @@
     "main": "src/mod.js",
     "license": "MIT",
     "author": "harmony",
-    "sptVersion": "3.10"
+    "sptVersion": "3.11"
 }

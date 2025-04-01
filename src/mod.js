@@ -32,13 +32,13 @@ class TwitchPlayers {
         // File/Folder Paths
         const sain_NicknamePersonalities = './BepInEx/plugins/SAIN/NicknamePersonalities.json';
         const CallsignsMod = "./user/mods/BotCallsigns";
-        const tempNamesPath = path.resolve(process.cwd(), 'user/mods/TwitchPlayers/temp/dont_touch.json')
-        const customNamesPath = path.resolve(process.cwd(), 'user/mods/TwitchPlayers/names/your_names.json')
-        
+
         // Names/Personalities
-        const twitchNames = "./user/mods/TwitchPlayers/names/ttv_names.json";
         const globalNames = require("../names/global_names.json");
         const tempNames = require("../temp/dont_touch.json");
+        const twitchNames = "./user/mods/TwitchPlayers/names/ttv_names.json";
+        const tempNamesPath = path.resolve(process.cwd(), 'user/mods/TwitchPlayers/temp/dont_touch.json')
+        const customNamesPath = path.resolve(process.cwd(), 'user/mods/TwitchPlayers/names/your_names.json')
 
         // For running RouterService once
         let runOnce = 1
@@ -112,7 +112,7 @@ class TwitchPlayers {
 
             if (config.debugLogging)
                 logger.log("[Twitch Players Validator] Waiting for flag...", "cyan");
-            
+
             const namesReadyPath = path.resolve(__dirname, '../temp/mod.ready');
 
             // Check if it already exists (it shouldn't)
@@ -128,11 +128,11 @@ class TwitchPlayers {
             }, 1000);
 
             function handleFlagFound() {
-                    fs.unlinkSync(namesReadyPath);
-                    if (config.debugLogging)
-                        logger.log("[Twitch Players Validator] Detected and removed flag file from BotCallsigns mod for the next run", "cyan");
-            
-                    nameChecker();
+                fs.unlinkSync(namesReadyPath);
+                if (config.debugLogging)
+                    logger.log("[Twitch Players Validator] Detected and removed flag file from BotCallsigns mod for the next run", "cyan");
+
+                nameChecker();
             }
         }
 
@@ -143,7 +143,7 @@ class TwitchPlayers {
             const BC_USECExtra = path.resolve(process.cwd(), 'user/mods/BotCallsigns/config/usec_extra_names.json');
             let allNames = [];
             let isTTVfileUpdateNeeded = false;
-        
+
             function loadNamesFromFile(filePath) {
                 try {
                     const rawData = fs.readFileSync(filePath, 'utf-8');
@@ -154,56 +154,56 @@ class TwitchPlayers {
                     return [];
                 }
             }
-        
+
             // Default names
             const mainNames = [
                 ...loadNamesFromFile(BC_BEAR),
                 ...loadNamesFromFile(BC_USEC)
             ];
-        
+
             // Extra names if enabled in BotCallsigns
             if (CallsignConfig.addExtraNames) {
-                if(config.debugLogging)
+                if (config.debugLogging)
                     logger.log("[Twitch Players Validator] Checking Extra names from BotCallsigns", "cyan");
-                
+
                 const extraNames = [
                     ...loadNamesFromFile(BC_BEARExtra),
                     ...loadNamesFromFile(BC_USECExtra)
                 ];
                 allNames = [...mainNames, ...extraNames];
             } else {
-                if(config.debugLogging)
+                if (config.debugLogging)
                     logger.log("[Twitch Players Validator] Checking Names from BotCallsigns", "cyan");
-                
+
                 allNames = mainNames;
             }
-        
+
             const uniqueNames = [...new Set(allNames)];
             const newTempData = { Names: uniqueNames };
-        
+
             // Check if file update needed
             const namesChanged = (
                 uniqueNames.length !== tempNames.Names.length ||
                 !uniqueNames.every(name => tempNames.Names.includes(name))
             );
-        
+
             if (namesChanged) {
                 try {
                     fs.writeFileSync(tempNamesPath, JSON.stringify(newTempData, null, 2));
                     isTTVfileUpdateNeeded = true;
 
-                    if(config.debugLogging)
+                    if (config.debugLogging)
                         logger.log(`[Twitch Players Validator] Updated our temp file with ${uniqueNames.length} names`, "cyan");
                 } catch (error) {
-                    if(config.debugLogging)
+                    if (config.debugLogging)
                         logger.log(`[Twitch Players Validator] Failed to update temp file: ${error.message}`, "red");
                 }
             } else {
                 logger.log("[Twitch Players Validator] No name changes detected", "cyan");
             }
-        
+
             configManager(newTempData, isTTVfileUpdateNeeded);
-            
+
             return newTempData;
         }
 
@@ -246,21 +246,21 @@ class TwitchPlayers {
         }
 
         // WTF to do?
-        function modThink(NamesData){
-                // If no changes were amde to config
-                if (!config.randomizePersonalitiesOnServerStart && !config.globalMode) {
-                    pushNewestUpdateToSAIN();
-                }
+        function modThink(NamesData) {
+            // If no changes were made to config
+            if (!config.randomizePersonalitiesOnServerStart && !config.globalMode) {
+                pushNewestUpdateToSAIN();
+            }
 
-                // If randomizePersonalitiesOnServerStart
-                if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
-                    randomizePersonalitiesWithoutRegenerate();
-                }
+            // If randomizePersonalitiesOnServerStart
+            if (!config.globalMode && config.randomizePersonalitiesOnServerStart) {
+                randomizePersonalitiesWithoutRegenerate();
+            }
 
-                // If global mode
-                if(config.globalMode && !config.randomizePersonalitiesOnServerStart) {
-                    handleGlobalMode(NamesData);
-                }
+            // If global mode
+            if (config.globalMode && !config.randomizePersonalitiesOnServerStart) {
+                handleGlobalMode(NamesData);
+            }
         }
 
         //*************************************************
@@ -290,7 +290,6 @@ class TwitchPlayers {
                     if (config.debugLogging)
                         logger.log("[Twitch Players] Updated our main file ttv_names.json", "cyan");
 
-                    // DONT FIXME
                     modThink();
                 })
             });
@@ -338,7 +337,7 @@ class TwitchPlayers {
             }
         }
 
-        // Default handling of randomizing personalities without generating new ttv_names.json
+        // Default handling of randomizing personalities without regenerating ttv_names.json
         function randomizePersonalitiesWithoutRegenerate() {
             const configPersonalities = config.personalitiesToUse;
 
