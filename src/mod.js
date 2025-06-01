@@ -385,8 +385,12 @@ class TwitchPlayers {
                 const SAINPersData = JSON.parse(data);
 
                 const yourNames = require("../names/your_names.json");
+
+                const rawData = fs.readFileSync(twitchNames, "utf8");
+                const twitchNamesFile = JSON.parse(rawData);
+
                 const combinedNames = {
-                    ...twitchNames.generatedTwitchNames,
+                    ...twitchNamesFile.generatedTwitchNames,
                     ...yourNames.customNames
                 };
 
