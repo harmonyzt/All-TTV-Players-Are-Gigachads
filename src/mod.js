@@ -90,11 +90,13 @@ class TwitchPlayers {
         //*                  MISC                         *
         //*************************************************
 
-        // Check if player is running Performance Improvements mod that causes unknown crashes/bugs with experimental patches on
-        const isRunningPerfImp = "./BepInEx/plugins/PerformanceImprovements.dll";
-        if (fs.existsSync(isRunningPerfImp)) {
-            logger.log("[Twitch Players INFO] You're running Performance Improvements mod which is known to cause crashes/bugs. If you see this message and crash to desktop in raid/experience any bugs, please consider disabling Experimental Patches in Performance Improvements mod settings (F12 Menu).", "yellow");
-            logger.log("[Twitch Players INFO] This is just a warning. The mod will continue to function as intended.", "yellow");
+        function copyFolder(srcFolder, destFolder) {
+            try {
+                fs.cpSync(srcFolder, destFolder, { recursive: true, force: true });
+                logger.log("[Twitch Players Auto-Updater] Successfully installed latest custom SAIN preset. You can find in F6 menu!", "cyan");
+            } catch (error) {
+                logger.log(`[Twitch Players Auto-Updater] Error when tried updating/installing our SAIN preset! ${error.message}`, "red");
+            }
         }
 
         flagChecker();
@@ -539,6 +541,7 @@ class TwitchPlayers {
                     logger.log("[Twitch Players Auto-Updater] First time setup detected. Installing SAIN preset...", "cyan");
 
                 fs.mkdirSync(destination, { recursive: true });
+
                 copyFolder(source, destination);
             } else if (config.SAINAutoUpdatePreset) {
                 try {
@@ -554,9 +557,8 @@ class TwitchPlayers {
                         logger.log("[Twitch Players Auto-Updater] Detected outdated custom SAIN preset! Updating...", "cyan");
                         copyFolder(source, destination, true);
                     } else {
-                        if (!config.junklessLogging) {
+                        if (config.debugLogging)
                             logger.log("[Twitch Players Auto-Updater] Using latest custom SAIN preset.", "cyan");
-                        }
                     }
                 } catch (error) {
                     logger.log(`[Twitch Players Auto-Updater] Error while trying to update SAIN preset! Please report this to the developer! ${error}`, "red");

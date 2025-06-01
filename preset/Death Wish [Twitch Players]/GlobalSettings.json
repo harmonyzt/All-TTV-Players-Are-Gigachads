@@ -1,15 +1,16 @@
 {
   "Difficulty": {
-    "VisibleDistCoef": 1,
-    "GainSightCoef": 1,
-    "ScatteringCoef": 1,
-    "HearingDistanceCoef": 1,
-    "AggressionCoef": 1,
-    "PrecisionSpeedCoef": 1,
-    "AccuracySpeedCoef": 1
+    "VisibleDistCoef": 2.3,
+    "GainSightCoef": 0.6,
+    "ScatteringCoef": 0.3,
+    "HearingDistanceCoef": 1.8,
+    "AggressionCoef": 1.4,
+    "PrecisionSpeedCoef": 0.6,
+    "AccuracySpeedCoef": 0.6
   },
   "General": {
     "BotsUseGrenades": true,
+    "BotVsBotGrenade": true,
     "BotWeightEffects": true,
     "VanillaBots": {
       "VanillaScavs": true,
