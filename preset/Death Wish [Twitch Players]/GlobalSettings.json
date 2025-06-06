@@ -157,8 +157,8 @@
     "ScatterMulti_PartVis": 1.25,
     "OpticFarMulti": 1.2,
     "OpticFarDistance": 100,
-    "OpticCloseMulti": 0.8,
-    "OpticCloseDistance": 75,
+    "OpticCloseMulti": 0.5,
+    "OpticCloseDistance": 35,
     "RedDotFarMulti": 0.85,
     "RedDotFarDistance": 100,
     "RedDotCloseMulti": 1.15,
@@ -170,7 +170,7 @@
     "FasterCQBReactionsGlobal": true,
     "AimDownSightsAimTimeMultiplier": 0.8,
     "PMCSAimForHead": true,
-    "PMCAimForHeadChance": 30
+    "PMCAimForHeadChance": 10
   },
   "Hearing": {
     "RAIN_SOUND_COEF_OUTSIDE": 0.5,

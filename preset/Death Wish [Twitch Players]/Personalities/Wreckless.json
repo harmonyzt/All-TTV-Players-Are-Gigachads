@@ -82,7 +82,7 @@
     "Rush": {
       "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 50.0,
+      "JumpCornerChance": 80.0,
       "CanBunnyHop": true,
       "BunnyHopChance": 50.0
     },

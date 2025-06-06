@@ -75,7 +75,16 @@ class TwitchPlayers {
                     "Yaros_Nefrit": "Wreckless",
                     "Deadp47": "Wreckless",
                     "DISTRUCT": "Wreckless",
-                    "GeorG": "Wreckless"
+                    "GeorG": "Wreckless",
+                    "DrakiaXYZ": "SnappingTurtle",
+                    "RaiRaiTheRaichu": "Wreckless",
+                    "Refringe": "SnappingTurtle",
+                    "Chomp": "SnappingTurtle",
+                    "100KmhAMGPeek": "Wreckless",
+                    "waffle.lord": "SnappingTurtle",
+                    "Amands2Mello": "Wreckless",
+                    "CWX": "SnappingTurtle",
+                    "Jehree": "Wreckless"
                 }
             };
             try {
@@ -234,7 +243,7 @@ class TwitchPlayers {
                 return;
             }
 
-            // If user has progressive difficulty disabled, always set preset defaults
+            // If user has progressive difficulty disabled, set preset defaults
             if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
                 adjustDifficulty(50, true);
             }
@@ -450,7 +459,7 @@ class TwitchPlayers {
                         VisibleDistCoef: 1.2,
                         GainSightCoef: 0.9,
                         ScatteringCoef: 0.9,
-                        HearingDistanceCoef: 1.2,
+                        HearingDistanceCoef: 1.1,
                         AggressionCoef: 1.0,
                         PrecisionSpeedCoef: 0.9,
                         AccuracySpeedCoef: 0.9,
@@ -462,7 +471,7 @@ class TwitchPlayers {
                         VisibleDistCoef: 2.0,
                         GainSightCoef: 0.8,
                         ScatteringCoef: 0.8,
-                        HearingDistanceCoef: 1.4,
+                        HearingDistanceCoef: 1.15,
                         AggressionCoef: 1.0,
                         PrecisionSpeedCoef: 0.8,
                         AccuracySpeedCoef: 0.8,
@@ -474,7 +483,7 @@ class TwitchPlayers {
                         VisibleDistCoef: 2.2,
                         GainSightCoef: 0.7,
                         ScatteringCoef: 0.7,
-                        HearingDistanceCoef: 1.6,
+                        HearingDistanceCoef: 1.3,
                         AggressionCoef: 1.3,
                         PrecisionSpeedCoef: 0.7,
                         AccuracySpeedCoef: 0.7,
@@ -486,7 +495,7 @@ class TwitchPlayers {
                         VisibleDistCoef: 2.3,
                         GainSightCoef: 0.6,
                         ScatteringCoef: 0.3,
-                        HearingDistanceCoef: 1.8,
+                        HearingDistanceCoef: 1.5,
                         AggressionCoef: 1.4,
                         PrecisionSpeedCoef: 0.6,
                         AccuracySpeedCoef: 0.6,

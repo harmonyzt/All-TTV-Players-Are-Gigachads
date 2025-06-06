@@ -46,8 +46,8 @@
     },
     "Rush": {
       "CanRushEnemyReloadHeal": true,
-      "CanJumpCorners": false,
-      "JumpCornerChance": 0.0,
+      "CanJumpCorners": true,
+      "JumpCornerChance": 20.0,
       "CanBunnyHop": false,
       "BunnyHopChance": 0.0
     },
