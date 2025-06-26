@@ -30,7 +30,7 @@
     "Search": {
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
-      "HeardFromPeaceBehavior": "Freeze",
+      "HeardFromPeaceBehavior": "Charge",
       "WillChaseDistantGunshots": false,
       "AudioStraightDistanceToIgnore": 125.0,
       "SearchBaseTime": 90.0,
@@ -47,9 +47,9 @@
     "Rush": {
       "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 100.0,
+      "JumpCornerChance": 90.0,
       "CanBunnyHop": true,
-      "BunnyHopChance": 20.0
+      "BunnyHopChance": 40.0
     },
     "Cover": {
       "CanShiftCoverPosition": false,

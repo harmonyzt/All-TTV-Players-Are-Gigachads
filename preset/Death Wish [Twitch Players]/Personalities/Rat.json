@@ -53,7 +53,7 @@
   },
   "Behavior": {
     "General": {
-      "AggressionMultiplier": 1.0,
+      "AggressionMultiplier": 0.7,
       "KickOpenAllDoors": false,
       "HoldGroundBaseTime": 1.0,
       "HoldGroundMinRandom": 0.75,

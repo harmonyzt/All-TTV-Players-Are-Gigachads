@@ -480,7 +480,7 @@ class TwitchPlayers {
                 {
                     levelRange: [40, 49],
                     settings: {
-                        VisibleDistCoef: 2.2,
+                        VisibleDistCoef: 2.1,
                         GainSightCoef: 0.7,
                         ScatteringCoef: 0.7,
                         HearingDistanceCoef: 0.7,
@@ -492,10 +492,10 @@ class TwitchPlayers {
                 {
                     levelRange: [50, 59],
                     settings: {
-                        VisibleDistCoef: 2.3,
+                        VisibleDistCoef: 2.2,
                         GainSightCoef: 0.6,
                         ScatteringCoef: 0.3,
-                        HearingDistanceCoef: 0.8,
+                        HearingDistanceCoef: 0.75,
                         AggressionCoef: 0.8,
                         PrecisionSpeedCoef: 0.6,
                         AccuracySpeedCoef: 0.6,
@@ -504,11 +504,11 @@ class TwitchPlayers {
                 {
                     levelRange: [60, 99],
                     settings: {
-                        VisibleDistCoef: 2.5,
+                        VisibleDistCoef: 2.3,
                         GainSightCoef: 0.5,
                         ScatteringCoef: 0.01,
-                        HearingDistanceCoef: 0.9,
-                        AggressionCoef: 1.5,
+                        HearingDistanceCoef: 0.8,
+                        AggressionCoef: 1.2,
                         PrecisionSpeedCoef: 0.3,
                         AccuracySpeedCoef: 0.4,
                     },

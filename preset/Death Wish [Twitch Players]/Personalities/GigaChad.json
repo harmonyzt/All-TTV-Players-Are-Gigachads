@@ -1,6 +1,6 @@
 {
   "Name": "GigaChad",
-  "Description": "A true alpha threat. Hyper Aggressive.",
+  "Description": "Your casual sweat twitch streamer with 5 viewers on average. Hyper Aggressive.",
   "Assignment": {
     "Enabled": true,
     "CanBeRandomlyAssigned": false,
@@ -30,7 +30,7 @@
     "Search": {
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
-      "HeardFromPeaceBehavior": "SearchNow",
+      "HeardFromPeaceBehavior": "Charge",
       "WillChaseDistantGunshots": false,
       "AudioStraightDistanceToIgnore": 125.0,
       "SearchBaseTime": 6.0,
@@ -47,7 +47,7 @@
     "Rush": {
       "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 45.0,
+      "JumpCornerChance": 75.0,
       "CanBunnyHop": true,
       "BunnyHopChance": 50.0
     },
@@ -76,8 +76,8 @@
     "VisibleDistCoef": 1.3,
     "GainSightCoef": 0.8,
     "ScatteringCoef": 0.8,
-    "HearingDistanceCoef": 1.3,
-    "AggressionCoef": 2.0,
+    "HearingDistanceCoef": 0.9,
+    "AggressionCoef": 1.5,
     "PrecisionSpeedCoef": 0.8,
     "AccuracySpeedCoef": 0.8
   }

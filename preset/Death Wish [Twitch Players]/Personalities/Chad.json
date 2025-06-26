@@ -76,8 +76,8 @@
     "VisibleDistCoef": 1.0,
     "GainSightCoef": 1.0,
     "ScatteringCoef": 1.0,
-    "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 2.0,
+    "HearingDistanceCoef": 0.8,
+    "AggressionCoef": 1.5,
     "PrecisionSpeedCoef": 1.0,
     "AccuracySpeedCoef": 1.0
   }
