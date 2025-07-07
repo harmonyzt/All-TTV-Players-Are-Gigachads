@@ -3,7 +3,7 @@
   "Description": "A New Player, terrified of everything.",
   "Assignment": {
     "Enabled": true,
-    "CanBeRandomlyAssigned": true,
+    "CanBeRandomlyAssigned": false,
     "RandomlyAssignedChance": 0.0,
     "MinLevel": 0.0,
     "MaxLevel": 15.0,
@@ -85,7 +85,7 @@
       "BunnyHopChance": 0.0
     },
     "Cover": {
-      "CanShiftCoverPosition": true,
+      "CanShiftCoverPosition": false,
       "ShiftCoverTimeMultiplier": 0.5,
       "MoveToCoverNoEnemySpeed": 0.5,
       "MoveToCoverNoEnemyPose": 1.0,
@@ -106,8 +106,8 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 0.8,
-    "GainSightCoef": 1.35,
+    "VisibleDistCoef": 1.0,
+    "GainSightCoef": 1.0,
     "ScatteringCoef": 1.0,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,

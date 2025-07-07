@@ -3,7 +3,7 @@
   "Description": "An aggressive player. More aggressive than usual.",
   "Assignment": {
     "Enabled": true,
-    "CanBeRandomlyAssigned": false,
+    "CanBeRandomlyAssigned": true,
     "RandomlyAssignedChance": 8.0,
     "MinLevel": 0.0,
     "MaxLevel": 100.0,
@@ -31,7 +31,7 @@
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
       "HeardFromPeaceBehavior": "Freeze",
-      "WillChaseDistantGunshots": false,
+      "WillChaseDistantGunshots": true,
       "AudioStraightDistanceToIgnore": 125.0,
       "SearchBaseTime": 16.0,
       "SearchWaitMultiplier": 1.0,
@@ -46,8 +46,8 @@
     },
     "Rush": {
       "CanRushEnemyReloadHeal": true,
-      "CanJumpCorners": true,
-      "JumpCornerChance": 20.0,
+      "CanJumpCorners": false,
+      "JumpCornerChance": 0.0,
       "CanBunnyHop": false,
       "BunnyHopChance": 0.0
     },
@@ -60,8 +60,8 @@
       "MoveToCoverHasEnemyPose": 1.0
     },
     "Talk": {
-      "CanTaunt": false,
-      "FrequentTaunt": false,
+      "CanTaunt": true,
+      "FrequentTaunt": true,
       "ConstantTaunt": false,
       "CanRespondToEnemyVoice": false,
       "TauntFrequency": 20.0,
@@ -76,8 +76,8 @@
     "VisibleDistCoef": 1.0,
     "GainSightCoef": 1.0,
     "ScatteringCoef": 1.0,
-    "HearingDistanceCoef": 0.8,
-    "AggressionCoef": 1.5,
+    "HearingDistanceCoef": 1.0,
+    "AggressionCoef": 1.0,
     "PrecisionSpeedCoef": 1.0,
     "AccuracySpeedCoef": 1.0
   }

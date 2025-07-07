@@ -55,7 +55,7 @@
   },
   "Behavior": {
     "General": {
-      "AggressionMultiplier": 0.7,
+      "AggressionMultiplier": 1.0,
       "KickOpenAllDoors": false,
       "HoldGroundBaseTime": 1.0,
       "HoldGroundMinRandom": 0.5,
@@ -108,10 +108,10 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 0.7,
-    "GainSightCoef": 1.0,
+    "VisibleDistCoef": 0.8,
+    "GainSightCoef": 0.8,
     "ScatteringCoef": 1.0,
-    "HearingDistanceCoef": 0.7,
+    "HearingDistanceCoef": 0.8,
     "AggressionCoef": 1.0,
     "PrecisionSpeedCoef": 1.0,
     "AccuracySpeedCoef": 1.0

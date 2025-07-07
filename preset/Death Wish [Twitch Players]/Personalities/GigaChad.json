@@ -5,7 +5,7 @@
     "Enabled": true,
     "CanBeRandomlyAssigned": false,
     "RandomlyAssignedChance": 3.0,
-    "MinLevel": 20.0,
+    "MinLevel": 50.0,
     "MaxLevel": 100.0,
     "PowerLevelScaleStart": 250.0,
     "PowerLevelScaleEnd": 500.0,
@@ -22,7 +22,7 @@
     "General": {
       "AggressionMultiplier": 1.5,
       "KickOpenAllDoors": true,
-      "HoldGroundBaseTime": 1.2,
+      "HoldGroundBaseTime": 1.25,
       "HoldGroundMinRandom": 0.65,
       "HoldGroundMaxRandom": 1.5,
       "SuppressionResistance": 0.0
@@ -30,8 +30,8 @@
     "Search": {
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
-      "HeardFromPeaceBehavior": "Charge",
-      "WillChaseDistantGunshots": false,
+      "HeardFromPeaceBehavior": "SearchNow",
+      "WillChaseDistantGunshots": true,
       "AudioStraightDistanceToIgnore": 125.0,
       "SearchBaseTime": 6.0,
       "SearchWaitMultiplier": 3.0,
@@ -47,9 +47,9 @@
     "Rush": {
       "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 75.0,
+      "JumpCornerChance": 90.0,
       "CanBunnyHop": true,
-      "BunnyHopChance": 50.0
+      "BunnyHopChance": 90.0
     },
     "Cover": {
       "CanShiftCoverPosition": false,
@@ -60,25 +60,25 @@
       "MoveToCoverHasEnemyPose": 1.0
     },
     "Talk": {
-      "CanTaunt": false,
-      "FrequentTaunt": false,
-      "ConstantTaunt": false,
+      "CanTaunt": true,
+      "FrequentTaunt": true,
+      "ConstantTaunt": true,
       "CanRespondToEnemyVoice": false,
       "TauntFrequency": 8.0,
       "TauntChance": 45.0,
       "TauntMaxDistance": 65.0,
       "CanFakeDeathRare": true,
       "FakeDeathChance": 3.0,
-      "CanBegForLife": true
+      "CanBegForLife": false
     }
   },
   "Difficulty": {
     "VisibleDistCoef": 1.3,
-    "GainSightCoef": 0.8,
-    "ScatteringCoef": 0.8,
-    "HearingDistanceCoef": 0.9,
-    "AggressionCoef": 1.5,
-    "PrecisionSpeedCoef": 0.8,
-    "AccuracySpeedCoef": 0.8
+    "GainSightCoef": 0.7,
+    "ScatteringCoef": 0.6,
+    "HearingDistanceCoef": 1.2,
+    "AggressionCoef": 1.4,
+    "PrecisionSpeedCoef": 0.5,
+    "AccuracySpeedCoef": 0.5
   }
 }

@@ -1,18 +1,18 @@
 {
   "Name": "Wreckless",
-  "Description": "You'll be the lucky one to survive this guy.",
+  "Description": "This personality tends to sprint at their enemies, and will very frequently scream at everyone - Usually both at the same time. More Aggressive than Gigachads.",
   "Assignment": {
     "Enabled": true,
-    "CanBeRandomlyAssigned": false,
+    "CanBeRandomlyAssigned": true,
     "RandomlyAssignedChance": 1.0,
-    "MinLevel": 50.0,
+    "MinLevel": 0.0,
     "MaxLevel": 100.0,
     "PowerLevelScaleStart": 250.0,
     "PowerLevelScaleEnd": 500.0,
     "InverseScale": false,
     "PowerLevelMin": 250.0,
     "PowerLevelMax": 1000.0,
-    "MaxChanceIfMeetRequirements": 1.0,
+    "MaxChanceIfMeetRequirements": 5.0,
     "AllowedTypes": [
       "assault",
       "assaultGroup",
@@ -55,12 +55,12 @@
   },
   "Behavior": {
     "General": {
-      "AggressionMultiplier": 1.7,
+      "AggressionMultiplier": 1.0,
       "KickOpenAllDoors": true,
       "HoldGroundBaseTime": 2.0,
       "HoldGroundMinRandom": 0.75,
       "HoldGroundMaxRandom": 2.5,
-      "SuppressionResistance": 0.6
+      "SuppressionResistance": 0.0
     },
     "Search": {
       "WillSearchForEnemy": true,
@@ -69,7 +69,7 @@
       "WillChaseDistantGunshots": true,
       "AudioStraightDistanceToIgnore": 125.0,
       "SearchBaseTime": 0.1,
-      "SearchWaitMultiplier": 1.5,
+      "SearchWaitMultiplier": 1.0,
       "SprintWhileSearchChance": 100.0,
       "Sneaky": false,
       "SneakySpeed": 1.0,
@@ -82,12 +82,12 @@
     "Rush": {
       "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 80.0,
+      "JumpCornerChance": 90.0,
       "CanBunnyHop": true,
-      "BunnyHopChance": 50.0
+      "BunnyHopChance": 90.0
     },
     "Cover": {
-      "CanShiftCoverPosition": false,
+      "CanShiftCoverPosition": true,
       "ShiftCoverTimeMultiplier": 0.5,
       "MoveToCoverNoEnemySpeed": 1.0,
       "MoveToCoverNoEnemyPose": 1.0,
