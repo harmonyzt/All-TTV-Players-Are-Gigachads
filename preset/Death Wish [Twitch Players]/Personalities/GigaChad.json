@@ -1,11 +1,11 @@
 {
   "Name": "GigaChad",
-  "Description": "Your casual sweat twitch streamer with 5 viewers on average. Hyper Aggressive.",
+  "Description": "A true alpha threat. Hyper Aggressive and typically wearing high tier equipment.",
   "Assignment": {
     "Enabled": true,
-    "CanBeRandomlyAssigned": false,
+    "CanBeRandomlyAssigned": true,
     "RandomlyAssignedChance": 3.0,
-    "MinLevel": 50.0,
+    "MinLevel": 0.0,
     "MaxLevel": 100.0,
     "PowerLevelScaleStart": 250.0,
     "PowerLevelScaleEnd": 500.0,
@@ -20,9 +20,9 @@
   },
   "Behavior": {
     "General": {
-      "AggressionMultiplier": 1.5,
+      "AggressionMultiplier": 1.0,
       "KickOpenAllDoors": true,
-      "HoldGroundBaseTime": 1.25,
+      "HoldGroundBaseTime": 1.2,
       "HoldGroundMinRandom": 0.65,
       "HoldGroundMaxRandom": 1.5,
       "SuppressionResistance": 0.0
@@ -47,12 +47,12 @@
     "Rush": {
       "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 90.0,
+      "JumpCornerChance": 80.0,
       "CanBunnyHop": true,
-      "BunnyHopChance": 90.0
+      "BunnyHopChance": 15.0
     },
     "Cover": {
-      "CanShiftCoverPosition": false,
+      "CanShiftCoverPosition": true,
       "ShiftCoverTimeMultiplier": 0.5,
       "MoveToCoverNoEnemySpeed": 1.0,
       "MoveToCoverNoEnemyPose": 1.0,
@@ -73,11 +73,11 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 1.3,
-    "GainSightCoef": 0.7,
-    "ScatteringCoef": 0.6,
-    "HearingDistanceCoef": 1.2,
-    "AggressionCoef": 1.4,
+    "VisibleDistCoef": 1.0,
+    "GainSightCoef": 1.0,
+    "ScatteringCoef": 1.0,
+    "HearingDistanceCoef": 1.0,
+    "AggressionCoef": 1.0,
     "PrecisionSpeedCoef": 0.5,
     "AccuracySpeedCoef": 0.5
   }

@@ -17,13 +17,13 @@ class TwitchPlayers {
     CFG = require("../cfg/config.json");
     // Using BotCallsigns config file
     constructor() {
-        this.CallsignsConfigPath = path.resolve(__dirname, '../../BotCallsigns/config/config.json');
-        const data = fs.readFileSync(this.CallsignsConfigPath, 'utf8');
-        this.CallsignsConfig = JSON.parse(data);
+        //this.CallsignsConfigPath = path.resolve(__dirname, '../../BotCallsigns/config/config.json');
+        //const data = fs.readFileSync(this.CallsignsConfigPath, 'utf8');
+        //this.CallsignsConfig = JSON.parse(data);
     }
 
     preSptLoad(container) {
-        const { CFG: config, CallsignsConfig: CallsignConfig } = this;
+        const { CFG: config } = this;
 
         // Other
         const RouterService = container.resolve("StaticRouterModService");
@@ -173,21 +173,24 @@ class TwitchPlayers {
             ];
 
             // Extra names if enabled in BotCallsigns
-            if (CallsignConfig.addExtraNames) {
-                if (config.debugLogging)
-                    logger.log("[Twitch Players Validator] Checking Extra names from BotCallsigns", "cyan");
+            //if (CallsignConfig.addExtraNames) {
+            //    if (config.debugLogging)
+            //        logger.log("[Twitch Players Validator] Checking Extra names from BotCallsigns", "cyan");
+            //
+            //    const extraNames = [
+            //        ...loadNamesFromFile(BC_BEARExtra),
+            //        ...loadNamesFromFile(BC_USECExtra)
+            //    ];
+            //    allNames = [...mainNames, ...extraNames];
+            //} else {
+            //    if (config.debugLogging)
+            //        logger.log("[Twitch Players Validator] Checking Names from BotCallsigns", "cyan");
+            //
+            //    allNames = mainNames;
+            //}
 
-                const extraNames = [
-                    ...loadNamesFromFile(BC_BEARExtra),
-                    ...loadNamesFromFile(BC_USECExtra)
-                ];
-                allNames = [...mainNames, ...extraNames];
-            } else {
-                if (config.debugLogging)
-                    logger.log("[Twitch Players Validator] Checking Names from BotCallsigns", "cyan");
-
-                allNames = mainNames;
-            }
+            // Temporary. Disabled bot callsigns support for now.
+            allNames = mainNames;
 
             const uniqueNames = [...new Set(allNames)];
             const newTempData = { Names: uniqueNames };
@@ -232,10 +235,10 @@ class TwitchPlayers {
             }
 
             // If for some reason BotCallsigns config was not found
-            if (!CallsignConfig) {
-                logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.", "red");
-                return;
-            }
+            //if (!CallsignConfig) {
+            //    logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.", "red");
+            //    return;
+            //}
 
             // Tell user to change one of the settings
             if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
@@ -244,9 +247,9 @@ class TwitchPlayers {
             }
 
             // If user has progressive difficulty disabled, set preset defaults
-            if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
-                adjustDifficulty(50, true);
-            }
+            //if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
+            //    adjustDifficulty(50, true);
+            //}
 
             // If update to the file needed, we do that, and then whatever we want after
             if (updateTTVfile) {
@@ -599,15 +602,15 @@ class TwitchPlayers {
 
                 if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
                     if (config.SAINProgressiveDifficultyDesiredProfile == sessionId) {
-                        logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
-                        adjustDifficulty(playerLevel, false);
+                        //logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
+                        //adjustDifficulty(playerLevel, false);
                         runOnce = 0;
                     } else if (!config.SAINProgressiveDifficultyDesiredProfile && runOnce) {
-                        adjustDifficulty(playerLevel, false);
-                        runOnce = 0;
+                        //adjustDifficulty(playerLevel, false);
+                        //runOnce = 0;
                     } else if (config.SAINProgressiveDifficultyDesiredProfile != sessionId && config.SAINProgressiveDifficulty && runOnce) {
-                        adjustDifficulty(playerLevel, false);
-                        runOnce = 0;
+                        //adjustDifficulty(playerLevel, false);
+                        //runOnce = 0;
                     }
                 }
 
@@ -622,8 +625,8 @@ class TwitchPlayers {
                 // Can run level and difficulty tiering once again
                 if (config.SAINProgressiveDifficulty && config.SAINProgressiveDifficultyDesiredProfile == sessionId || config.SAINProgressiveDifficulty && !config.SAINProgressiveDifficultyDesiredProfile) {
                     runOnce = 1;
-                    logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
-                    adjustDifficulty(1, true);
+                    //logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
+                    //adjustDifficulty(1, true);
                 }
 
                 return output;

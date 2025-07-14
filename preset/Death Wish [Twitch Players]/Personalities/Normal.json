@@ -98,7 +98,7 @@
       "CanTaunt": false,
       "FrequentTaunt": false,
       "ConstantTaunt": false,
-      "CanRespondToEnemyVoice": false,
+      "CanRespondToEnemyVoice": true,
       "TauntFrequency": 10.0,
       "TauntChance": 50.0,
       "TauntMaxDistance": 50.0,
@@ -108,10 +108,10 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 0.8,
-    "GainSightCoef": 0.8,
+    "VisibleDistCoef": 1.0,
+    "GainSightCoef": 1.0,
     "ScatteringCoef": 1.0,
-    "HearingDistanceCoef": 0.8,
+    "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
     "PrecisionSpeedCoef": 1.0,
     "AccuracySpeedCoef": 1.0

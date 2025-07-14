@@ -61,7 +61,7 @@
       "SuppressionResistance": 0.0
     },
     "Search": {
-      "WillSearchForEnemy": false,
+      "WillSearchForEnemy": true,
       "WillSearchFromAudio": false,
       "HeardFromPeaceBehavior": "Freeze",
       "WillChaseDistantGunshots": false,
