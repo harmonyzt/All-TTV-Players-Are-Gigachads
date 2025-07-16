@@ -48,12 +48,10 @@ class TwitchPlayers {
             const defaultStructure = {
                 customNames: {
                     "RealCustomsRat": "Rat",
-                    "team-killer": "Timmy",
-                    "Ownage": "Normal",
                     "jinglemyballs": "Chad",
                     "Chad_Slayer": "GigaChad",
-                    "Solaraint": "SnappingTurtle",
-                    "LVNDMARK": "Wreckless",
+                    "Solaraint": "Wreckless",
+                    "LVNDMARK": "SnappingTurtle",
                     "zero_deaths": "Wreckless",
                     "NoGenerals": "Wreckless",
                     "inseq": "Wreckless",
@@ -84,7 +82,9 @@ class TwitchPlayers {
                     "waffle.lord": "SnappingTurtle",
                     "Amands2Mello": "Wreckless",
                     "CWX": "SnappingTurtle",
-                    "Jehree": "Wreckless"
+                    "Jehree": "Wreckless",
+                    "BigShlongHaver": "SnappingTurtle",
+                    "BIGDICK18CM": "Wreckless"
                 }
             };
             try {
@@ -284,7 +284,7 @@ class TwitchPlayers {
         function updateTTVJSfile(BotNameData) {
             // Process names
             const TTVNames = BotNameData.Names.filter(exportedTTVName =>
-                /twitch|ttv|twiitch|_TV/i.test(exportedTTVName)
+                /twitch|ttv|twiitch|chad|gigachad|_TV/i.test(exportedTTVName)
             );
 
             const updatedTTVNames = { generatedTwitchNames: {} };
