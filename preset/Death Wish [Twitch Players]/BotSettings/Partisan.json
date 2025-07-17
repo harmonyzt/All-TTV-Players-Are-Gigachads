@@ -97,7 +97,7 @@
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
-        "RecoilMultiplier": 1.0,
+        "RecoilMultiplier": 0.25,
         "BurstMulti": 1.5,
         "FireratMulti": 1.5,
         "MaxPointFireDistance": 150.0,
@@ -200,7 +200,7 @@
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
-        "RecoilMultiplier": 1.0,
+        "RecoilMultiplier": 0.25,
         "BurstMulti": 1.5,
         "FireratMulti": 1.5,
         "MaxPointFireDistance": 150.0,
@@ -303,7 +303,7 @@
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
-        "RecoilMultiplier": 1.0,
+        "RecoilMultiplier": 0.25,
         "BurstMulti": 1.5,
         "FireratMulti": 1.5,
         "MaxPointFireDistance": 150.0,
@@ -406,7 +406,7 @@
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
-        "RecoilMultiplier": 1.0,
+        "RecoilMultiplier": 0.25,
         "BurstMulti": 1.5,
         "FireratMulti": 1.5,
         "MaxPointFireDistance": 150.0,

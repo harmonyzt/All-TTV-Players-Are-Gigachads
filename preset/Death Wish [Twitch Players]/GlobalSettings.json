@@ -5,8 +5,8 @@
         "ScatteringCoef": 0.01,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 0.5,
-        "AccuracySpeedCoef": 0.5
+        "PrecisionSpeedCoef": 0.15,
+        "AccuracySpeedCoef": 0.15
     },
     "General": {
         "BotsUseGrenades": true,
@@ -151,8 +151,8 @@
         "EnemyVelocityMaxBuff": 1.2,
         "EnemyVelocityMaxDebuff": 0.8,
         "EnemySprintingScatterMulti": 0.66,
-        "ScatterMulti_PoseLevel": 1.2,
-        "ScatterMulti_Prone": 1.3,
+        "ScatterMulti_PoseLevel": 1.3,
+        "ScatterMulti_Prone": 1.5,
         "ScatterMulti_PartVis": 1.25,
         "OpticFarMulti": 1.2,
         "OpticFarDistance": 100.0,
@@ -167,9 +167,9 @@
         "IronSightScaleDistanceEnd": 75.0,
         "CenterMassVal": 0.3125,
         "FasterCQBReactionsGlobal": true,
-        "AimDownSightsAimTimeMultiplier": 1.0,
+        "AimDownSightsAimTimeMultiplier": 0.15,
         "PMCSAimForHead": true,
-        "PMCAimForHeadChance": 15.0
+        "PMCAimForHeadChance": 18.0
     },
     "Hearing": {
         "DOOR_OPEN_SOUND_RANGE": 40.0,
@@ -443,7 +443,7 @@
             "Movement": {
                 "Description": "Scales vision speed based on the movement speed of their enemy. Faster movement = faster vision speed.",
                 "Enabled": true,
-                "MOVEMENT_VISION_MULTIPLIER": 0.5
+                "MOVEMENT_VISION_MULTIPLIER": 0.33
             },
             "PartsVisibility": {
                 "Description": "Scales vision speed based on the number of body parts that are within line of sight to their enemy. Only applies to Non-AI targets.",
@@ -542,8 +542,8 @@
             "bossKilla": "Wreckless",
             "bossTagilla": "Wreckless",
             "bossKolontay": "Wreckless",
-            "bossKnight": "GigaChad",
-            "followerBigPipe": "GigaChad",
+            "bossKnight": "Wreckless",
+            "followerBigPipe": "Wreckless",
             "followerBirdEye": "SnappingTurtle",
             "bossGluhar": "SnappingTurtle",
             "bossKojaniy": "Rat",
@@ -600,7 +600,7 @@
                 "HearingDistCoef": 0.25
             }
         },
-        "SUPP_AMOUNT_MULTI": 1.0,
+        "SUPP_AMOUNT_MULTI": 0.25,
         "SUPP_STRENGTH_MULTI": 1.0,
         "SUP_DECAY_AMOUNT": 0.25,
         "SUP_DECAY_FREQ": 0.25,

@@ -60,7 +60,7 @@
       "HoldGroundBaseTime": 2.0,
       "HoldGroundMinRandom": 0.75,
       "HoldGroundMaxRandom": 2.5,
-      "SuppressionResistance": 0.0
+      "SuppressionResistance": 0.75
     },
     "Search": {
       "WillSearchForEnemy": true,
@@ -84,7 +84,7 @@
       "CanJumpCorners": true,
       "JumpCornerChance": 100.0,
       "CanBunnyHop": true,
-      "BunnyHopChance": 100.0
+      "BunnyHopChance": 70.0
     },
     "Cover": {
       "CanShiftCoverPosition": true,
@@ -109,11 +109,11 @@
   },
   "Difficulty": {
     "VisibleDistCoef": 2.45,
-    "GainSightCoef": 2.0,
+    "GainSightCoef": 0.3,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.4,
-    "AggressionCoef": 1.0,
-    "PrecisionSpeedCoef": 0.2,
-    "AccuracySpeedCoef": 0.1
+    "AggressionCoef": 1.3,
+    "PrecisionSpeedCoef": 0.05,
+    "AccuracySpeedCoef": 0.05
   }
 }
