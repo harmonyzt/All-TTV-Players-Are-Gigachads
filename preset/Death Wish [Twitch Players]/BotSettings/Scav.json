@@ -5,13 +5,13 @@
   "Settings": {
     "easy": {
       "Difficulty": {
-        "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
-        "ScatteringCoef": 1.5,
+        "VisibleDistCoef": 0.8,
+        "GainSightCoef": 1.4,
+        "ScatteringCoef": 2.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 1.5,
+        "AccuracySpeedCoef": 1.5
       },
       "Core": {
         "VisibleAngle": 130.0,
@@ -108,13 +108,13 @@
     },
     "normal": {
       "Difficulty": {
-        "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
-        "ScatteringCoef": 1.5,
+        "VisibleDistCoef": 0.8,
+        "GainSightCoef": 2.0,
+        "ScatteringCoef": 2.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 1.5,
+        "AccuracySpeedCoef": 1.5
       },
       "Core": {
         "VisibleAngle": 130.0,
@@ -211,16 +211,16 @@
     },
     "hard": {
       "Difficulty": {
-        "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
-        "ScatteringCoef": 1.5,
+        "VisibleDistCoef": 0.8,
+        "GainSightCoef": 2.0,
+        "ScatteringCoef": 2.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 1.5,
+        "AccuracySpeedCoef": 1.5
       },
       "Core": {
-        "VisibleAngle": 140.0,
+        "VisibleAngle": 130.0,
         "VisibleDistance": 130.0,
         "GainSightCoef": 2.0,
         "AccuratySpeed": 0.3,
@@ -314,16 +314,16 @@
     },
     "impossible": {
       "Difficulty": {
-        "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
-        "ScatteringCoef": 1.5,
+        "VisibleDistCoef": 0.8,
+        "GainSightCoef": 2.0,
+        "ScatteringCoef": 2.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 1.5,
+        "AccuracySpeedCoef": 1.5
       },
       "Core": {
-        "VisibleAngle": 140.0,
+        "VisibleAngle": 130.0,
         "VisibleDistance": 137.0,
         "GainSightCoef": 20.0,
         "AccuratySpeed": 0.3,

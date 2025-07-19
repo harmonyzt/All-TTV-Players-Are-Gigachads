@@ -1,12 +1,12 @@
 {
     "Difficulty": {
         "VisibleDistCoef": 3.0,
-        "GainSightCoef": 0.65,
-        "ScatteringCoef": 0.01,
+        "GainSightCoef": 0.1,
+        "ScatteringCoef": 0.1,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 0.15,
-        "AccuracySpeedCoef": 0.15
+        "PrecisionSpeedCoef": 0.5,
+        "AccuracySpeedCoef": 0.5
     },
     "General": {
         "BotsUseGrenades": true,
@@ -38,7 +38,7 @@
                 "VeryFar": 100.0,
                 "Narnia": 50.0
             },
-            "LimitAIvsAIHearing": true,
+            "LimitAIvsAIHearing": false,
             "MaxHearingRanges": {
                 "Far": 100.0,
                 "VeryFar": 60.0,
@@ -138,7 +138,7 @@
     "Aiming": {
         "HitEffects": {
             "HIT_REACTION_TOGGLE": false,
-            "DAMAGE_MANUAL_MODIFIER": 1.0,
+            "DAMAGE_MANUAL_MODIFIER": 0.5,
             "USE_HIT_POINT_DIRECTION": true,
             "HIT_POINT_DIRECTION_BASE_DISTANCE": 0.5,
             "DAMAGE_BASE_MIN_ANGLE": 7.0,
@@ -149,8 +149,8 @@
         },
         "AimCenterMassGlobal": false,
         "EnemyVelocityMaxBuff": 1.2,
-        "EnemyVelocityMaxDebuff": 0.8,
-        "EnemySprintingScatterMulti": 0.66,
+        "EnemyVelocityMaxDebuff": 1.0,
+        "EnemySprintingScatterMulti": 0.9,
         "ScatterMulti_PoseLevel": 1.3,
         "ScatterMulti_Prone": 1.5,
         "ScatterMulti_PartVis": 1.25,
@@ -162,12 +162,12 @@
         "RedDotFarDistance": 100.0,
         "RedDotCloseMulti": 1.15,
         "RedDotCloseDistance": 50.0,
-        "IronSightFarMulti": 0.7,
+        "IronSightFarMulti": 1.0,
         "IronSightScaleDistanceStart": 40.0,
         "IronSightScaleDistanceEnd": 75.0,
         "CenterMassVal": 0.3125,
         "FasterCQBReactionsGlobal": true,
-        "AimDownSightsAimTimeMultiplier": 0.15,
+        "AimDownSightsAimTimeMultiplier": 0.05,
         "PMCSAimForHead": true,
         "PMCAimForHeadChance": 18.0
     },
@@ -443,7 +443,7 @@
             "Movement": {
                 "Description": "Scales vision speed based on the movement speed of their enemy. Faster movement = faster vision speed.",
                 "Enabled": true,
-                "MOVEMENT_VISION_MULTIPLIER": 0.33
+                "MOVEMENT_VISION_MULTIPLIER": 0.15
             },
             "PartsVisibility": {
                 "Description": "Scales vision speed based on the number of body parts that are within line of sight to their enemy. Only applies to Non-AI targets.",
@@ -520,10 +520,10 @@
         }
     },
     "Mind": {
-        "TARGET_SUPPRESS_TOGGLE": true,
-        "TARGET_SUPPRESS_DIST": 3.0,
-        "TARGET_SUPPRESS_DIST_MAX": 12.0,
-        "MAX_TARGET_SUPPRESS_ANGLE": 45.0,
+        "TARGET_SUPPRESS_TOGGLE": false,
+        "TARGET_SUPPRESS_DIST": 1.0,
+        "TARGET_SUPPRESS_DIST_MAX": 5.0,
+        "MAX_TARGET_SUPPRESS_ANGLE": 25.0,
         "ENEMYSNIPER_ALWAYS_SPRINT_COVER": true,
         "ENEMYSNIPER_ALWAYS_SPRINT_SEARCH": true,
         "ENEMYSNIPER_DISTANCE": 85.0,
@@ -556,7 +556,7 @@
         "SneakyBots": true,
         "OnlySneakyPersonalitiesSneaky": true,
         "MaximumDistanceToBeSneaky": 80.0,
-        "SUPP_TOGGLE": true,
+        "SUPP_TOGGLE": false,
         "SUPP_DISTANCE_SCALE_START": 4.0,
         "SUPP_DISTANCE_SCALE_END": 10.0,
         "SUPP_DISTANCE_AMP_DIST": 0.5,
@@ -642,8 +642,8 @@
         "LEAN_INCOVER_TOGGLE": true,
         "JUMP_TOGGLE": true,
         "AUTOCROUCH_TOGGLE": true,
-        "PRONE_TOGGLE": true,
-        "PRONE_SUPPRESS_TOGGLE": true,
+        "PRONE_TOGGLE": false,
+        "PRONE_SUPPRESS_TOGGLE": false,
         "VAULT_TOGGLE": true,
         "VAULT_UNSTUCK_TOGGLE": true,
         "EditSprintSpeed": false,
@@ -663,28 +663,28 @@
     "Steering": {
         "SMOOTHTURN_SETTINGS_BY_STATE": {
             "Peace": {
-                "SmoothingValue": 0.5,
+                "SmoothingValue": 0.01,
                 "MaxTurnSpeed": 300.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "Combat": {
-                "SmoothingValue": 0.4,
-                "MaxTurnSpeed": 360.0,
+                "SmoothingValue": 0.01,
+                "MaxTurnSpeed": 500.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatSprint": {
-                "SmoothingValue": 0.3,
-                "MaxTurnSpeed": 420.0,
+                "SmoothingValue": 0.01,
+                "MaxTurnSpeed": 450.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatVisibleEnemy": {
-                "SmoothingValue": 0.35,
-                "MaxTurnSpeed": 420.0,
+                "SmoothingValue": 0.01,
+                "MaxTurnSpeed": 450.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "Aiming": {
-                "SmoothingValue": 0.25,
-                "MaxTurnSpeed": 360.0,
+                "SmoothingValue": 0.01,
+                "MaxTurnSpeed": 400.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "RandomLook": {
@@ -694,17 +694,17 @@
             }
         },
         "RANDOMSWAY_TOGGLE": true,
-        "RANDOMSWAY_RADIUS": 0.15,
+        "RANDOMSWAY_RADIUS": 0.05,
         "RANDOMSWAY_LOOPDURATION": 3.5,
         "RANDOMSWAY_SCALE": 0.05,
         "TURN_PITCH_MAX": 65.0,
-        "STEER_LASTSEEN_TO_LASTKNOWN_DISTANCE": 2.5
+        "STEER_LASTSEEN_TO_LASTKNOWN_DISTANCE": 10.0
     },
     "Shoot": {
         "ONLY_SEMIAUTO_TOGGLE": false,
-        "RecoilMultiplier": 0.25,
+        "RecoilMultiplier": 0.1,
         "AddRecoil": 5.0,
-        "RECOIL_DECAY_COEF": 0.2,
+        "RECOIL_DECAY_COEF": 1.15,
         "RECOIL_BASELINE": 100.0,
         "RECOIL_BASELINE_REALISM": 125.0,
         "RECOIL_RANDOM_MIN": 0.8,
@@ -718,18 +718,18 @@
             "Caliber762x25TT": 0.2,
             "Caliber1143x23ACP": 0.2,
             "Caliber9x33R": 0.35,
-            "Caliber545x39": 0.35,
-            "Caliber556x45NATO": 0.35,
+            "Caliber545x39": 0.2,
+            "Caliber556x45NATO": 0.2,
             "Caliber9x39": 0.3,
-            "Caliber762x35": 0.35,
-            "Caliber762x39": 0.35,
+            "Caliber762x35": 0.2,
+            "Caliber762x39": 0.2,
             "Caliber366TKM": 0.35,
-            "Caliber762x51": 0.35,
+            "Caliber762x51": 0.2,
             "Caliber127x55": 0.55,
             "Caliber762x54R": 0.55,
             "Caliber86x70": 0.55,
-            "Caliber20g": 0.4,
-            "Caliber12g": 0.4,
+            "Caliber20g": 0.25,
+            "Caliber12g": 0.25,
             "Caliber23x75": 0.64,
             "Caliber26x75": 0.64,
             "Caliber30x29": 0.64,
@@ -750,7 +750,7 @@
             "Caliber9x33R": 75.0,
             "Caliber545x39": 65.0,
             "Caliber556x45NATO": 65.0,
-            "Caliber9x39": 60.0,
+            "Caliber9x39": 65.02,
             "Caliber762x35": 55.0,
             "Caliber762x39": 50.0,
             "Caliber366TKM": 45.0,
@@ -809,7 +809,7 @@
             "specialWeapon": 100.0
         },
         "WeaponClassScaling": 0.25,
-        "RecoilScaling": 0.35,
+        "RecoilScaling": 0.2,
         "ErgoScaling": 0.08,
         "AmmoCaliberScaling": 0.3,
         "WeaponProficiencyScaling": 0.3,
@@ -818,7 +818,7 @@
     "Talk": {
         "TalkativeScavs": true,
         "TalkativePMCs": false,
-        "TalkativeRaidersRogues": true,
+        "TalkativeRaidersRogues": false,
         "TalkativeBosses": true,
         "TalkativeGoons": false,
         "FriendlyReponseChance": 5.0,
@@ -879,7 +879,7 @@
         "PISTOL_POWER": -10.0,
         "RED_DOT_POWER": 30.0,
         "OPTIC_POWER": -20.0,
-        "SUPPRESSOR_POWER": 20.0,
+        "SUPPRESSOR_POWER": 5.0,
         "ARMOR_CLASS_COEF": 30.0,
         "ARMOR_CLASS_COEF_REALISM": 20.0,
         "HELMET_POWER": 30.0,

@@ -5,8 +5,8 @@
     "Enabled": true,
     "CanBeRandomlyAssigned": true,
     "RandomlyAssignedChance": 8.0,
-    "MinLevel": 0.0,
-    "MaxLevel": 100.0,
+    "MinLevel": 15.0,
+    "MaxLevel": 40.0,
     "PowerLevelScaleStart": 100.0,
     "PowerLevelScaleEnd": 400.0,
     "InverseScale": false,
@@ -49,7 +49,7 @@
       "CanJumpCorners": true,
       "JumpCornerChance": 80.0,
       "CanBunnyHop": true,
-      "BunnyHopChance": 75.0
+      "BunnyHopChance": 10.0
     },
     "Cover": {
       "CanShiftCoverPosition": true,
@@ -61,7 +61,7 @@
     },
     "Talk": {
       "CanTaunt": true,
-      "FrequentTaunt": false,
+      "FrequentTaunt": true,
       "ConstantTaunt": false,
       "CanRespondToEnemyVoice": false,
       "TauntFrequency": 20.0,

@@ -5,7 +5,7 @@
     "Enabled": true,
     "CanBeRandomlyAssigned": true,
     "RandomlyAssignedChance": 3.0,
-    "MinLevel": 0.0,
+    "MinLevel": 35.0,
     "MaxLevel": 100.0,
     "PowerLevelScaleStart": 250.0,
     "PowerLevelScaleEnd": 500.0,
@@ -73,9 +73,9 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 1.0,
-    "GainSightCoef": 1.0,
-    "ScatteringCoef": 1.0,
+    "VisibleDistCoef": 1.2,
+    "GainSightCoef": 0.5,
+    "ScatteringCoef": 0.5,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
     "PrecisionSpeedCoef": 0.5,

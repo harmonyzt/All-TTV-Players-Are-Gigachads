@@ -47,9 +47,9 @@
     "Rush": {
       "CanRushEnemyReloadHeal": false,
       "CanJumpCorners": true,
-      "JumpCornerChance": 50.0,
+      "JumpCornerChance": 35.0,
       "CanBunnyHop": true,
-      "BunnyHopChance": 20.0
+      "BunnyHopChance": 0.0
     },
     "Cover": {
       "CanShiftCoverPosition": true,
@@ -73,12 +73,12 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 1.0,
-    "GainSightCoef": 1.0,
-    "ScatteringCoef": 1.0,
+    "VisibleDistCoef": 1.5,
+    "GainSightCoef": 0.35,
+    "ScatteringCoef": 0.35,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
-    "PrecisionSpeedCoef": 1.0,
-    "AccuracySpeedCoef": 1.0
+    "PrecisionSpeedCoef": 0.35,
+    "AccuracySpeedCoef": 0.35
   }
 }
