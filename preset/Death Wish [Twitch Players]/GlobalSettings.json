@@ -5,8 +5,8 @@
         "ScatteringCoef": 0.1,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.5,
-        "AccuracySpeedCoef": 1.5
+        "PrecisionSpeedCoef": 0.3,
+        "AccuracySpeedCoef": 6.0
     },
     "General": {
         "BotsUseGrenades": true,
@@ -842,7 +842,7 @@
         "_reportEnemyHealthFreq": 8.0,
         "_reportEnemyKilledChance": 60.0,
         "_reportEnemyKilledSquadLeadChance": 60.0,
-        "_reportEnemyKilledToxicSquadLeader": false,
+        "_reportEnemyKilledToxicSquadLeader": true,
         "_friendCloseDist": 40.0,
         "_reportFriendKilledChance": 60.0,
         "_talkRetreatChance": 60.0,
