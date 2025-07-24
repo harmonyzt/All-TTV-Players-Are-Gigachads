@@ -5,8 +5,8 @@
         "ScatteringCoef": 0.1,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.3,
-        "AccuracySpeedCoef": 1.3
+        "PrecisionSpeedCoef": 1.5,
+        "AccuracySpeedCoef": 1.5
     },
     "General": {
         "BotsUseGrenades": true,
