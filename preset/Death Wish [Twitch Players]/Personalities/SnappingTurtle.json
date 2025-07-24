@@ -78,7 +78,7 @@
     "ScatteringCoef": 0.35,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
-    "PrecisionSpeedCoef": 0.35,
-    "AccuracySpeedCoef": 0.35
+    "PrecisionSpeedCoef": 1.75,
+    "AccuracySpeedCoef": 1.75
   }
 }

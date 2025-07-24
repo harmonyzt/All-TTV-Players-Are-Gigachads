@@ -5,8 +5,8 @@
         "ScatteringCoef": 0.1,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 0.5,
-        "AccuracySpeedCoef": 0.5
+        "PrecisionSpeedCoef": 1.3,
+        "AccuracySpeedCoef": 1.3
     },
     "General": {
         "BotsUseGrenades": true,
@@ -61,7 +61,7 @@
             "NewDoorOpening": true,
             "NoDoorAnimations": true,
             "InvertDoors": true,
-            "DisableAllDoors": true
+            "DisableAllDoors": false
         },
         "Extract": {
             "SAIN_EXTRACT_TOGGLE": true

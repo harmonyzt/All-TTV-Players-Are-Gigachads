@@ -6,12 +6,12 @@
     "easy": {
       "Difficulty": {
         "VisibleDistCoef": 0.8,
-        "GainSightCoef": 1.4,
+        "GainSightCoef": 2.0,
         "ScatteringCoef": 2.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.5,
-        "AccuracySpeedCoef": 1.5
+        "PrecisionSpeedCoef": 0.5,
+        "AccuracySpeedCoef": 0.5
       },
       "Core": {
         "VisibleAngle": 130.0,
