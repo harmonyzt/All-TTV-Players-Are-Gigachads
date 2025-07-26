@@ -5,8 +5,8 @@
         "ScatteringCoef": 0.1,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 0.3,
-        "AccuracySpeedCoef": 6.0
+        "PrecisionSpeedCoef": 7.0,
+        "AccuracySpeedCoef": 0.3
     },
     "General": {
         "BotsUseGrenades": true,
@@ -169,7 +169,7 @@
         "FasterCQBReactionsGlobal": true,
         "AimDownSightsAimTimeMultiplier": 0.05,
         "PMCSAimForHead": true,
-        "PMCAimForHeadChance": 18.0
+        "PMCAimForHeadChance": 20.0
     },
     "Hearing": {
         "DOOR_OPEN_SOUND_RANGE": 40.0,
@@ -663,32 +663,32 @@
     "Steering": {
         "SMOOTHTURN_SETTINGS_BY_STATE": {
             "Peace": {
-                "SmoothingValue": 0.01,
+                "SmoothingValue": 0.001,
                 "MaxTurnSpeed": 300.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "Combat": {
-                "SmoothingValue": 0.01,
+                "SmoothingValue": 0.001,
                 "MaxTurnSpeed": 500.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatSprint": {
-                "SmoothingValue": 0.01,
+                "SmoothingValue": 0.001,
                 "MaxTurnSpeed": 450.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatVisibleEnemy": {
-                "SmoothingValue": 0.01,
+                "SmoothingValue": 0.001,
                 "MaxTurnSpeed": 450.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "Aiming": {
-                "SmoothingValue": 0.01,
+                "SmoothingValue": 0.001,
                 "MaxTurnSpeed": 400.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "RandomLook": {
-                "SmoothingValue": 0.8,
+                "SmoothingValue": 0.4,
                 "MaxTurnSpeed": 200.0,
                 "SmoothingMode": "SmoothDamp"
             }
@@ -809,7 +809,7 @@
             "specialWeapon": 100.0
         },
         "WeaponClassScaling": 0.25,
-        "RecoilScaling": 0.2,
+        "RecoilScaling": 0.05,
         "ErgoScaling": 0.08,
         "AmmoCaliberScaling": 0.3,
         "WeaponProficiencyScaling": 0.3,

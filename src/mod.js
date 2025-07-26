@@ -18,13 +18,13 @@ class TwitchPlayers {
     CFG = require("../cfg/config.json");
     // Using BotCallsigns config file
     constructor() {
-        //this.CallsignsConfigPath = path.resolve(__dirname, '../../BotCallsigns/config/config.json');
-        //const data = fs.readFileSync(this.CallsignsConfigPath, 'utf8');
-        //this.CallsignsConfig = JSON.parse(data);
+        this.CallsignsConfigPath = path.resolve(__dirname, '../../BotCallsigns/config/config.json');
+        const data = fs.readFileSync(this.CallsignsConfigPath, 'utf8');
+        this.CallsignsConfig = JSON.parse(data);
     }
 
     preSptLoad(container) {
-        const { CFG: config } = this;
+        const { CFG: config, CallsignsConfig: CallsignConfig } = this;
 
         // Other
         const RouterService = container.resolve("StaticRouterModService");
@@ -85,7 +85,8 @@ class TwitchPlayers {
                     "CWX": "SnappingTurtle",
                     "Jehree": "Wreckless",
                     "BigShlongHaver": "SnappingTurtle",
-                    "BIGDICK18CM": "Wreckless"
+                    "BIGDICK18CM": "Wreckless",
+                    "Legion": "Wreckless"
                 }
             };
             try {
@@ -174,21 +175,21 @@ class TwitchPlayers {
             ];
 
             // Extra names if enabled in BotCallsigns
-            //if (CallsignConfig.addExtraNames) {
-            //    if (config.debugLogging)
-            //        logger.log("[Twitch Players Validator] Checking Extra names from BotCallsigns", "cyan");
-            //
-            //    const extraNames = [
-            //        ...loadNamesFromFile(BC_BEARExtra),
-            //        ...loadNamesFromFile(BC_USECExtra)
-            //    ];
-            //    allNames = [...mainNames, ...extraNames];
-            //} else {
-            //    if (config.debugLogging)
-            //        logger.log("[Twitch Players Validator] Checking Names from BotCallsigns", "cyan");
-            //
-            //    allNames = mainNames;
-            //}
+            if (CallsignConfig.addExtraNames) {
+                if (config.debugLogging)
+                    logger.log("[Twitch Players Validator] Checking Extra names from BotCallsigns", "cyan");
+            
+                const extraNames = [
+                    ...loadNamesFromFile(BC_BEARExtra),
+                    ...loadNamesFromFile(BC_USECExtra)
+                ];
+                allNames = [...mainNames, ...extraNames];
+            } else {
+                if (config.debugLogging)
+                    logger.log("[Twitch Players Validator] Checking Names from BotCallsigns", "cyan");
+            
+                allNames = mainNames;
+            }
 
             // Temporary. Disabled bot callsigns support for now.
             allNames = mainNames;
@@ -217,7 +218,7 @@ class TwitchPlayers {
                 logger.log("[Twitch Players Validator] No name changes detected", "cyan");
             }
 
-            configManager(newTempData, isTTVfileUpdateNeeded);
+            configManager(newTempData, config.forceMainFileRewrite ? true : isTTVfileUpdateNeeded);
 
             return newTempData;
         }
@@ -285,7 +286,7 @@ class TwitchPlayers {
         function updateTTVJSfile(BotNameData) {
             // Process names
             const TTVNames = BotNameData.Names.filter(exportedTTVName =>
-                /twitch|ttv|twiitch|chad|gigachad|_TV/i.test(exportedTTVName)
+                /twitch|ttv|twiitch|chad|gigachad|youtube|_TV/i.test(exportedTTVName)
             );
 
             const updatedTTVNames = { generatedTwitchNames: {} };

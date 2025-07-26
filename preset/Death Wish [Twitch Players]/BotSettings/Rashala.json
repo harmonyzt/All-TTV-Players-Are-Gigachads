@@ -5,18 +5,18 @@
   "Settings": {
     "easy": {
       "Difficulty": {
-        "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
+        "VisibleDistCoef": 2.0,
+        "GainSightCoef": 0.7,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 3.0,
+        "AccuracySpeedCoef": 0.2
       },
       "Core": {
         "VisibleAngle": 160.0,
         "VisibleDistance": 137.0,
-        "GainSightCoef": 2.0,
+        "GainSightCoef": 0.999,
         "AccuratySpeed": 0.2,
         "ScatteringPerMeter": 0.02,
         "ScatteringClosePerMeter": 0.12,
@@ -108,18 +108,18 @@
     },
     "normal": {
       "Difficulty": {
-        "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
+        "VisibleDistCoef": 2.0,
+        "GainSightCoef": 0.7,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 3.0,
+        "AccuracySpeedCoef": 0.2
       },
       "Core": {
         "VisibleAngle": 160.0,
         "VisibleDistance": 137.0,
-        "GainSightCoef": 2.0,
+        "GainSightCoef": 0.999,
         "AccuratySpeed": 0.2,
         "ScatteringPerMeter": 0.02,
         "ScatteringClosePerMeter": 0.12,
@@ -211,18 +211,18 @@
     },
     "hard": {
       "Difficulty": {
-        "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
+        "VisibleDistCoef": 2.0,
+        "GainSightCoef": 0.7,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 3.0,
+        "AccuracySpeedCoef": 0.2
       },
       "Core": {
         "VisibleAngle": 160.0,
         "VisibleDistance": 137.0,
-        "GainSightCoef": 2.0,
+        "GainSightCoef": 0.999,
         "AccuratySpeed": 0.2,
         "ScatteringPerMeter": 0.02,
         "ScatteringClosePerMeter": 0.12,
@@ -314,18 +314,18 @@
     },
     "impossible": {
       "Difficulty": {
-        "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
+        "VisibleDistCoef": 2.0,
+        "GainSightCoef": 0.7,
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 3.0,
+        "AccuracySpeedCoef": 0.2
       },
       "Core": {
         "VisibleAngle": 160.0,
         "VisibleDistance": 137.0,
-        "GainSightCoef": 2.0,
+        "GainSightCoef": 0.999,
         "AccuratySpeed": 0.2,
         "ScatteringPerMeter": 0.02,
         "ScatteringClosePerMeter": 0.12,

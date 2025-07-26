@@ -10,8 +10,8 @@
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 2.0,
+        "AccuracySpeedCoef": 0.3
       },
       "Core": {
         "VisibleAngle": 160.0,
@@ -113,8 +113,8 @@
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 2.0,
+        "AccuracySpeedCoef": 0.3
       },
       "Core": {
         "VisibleAngle": 160.0,
@@ -216,8 +216,8 @@
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 2.0,
+        "AccuracySpeedCoef": 0.3
       },
       "Core": {
         "VisibleAngle": 160.0,
@@ -319,8 +319,8 @@
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PrecisionSpeedCoef": 2.0,
+        "AccuracySpeedCoef": 0.3
       },
       "Core": {
         "VisibleAngle": 160.0,
