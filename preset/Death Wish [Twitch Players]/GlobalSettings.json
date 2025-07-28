@@ -671,22 +671,22 @@
                 "SmoothingMode": "SmoothDamp"
             },
             "Combat": {
-                "SmoothingValue": 0.5,
+                "SmoothingValue": 0.4,
                 "MaxTurnSpeed": 300.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatSprint": {
-                "SmoothingValue": 0.5,
+                "SmoothingValue": 0.4,
                 "MaxTurnSpeed": 300.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatVisibleEnemy": {
-                "SmoothingValue": 0.5,
+                "SmoothingValue": 0.4,
                 "MaxTurnSpeed": 360.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "Aiming": {
-                "SmoothingValue": 0.5,
+                "SmoothingValue": 0.4,
                 "MaxTurnSpeed": 360.0,
                 "SmoothingMode": "SmoothDamp"
             }

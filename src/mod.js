@@ -178,7 +178,7 @@ class TwitchPlayers {
             if (CallsignConfig.addExtraNames) {
                 if (config.debugLogging)
                     logger.log("[Twitch Players Validator] Checking Extra names from BotCallsigns", "cyan");
-            
+
                 const extraNames = [
                     ...loadNamesFromFile(BC_BEARExtra),
                     ...loadNamesFromFile(BC_USECExtra)
@@ -187,7 +187,7 @@ class TwitchPlayers {
             } else {
                 if (config.debugLogging)
                     logger.log("[Twitch Players Validator] Checking Names from BotCallsigns", "cyan");
-            
+
                 allNames = mainNames;
             }
 
@@ -237,10 +237,10 @@ class TwitchPlayers {
             }
 
             // If for some reason BotCallsigns config was not found
-            //if (!CallsignConfig) {
-            //    logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.", "red");
-            //    return;
-            //}
+            if (!CallsignConfig) {
+                logger.log("[Twitch Players Config Manager] Bot Callsigns config is missing. Make sure you have installed this mod's dependencies or wait for bot callsigns to create the config first. MOD WILL NOT WORK.", "red");
+                return;
+            }
 
             // Tell user to change one of the settings
             if (config.globalMode && config.randomizePersonalitiesOnServerStart) {
@@ -249,9 +249,9 @@ class TwitchPlayers {
             }
 
             // If user has progressive difficulty disabled, set preset defaults
-            //if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
-            //    adjustDifficulty(50, true);
-            //}
+            if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
+                adjustDifficulty(50, true);
+            }
 
             // If update to the file needed, we do that, and then whatever we want after
             if (updateTTVfile) {
@@ -429,93 +429,93 @@ class TwitchPlayers {
                 ScatteringCoef: 1.0, //lower = harder
                 HearingDistanceCoef: 1.0, //higher = harder
                 AggressionCoef: 1.0, //higher = harder
-                PrecisionSpeedCoef: 1.0, //lower = harder
-                AccuracySpeedCoef: 1.0, //lower = harder
+                PRECISION_SPEED_COEF: 1.0, //higher = harder
+                ACCURACY_SPEED_COEF: 1.0, //lower = harder
             };
 
             const tiers = [
                 {
                     levelRange: [1, 4],
                     settings: {
-                        VisibleDistCoef: 1.8,
+                        VisibleDistCoef: 1.5,
                         GainSightCoef: 0.8,
-                        ScatteringCoef: 0.8,
+                        ScatteringCoef: 0.7,
                         HearingDistanceCoef: 1.3,
                         AggressionCoef: 1.2,
-                        PrecisionSpeedCoef: 0.9,
-                        AccuracySpeedCoef: 0.9
+                        PRECISION_SPEED_COEF: 0.8,
+                        ACCURACY_SPEED_COEF: 1.0
                     },
                 },
                 {
                     levelRange: [5, 14],
                     settings: {
-                        VisibleDistCoef: 2.3,
-                        GainSightCoef: 0.6,
-                        ScatteringCoef: 0.3,
-                        HearingDistanceCoef: 1.8,
-                        AggressionCoef: 1.4,
-                        PrecisionSpeedCoef: 0.7,
-                        AccuracySpeedCoef: 0.7
+                        VisibleDistCoef: 1.5,
+                        GainSightCoef: 0.8,
+                        ScatteringCoef: 0.7,
+                        HearingDistanceCoef: 1.3,
+                        AggressionCoef: 1.2,
+                        PRECISION_SPEED_COEF: 0.8,
+                        ACCURACY_SPEED_COEF: 1.0,
                     },
                 },
                 {
                     levelRange: [15, 29],
                     settings: {
-                        VisibleDistCoef: 2.4,
-                        GainSightCoef: 0.55,
-                        ScatteringCoef: 0.25,
-                        HearingDistanceCoef: 1.9,
-                        AggressionCoef: 1.4,
-                        PrecisionSpeedCoef: 0.6,
-                        AccuracySpeedCoef: 0.6,
+                        VisibleDistCoef: 2.0,
+                        GainSightCoef: 0.6,
+                        ScatteringCoef: 0.4,
+                        HearingDistanceCoef: 1.6,
+                        AggressionCoef: 1.3,
+                        PRECISION_SPEED_COEF: 1.2,
+                        ACCURACY_SPEED_COEF: 0.8,
                     },
                 },
                 {
                     levelRange: [30, 39],
                     settings: {
-                        VisibleDistCoef: 2.5,
-                        GainSightCoef: 0.50,
-                        ScatteringCoef: 0.20,
-                        HearingDistanceCoef: 1.95,
-                        AggressionCoef: 1.5,
-                        PrecisionSpeedCoef: 0.5,
-                        AccuracySpeedCoef: 0.5,
+                        VisibleDistCoef: 2.3,
+                        GainSightCoef: 0.4,
+                        ScatteringCoef: 0.2,
+                        HearingDistanceCoef: 1.8,
+                        AggressionCoef: 1.4,
+                        PRECISION_SPEED_COEF: 2.0,
+                        ACCURACY_SPEED_COEF: 0.6,
                     },
                 },
                 {
                     levelRange: [40, 49],
                     settings: {
-                        VisibleDistCoef: 2.6,
-                        GainSightCoef: 0.45,
-                        ScatteringCoef: 0.15,
-                        HearingDistanceCoef: 2.0,
-                        AggressionCoef: 1.6,
-                        PrecisionSpeedCoef: 0.45,
-                        AccuracySpeedCoef: 0.45,
+                        VisibleDistCoef: 2.5,
+                        GainSightCoef: 0.3,
+                        ScatteringCoef: 0.1,
+                        HearingDistanceCoef: 1.9,
+                        AggressionCoef: 1.5,
+                        PRECISION_SPEED_COEF: 4.0,
+                        ACCURACY_SPEED_COEF: 0.3,
                     },
                 },
                 {
                     levelRange: [50, 59],
                     settings: {
-                        VisibleDistCoef: 2.7,
-                        GainSightCoef: 0.40,
-                        ScatteringCoef: 0.10,
-                        HearingDistanceCoef: 2.1,
-                        AggressionCoef: 1.65,
-                        PrecisionSpeedCoef: 0.4,
-                        AccuracySpeedCoef: 0.4,
+                        VisibleDistCoef: 3.0,
+                        GainSightCoef: 0.2,
+                        ScatteringCoef: 0.01,
+                        HearingDistanceCoef: 1.0,
+                        AggressionCoef: 1.0,
+                        PRECISION_SPEED_COEF: 6.0,
+                        ACCURACY_SPEED_COEF: 0.1
                     },
                 },
                 {
                     levelRange: [60, 99],
                     settings: {
-                        VisibleDistCoef: 2.75,
-                        GainSightCoef: 0.35,
+                        VisibleDistCoef: 3.2,
+                        GainSightCoef: 0.15,
                         ScatteringCoef: 0.01,
                         HearingDistanceCoef: 2.2,
-                        AggressionCoef: 1.65,
-                        PrecisionSpeedCoef: 0.3,
-                        AccuracySpeedCoef: 0.4,
+                        AggressionCoef: 1.5,
+                        PRECISION_SPEED_COEF: 6.5,
+                        ACCURACY_SPEED_COEF: 0.05
                     },
                 },
             ];
@@ -604,15 +604,15 @@ class TwitchPlayers {
 
                 if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
                     if (config.SAINProgressiveDifficultyDesiredProfile == sessionId) {
-                        //logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
-                        //adjustDifficulty(playerLevel, false);
+                        logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
+                        adjustDifficulty(playerLevel, false);
                         runOnce = 0;
                     } else if (!config.SAINProgressiveDifficultyDesiredProfile && runOnce) {
-                        //adjustDifficulty(playerLevel, false);
-                        //runOnce = 0;
+                        adjustDifficulty(playerLevel, false);
+                        runOnce = 0;
                     } else if (config.SAINProgressiveDifficultyDesiredProfile != sessionId && config.SAINProgressiveDifficulty && runOnce) {
-                        //adjustDifficulty(playerLevel, false);
-                        //runOnce = 0;
+                        adjustDifficulty(playerLevel, false);
+                        runOnce = 0;
                     }
                 }
 
@@ -627,8 +627,8 @@ class TwitchPlayers {
                 // Can run level and difficulty tiering once again
                 if (config.SAINProgressiveDifficulty && config.SAINProgressiveDifficultyDesiredProfile == sessionId || config.SAINProgressiveDifficulty && !config.SAINProgressiveDifficultyDesiredProfile) {
                     runOnce = 1;
-                    //logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
-                    //adjustDifficulty(1, true);
+                    logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
+                    adjustDifficulty(1, true);
                 }
 
                 return output;
