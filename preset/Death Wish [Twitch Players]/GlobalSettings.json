@@ -1,17 +1,17 @@
 {
     "Difficulty": {
         "VisibleDistCoef": 3.0,
-        "GainSightCoef": 0.1,
-        "ScatteringCoef": 0.1,
+        "GainSightCoef": 0.2,
+        "ScatteringCoef": 0.01,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 7.0,
-        "AccuracySpeedCoef": 0.3
+        "PRECISION_SPEED_COEF": 6.0,
+        "ACCURACY_SPEED_COEF": 0.1
     },
     "General": {
         "BotsUseGrenades": true,
         "BotVsBotGrenade": true,
-        "BotWeightEffects": true,
+        "BOT_INTERTIA_TOGGLE": true,
         "VanillaBots": {
             "VanillaScavs": false,
             "VanillaBosses": false,
@@ -58,7 +58,6 @@
             "DebugCoverFinder": false
         },
         "Doors": {
-            "NewDoorOpening": true,
             "NoDoorAnimations": true,
             "InvertDoors": true,
             "DisableAllDoors": false
@@ -71,10 +70,10 @@
             "MaxDazzleRange": 40.0,
             "AllowLightOnForDarkBuildings": true,
             "TurnLightOffNoEnemyPMC": true,
-            "TurnLightOffNoEnemySCAV": true,
+            "TurnLightOffNoEnemySCAV": false,
             "TurnLightOffNoEnemyGOONS": true,
             "TurnLightOffNoEnemyBOSS": true,
-            "TurnLightOffNoEnemyFOLLOWER": true,
+            "TurnLightOffNoEnemyFOLLOWER": false,
             "TurnLightOffNoEnemyRAIDERROGUE": true,
             "DebugFlash": false,
             "SillyMode": false
@@ -107,6 +106,7 @@
             "Gizmos": {
                 "DrawDebugGizmos": false,
                 "DrawTransformGizmos": false,
+                "DrawNavMeshSamplingGizmos": false,
                 "DrawLineOfSightGizmos": false,
                 "DrawLightGizmos": false,
                 "DrawDoorLinks": false,
@@ -138,7 +138,7 @@
     "Aiming": {
         "HitEffects": {
             "HIT_REACTION_TOGGLE": false,
-            "DAMAGE_MANUAL_MODIFIER": 0.5,
+            "DAMAGE_MANUAL_MODIFIER": 1.0,
             "USE_HIT_POINT_DIRECTION": true,
             "HIT_POINT_DIRECTION_BASE_DISTANCE": 0.5,
             "DAMAGE_BASE_MIN_ANGLE": 7.0,
@@ -149,10 +149,10 @@
         },
         "AimCenterMassGlobal": false,
         "EnemyVelocityMaxBuff": 1.2,
-        "EnemyVelocityMaxDebuff": 1.0,
-        "EnemySprintingScatterMulti": 0.9,
-        "ScatterMulti_PoseLevel": 1.3,
-        "ScatterMulti_Prone": 1.5,
+        "EnemyVelocityMaxDebuff": 0.8,
+        "EnemySprintingScatterMulti": 0.66,
+        "ScatterMulti_PoseLevel": 1.2,
+        "ScatterMulti_Prone": 1.3,
         "ScatterMulti_PartVis": 1.25,
         "OpticFarMulti": 1.2,
         "OpticFarDistance": 100.0,
@@ -165,11 +165,9 @@
         "IronSightFarMulti": 1.0,
         "IronSightScaleDistanceStart": 40.0,
         "IronSightScaleDistanceEnd": 75.0,
-        "CenterMassVal": 0.3125,
+        "CenterMassVal": 0.275,
         "FasterCQBReactionsGlobal": true,
-        "AimDownSightsAimTimeMultiplier": 0.05,
-        "PMCSAimForHead": true,
-        "PMCAimForHeadChance": 20.0
+        "AimDownSightsAimTimeMultiplier": 0.05
     },
     "Hearing": {
         "DOOR_OPEN_SOUND_RANGE": 40.0,
@@ -336,8 +334,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "FactoryNight": {
                 "VisibleDistCoef": 1.0,
@@ -345,8 +343,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "Customs": {
                 "VisibleDistCoef": 1.0,
@@ -354,8 +352,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "GroundZero": {
                 "VisibleDistCoef": 1.0,
@@ -363,8 +361,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "Reserve": {
                 "VisibleDistCoef": 1.0,
@@ -372,8 +370,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "Streets": {
                 "VisibleDistCoef": 1.0,
@@ -381,8 +379,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "Lighthouse": {
                 "VisibleDistCoef": 1.0,
@@ -390,8 +388,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "Shoreline": {
                 "VisibleDistCoef": 1.0,
@@ -399,8 +397,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "Labs": {
                 "VisibleDistCoef": 1.0,
@@ -408,8 +406,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "Woods": {
                 "VisibleDistCoef": 1.0,
@@ -417,8 +415,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             },
             "Interchange": {
                 "VisibleDistCoef": 1.0,
@@ -426,8 +424,8 @@
                 "ScatteringCoef": 1.0,
                 "HearingDistanceCoef": 1.0,
                 "AggressionCoef": 1.0,
-                "PrecisionSpeedCoef": 1.0,
-                "AccuracySpeedCoef": 1.0
+                "PRECISION_SPEED_COEF": 1.0,
+                "ACCURACY_SPEED_COEF": 1.0
             }
         }
     },
@@ -443,7 +441,7 @@
             "Movement": {
                 "Description": "Scales vision speed based on the movement speed of their enemy. Faster movement = faster vision speed.",
                 "Enabled": true,
-                "MOVEMENT_VISION_MULTIPLIER": 0.15
+                "MOVEMENT_VISION_MULTIPLIER": 0.20
             },
             "PartsVisibility": {
                 "Description": "Scales vision speed based on the number of body parts that are within line of sight to their enemy. Only applies to Non-AI targets.",
@@ -521,13 +519,6 @@
     },
     "Mind": {
         "TARGET_SUPPRESS_TOGGLE": false,
-        "TARGET_SUPPRESS_DIST": 1.0,
-        "TARGET_SUPPRESS_DIST_MAX": 5.0,
-        "MAX_TARGET_SUPPRESS_ANGLE": 25.0,
-        "ENEMYSNIPER_ALWAYS_SPRINT_COVER": true,
-        "ENEMYSNIPER_ALWAYS_SPRINT_SEARCH": true,
-        "ENEMYSNIPER_DISTANCE": 85.0,
-        "ENEMYSNIPER_DISTANCE_END": 75.0,
         "ForcePersonality": {
             "Wreckless": false,
             "GigaChad": false,
@@ -542,8 +533,8 @@
             "bossKilla": "Wreckless",
             "bossTagilla": "Wreckless",
             "bossKolontay": "Wreckless",
-            "bossKnight": "Wreckless",
-            "followerBigPipe": "Wreckless",
+            "bossKnight": "GigaChad",
+            "followerBigPipe": "GigaChad",
             "followerBirdEye": "SnappingTurtle",
             "bossGluhar": "SnappingTurtle",
             "bossKojaniy": "Rat",
@@ -565,7 +556,7 @@
         "SUPPRESSION_STATES": {
             "Light": {
                 "Threshold": 1.0,
-                "PrecisionSpeedCoef": 1.15,
+                "PrecisionSpeedCoef": 0.8,
                 "AccuracySpeedCoef": 1.2,
                 "VisibleDistCoef": 0.85,
                 "GainSightCoef": 1.2,
@@ -574,7 +565,7 @@
             },
             "Medium": {
                 "Threshold": 6.0,
-                "PrecisionSpeedCoef": 1.5,
+                "PrecisionSpeedCoef": 0.75,
                 "AccuracySpeedCoef": 1.5,
                 "VisibleDistCoef": 0.6,
                 "GainSightCoef": 1.5,
@@ -583,7 +574,7 @@
             },
             "Heavy": {
                 "Threshold": 15.0,
-                "PrecisionSpeedCoef": 2.0,
+                "PrecisionSpeedCoef": 0.5,
                 "AccuracySpeedCoef": 2.0,
                 "VisibleDistCoef": 0.5,
                 "GainSightCoef": 1.65,
@@ -592,7 +583,7 @@
             },
             "Extreme": {
                 "Threshold": 25.0,
-                "PrecisionSpeedCoef": 3.0,
+                "PrecisionSpeedCoef": 0.25,
                 "AccuracySpeedCoef": 3.0,
                 "VisibleDistCoef": 0.33,
                 "GainSightCoef": 2.0,
@@ -649,66 +640,71 @@
         "EditSprintSpeed": false,
         "BotSprintNotMovingThreshold": 0.5,
         "BotSprintNotMovingCheckFreq": 0.5,
-        "BotSprintTryVaultTime": 0.25,
-        "BotSprintTryJumpTime": 0.66,
-        "BotSprintRecalcTime": 1.5,
-        "BotSprintFirstTurnDotThreshold": 0.925,
-        "BotSprintCornerReachDist": 0.2,
-        "BotWalkCornerReachDist": 0.15,
-        "BotSprintDistanceToStopSprintDestination": 1.2,
-        "BotSprintCurrentCornerAngleMax": 25.0,
-        "BotSprintTurnSpeedWhileSprint": 300.0,
-        "BotSprintTurningSpeed": 400.0
+        "BOT_NOMOVE_TRYVAULT_TIME": 0.5,
+        "BOT_NOMOVE_TRYJUMP_TIME": 1.0,
+        "BOT_NOMOVE_RECALC_TIME": 3.0,
+        "BotSprintCornerReachDist": 0.3,
+        "BotWalkCornerReachDist": 0.1,
+        "BotSprintCurrentCornerAngleMax": 25.0
     },
     "Steering": {
-        "SMOOTHTURN_SETTINGS_BY_STATE": {
+        "MaxPathLengthPathVision": 75.0,
+        "characterHeight": 1.5,
+        "startHeight": 0.25,
+        "GeneratePointStackHeight": 4.0,
+        "DistanceBetweenPoints": 0.66,
+        "RANDOMSWAY_TOGGLE": true,
+        "RANDOMSWAY_CIRCLE_RADIUS": 0.02,
+        "RANDOMSWAY_LOOP_DURATION": 4.0,
+        "RANDOMSWAY_CIRCLE_SCALE": 0.015,
+        "MIN_STEERING_PITCH": -65.0,
+        "STEER_LASTSEEN_TO_LASTKNOWN_DISTANCE": 2.5,
+        "SMOOTHING_BY_STATE": {
+            "RandomLook": {
+                "SmoothingValue": 0.04,
+                "MaxTurnSpeed": 120.0,
+                "SmoothingMode": "SmoothDamp"
+            },
             "Peace": {
-                "SmoothingValue": 0.001,
-                "MaxTurnSpeed": 300.0,
+                "SmoothingValue": 0.05,
+                "MaxTurnSpeed": 240.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "Combat": {
-                "SmoothingValue": 0.001,
-                "MaxTurnSpeed": 500.0,
+                "SmoothingValue": 0.5,
+                "MaxTurnSpeed": 300.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatSprint": {
-                "SmoothingValue": 0.001,
-                "MaxTurnSpeed": 450.0,
+                "SmoothingValue": 0.5,
+                "MaxTurnSpeed": 300.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatVisibleEnemy": {
-                "SmoothingValue": 0.001,
-                "MaxTurnSpeed": 450.0,
+                "SmoothingValue": 0.5,
+                "MaxTurnSpeed": 360.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "Aiming": {
-                "SmoothingValue": 0.001,
-                "MaxTurnSpeed": 400.0,
-                "SmoothingMode": "SmoothDamp"
-            },
-            "RandomLook": {
-                "SmoothingValue": 0.4,
-                "MaxTurnSpeed": 200.0,
+                "SmoothingValue": 0.5,
+                "MaxTurnSpeed": 360.0,
                 "SmoothingMode": "SmoothDamp"
             }
         },
-        "RANDOMSWAY_TOGGLE": true,
-        "RANDOMSWAY_RADIUS": 0.05,
-        "RANDOMSWAY_LOOPDURATION": 3.5,
-        "RANDOMSWAY_SCALE": 0.05,
-        "TURN_PITCH_MAX": 65.0,
-        "STEER_LASTSEEN_TO_LASTKNOWN_DISTANCE": 10.0
+        "ConvergenceBoost": 1.1,
+        "PathVisionMinCommandsPerJob": 256.0
     },
     "Shoot": {
+        "MIN_FIRE_RATE_INTERVAL": 0.1,
+        "MAX_FIRE_RATE_INTERVAL": 4.0,
+        "MAX_FIRE_RATE_COEF_FULLAUTO": 0.25,
+        "FIRERATE_RANDOMIZATION_COEF": 0.25,
         "ONLY_SEMIAUTO_TOGGLE": false,
-        "RecoilMultiplier": 0.1,
-        "AddRecoil": 5.0,
-        "RECOIL_DECAY_COEF": 1.15,
-        "RECOIL_BASELINE": 100.0,
-        "RECOIL_BASELINE_REALISM": 125.0,
-        "RECOIL_RANDOM_MIN": 0.8,
-        "RECOIL_RANDOM_MAX": 1.2,
+        "BOT_RECOIL_COEF": 0.5,
+        "BOT_RECOIL_ADD": 0.0,
+        "BOT_RECOIL_DECAY_COEF": 0.3,
+        "BOT_RECOIL_BASELINE": 100.0,
+        "BOT_RECOIL_BASELINE_REALISM": 125.0,
         "AmmoCaliberShootability": {
             "Caliber9x18PM": 0.05,
             "Caliber9x19PARA": 0.05,
@@ -750,7 +746,7 @@
             "Caliber9x33R": 75.0,
             "Caliber545x39": 65.0,
             "Caliber556x45NATO": 65.0,
-            "Caliber9x39": 65.02,
+            "Caliber9x39": 65.0,
             "Caliber762x35": 55.0,
             "Caliber762x39": 50.0,
             "Caliber366TKM": 45.0,
@@ -822,7 +818,7 @@
         "TalkativeBosses": true,
         "TalkativeGoons": false,
         "FriendlyReponseChance": 5.0,
-        "FriendlyReponseChanceAI": 94.0,
+        "FriendlyReponseChanceAI": 95.0,
         "FriendlyReponseDistance": 65.0,
         "FriendlyReponseDistanceAI": 35.0,
         "FriendlyResponseFrequencyLimit": 1.0,
@@ -879,7 +875,7 @@
         "PISTOL_POWER": -10.0,
         "RED_DOT_POWER": 30.0,
         "OPTIC_POWER": -20.0,
-        "SUPPRESSOR_POWER": 5.0,
+        "SUPPRESSOR_POWER": 20.0,
         "ARMOR_CLASS_COEF": 30.0,
         "ARMOR_CLASS_COEF_REALISM": 20.0,
         "HELMET_POWER": 30.0,

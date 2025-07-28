@@ -10,11 +10,11 @@
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PRECISION_SPEED_COEF": 1.0,
+        "ACCURACY_SPEED_COEF": 1.0
       },
       "Core": {
-        "VisibleAngle": 160.0,
+        "VisibleAngle": 180.0,
         "VisibleDistance": 142.0,
         "GainSightCoef": 2.0,
         "AccuratySpeed": 0.2,
@@ -24,7 +24,9 @@
         "CanGrenade": true
       },
       "Aiming": {
-        "AimCenterMass": true,
+        "AimCenterMass": false,
+        "AimForHead": true,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": true,
@@ -81,7 +83,7 @@
         "MinExtractPercentage": 5.0
       },
       "Move": {
-        "STRAFE_SPEED": 0.5,
+        "STRAFE_SPEED": 0.85,
         "LEAN_TOGGLE": true,
         "LEAN_INCOVER_TOGGLE": true,
         "JUMP_TOGGLE": true,
@@ -97,9 +99,9 @@
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
-        "RecoilMultiplier": 0.25,
-        "BurstMulti": 1.5,
-        "FireratMulti": 1.5,
+        "RecoilMultiplier": 1.0,
+        "BurstMulti": 3.0,
+        "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
         "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5,
         "BASE_AUTOMATIC_TIME": 0.2,
@@ -113,11 +115,11 @@
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PRECISION_SPEED_COEF": 1.0,
+        "ACCURACY_SPEED_COEF": 1.0
       },
       "Core": {
-        "VisibleAngle": 160.0,
+        "VisibleAngle": 180.0,
         "VisibleDistance": 142.0,
         "GainSightCoef": 2.0,
         "AccuratySpeed": 0.2,
@@ -127,7 +129,9 @@
         "CanGrenade": true
       },
       "Aiming": {
-        "AimCenterMass": true,
+        "AimCenterMass": false,
+        "AimForHead": true,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": true,
@@ -184,7 +188,7 @@
         "MinExtractPercentage": 5.0
       },
       "Move": {
-        "STRAFE_SPEED": 0.5,
+        "STRAFE_SPEED": 0.9,
         "LEAN_TOGGLE": true,
         "LEAN_INCOVER_TOGGLE": true,
         "JUMP_TOGGLE": true,
@@ -200,9 +204,9 @@
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
-        "RecoilMultiplier": 0.25,
-        "BurstMulti": 1.5,
-        "FireratMulti": 1.5,
+        "RecoilMultiplier": 1.0,
+        "BurstMulti": 3.0,
+        "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
         "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5,
         "BASE_AUTOMATIC_TIME": 0.2,
@@ -216,11 +220,11 @@
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PRECISION_SPEED_COEF": 1.0,
+        "ACCURACY_SPEED_COEF": 1.0
       },
       "Core": {
-        "VisibleAngle": 160.0,
+        "VisibleAngle": 180.0,
         "VisibleDistance": 142.0,
         "GainSightCoef": 2.0,
         "AccuratySpeed": 0.2,
@@ -230,7 +234,9 @@
         "CanGrenade": true
       },
       "Aiming": {
-        "AimCenterMass": true,
+        "AimCenterMass": false,
+        "AimForHead": true,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": true,
@@ -287,7 +293,7 @@
         "MinExtractPercentage": 5.0
       },
       "Move": {
-        "STRAFE_SPEED": 0.5,
+        "STRAFE_SPEED": 1.0,
         "LEAN_TOGGLE": true,
         "LEAN_INCOVER_TOGGLE": true,
         "JUMP_TOGGLE": true,
@@ -303,9 +309,9 @@
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
-        "RecoilMultiplier": 0.25,
-        "BurstMulti": 1.5,
-        "FireratMulti": 1.5,
+        "RecoilMultiplier": 1.0,
+        "BurstMulti": 3.0,
+        "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
         "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5,
         "BASE_AUTOMATIC_TIME": 0.2,
@@ -319,11 +325,11 @@
         "ScatteringCoef": 1.0,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
-        "PrecisionSpeedCoef": 1.0,
-        "AccuracySpeedCoef": 1.0
+        "PRECISION_SPEED_COEF": 1.0,
+        "ACCURACY_SPEED_COEF": 1.0
       },
       "Core": {
-        "VisibleAngle": 160.0,
+        "VisibleAngle": 180.0,
         "VisibleDistance": 142.0,
         "GainSightCoef": 2.0,
         "AccuratySpeed": 0.2,
@@ -333,7 +339,9 @@
         "CanGrenade": true
       },
       "Aiming": {
-        "AimCenterMass": true,
+        "AimCenterMass": false,
+        "AimForHead": true,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": true,
@@ -390,7 +398,7 @@
         "MinExtractPercentage": 5.0
       },
       "Move": {
-        "STRAFE_SPEED": 0.5,
+        "STRAFE_SPEED": 1.0,
         "LEAN_TOGGLE": true,
         "LEAN_INCOVER_TOGGLE": true,
         "JUMP_TOGGLE": true,
@@ -406,9 +414,9 @@
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
-        "RecoilMultiplier": 0.25,
-        "BurstMulti": 1.5,
-        "FireratMulti": 1.5,
+        "RecoilMultiplier": 1.0,
+        "BurstMulti": 3.0,
+        "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
         "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5,
         "BASE_AUTOMATIC_TIME": 0.2,

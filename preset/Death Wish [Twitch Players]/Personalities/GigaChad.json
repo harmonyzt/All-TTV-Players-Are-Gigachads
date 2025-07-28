@@ -22,27 +22,39 @@
     "General": {
       "AggressionMultiplier": 1.0,
       "KickOpenAllDoors": true,
-      "HoldGroundBaseTime": 1.2,
+      "DOGFIGHT_PATH_DIST_START": 10.0,
+      "DOGFIGHT_TIMESINCESEEN_START": 1.0,
+      "DOGFIGHT_PATH_DIST_END": 15.0,
+      "DOGFIGHT_TIMESINCESEEN_END": 8.0,
+      "HoldGroundBaseTime": 1.25,
       "HoldGroundMinRandom": 0.65,
       "HoldGroundMaxRandom": 1.5,
-      "SuppressionResistance": 0.0
+      "SuppressionResistance": 0.0,
+      "TARGET_SUPPRESS_TOGGLE": true,
+      "TARGET_SUPPRESS_DIST": 3.0,
+      "TARGET_SUPPRESS_DIST_MAX": 12.0,
+      "MAX_TARGET_SUPPRESS_ANGLE": 45.0,
+      "TimeSinceSeenToSuppress": 3.0,
+      "TimeSinceShotAtToSuppress": 12.0,
+      "TimeSinceShotToSuppress": 12.0,
+      "ENEMYSNIPER_ALWAYS_SPRINT_COVER": true,
+      "ENEMYSNIPER_ALWAYS_SPRINT_SEARCH": true,
+      "ENEMYSNIPER_DISTANCE": 85.0,
+      "ENEMYSNIPER_DISTANCE_END": 75.0
     },
     "Search": {
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
       "HeardFromPeaceBehavior": "SearchNow",
       "WillChaseDistantGunshots": true,
-      "AudioStraightDistanceToIgnore": 125.0,
+      "AudioStraightDistanceToIgnore": 100.0,
       "SearchBaseTime": 6.0,
       "SearchWaitMultiplier": 3.0,
       "SprintWhileSearchChance": 75.0,
       "Sneaky": false,
       "SneakySpeed": 1.0,
       "SneakyPose": 1.0,
-      "SearchNoEnemySpeed": 1.0,
-      "SearchNoEnemyPose": 1.0,
-      "SearchHasEnemySpeed": 1.0,
-      "SearchHasEnemyPose": 1.0
+      "SlowAtCorners": false
     },
     "Rush": {
       "CanRushEnemyReloadHeal": true,
@@ -78,7 +90,7 @@
     "ScatteringCoef": 0.5,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
-    "PrecisionSpeedCoef": 1.5,
-    "AccuracySpeedCoef": 0.5
+    "PRECISION_SPEED_COEF": 1.5,
+    "ACCURACY_SPEED_COEF": 0.5
   }
 }

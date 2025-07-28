@@ -22,33 +22,45 @@
     "General": {
       "AggressionMultiplier": 1.0,
       "KickOpenAllDoors": false,
+      "DOGFIGHT_PATH_DIST_START": 10.0,
+      "DOGFIGHT_TIMESINCESEEN_START": 1.0,
+      "DOGFIGHT_PATH_DIST_END": 15.0,
+      "DOGFIGHT_TIMESINCESEEN_END": 8.0,
       "HoldGroundBaseTime": 1.5,
       "HoldGroundMinRandom": 0.8,
       "HoldGroundMaxRandom": 1.2,
-      "SuppressionResistance": 0.0
+      "SuppressionResistance": 0.0,
+      "TARGET_SUPPRESS_TOGGLE": false,
+      "TARGET_SUPPRESS_DIST": 3.0,
+      "TARGET_SUPPRESS_DIST_MAX": 12.0,
+      "MAX_TARGET_SUPPRESS_ANGLE": 45.0,
+      "TimeSinceSeenToSuppress": 3.0,
+      "TimeSinceShotAtToSuppress": 12.0,
+      "TimeSinceShotToSuppress": 12.0,
+      "ENEMYSNIPER_ALWAYS_SPRINT_COVER": true,
+      "ENEMYSNIPER_ALWAYS_SPRINT_SEARCH": true,
+      "ENEMYSNIPER_DISTANCE": 85.0,
+      "ENEMYSNIPER_DISTANCE_END": 75.0
     },
     "Search": {
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
       "HeardFromPeaceBehavior": "Freeze",
       "WillChaseDistantGunshots": false,
-      "AudioStraightDistanceToIgnore": 125.0,
+      "AudioStraightDistanceToIgnore": 100.0,
       "SearchBaseTime": 90.0,
       "SearchWaitMultiplier": 3.0,
       "SprintWhileSearchChance": 40.0,
       "Sneaky": true,
       "SneakySpeed": 0.33,
       "SneakyPose": 1.0,
-      "SearchNoEnemySpeed": 1.0,
-      "SearchNoEnemyPose": 1.0,
-      "SearchHasEnemySpeed": 1.0,
-      "SearchHasEnemyPose": 1.0
+      "SlowAtCorners": true
     },
     "Rush": {
-      "CanRushEnemyReloadHeal": false,
+      "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 35.0,
-      "CanBunnyHop": true,
+      "JumpCornerChance": 85.0,
+      "CanBunnyHop": false,
       "BunnyHopChance": 0.0
     },
     "Cover": {
@@ -78,7 +90,7 @@
     "ScatteringCoef": 0.13521038,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
-    "PrecisionSpeedCoef": 3.5,
-    "AccuracySpeedCoef": 0.3
+    "PRECISION_SPEED_COEF": 3.5,
+    "ACCURACY_SPEED_COEF": 0.3
   }
 }
