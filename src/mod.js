@@ -248,11 +248,6 @@ class TwitchPlayers {
                 return;
             }
 
-            // If user has progressive difficulty disabled, set preset defaults
-            if (!config.SAINProgressiveDifficulty && config.SAINAlwaysSetPresetDefaults) {
-                adjustDifficulty(50, true);
-            }
-
             // If update to the file needed, we do that, and then whatever we want after
             if (updateTTVfile) {
                 updateTTVJSfile(NamesData);
@@ -419,134 +414,6 @@ class TwitchPlayers {
         }
 
         //*************************************************
-        //*             DYNAMIC SAIN PRESET               *
-        //*************************************************
-        function calculateDifficulty(playerLevel) {
-            // This is just to track what's happening
-            const baseSettings = {
-                VisibleDistCoef: 1.0, // higher = harder
-                GainSightCoef: 1.0, // higher = harder
-                ScatteringCoef: 1.0, // lower = harder
-                HearingDistanceCoef: 1.0, // higher = harder
-                AggressionCoef: 1.0, // higher = harder
-                PRECISION_SPEED_COEF: 1.0, // higher = harder
-                ACCURACY_SPEED_COEF: 1.0, // lower = harder
-            };
-
-            const tiers = [
-                {
-                    levelRange: [1, 4],
-                    settings: {
-                        VisibleDistCoef: 1.5,
-                        GainSightCoef: 1.0,
-                        ScatteringCoef: 0.7,
-                        HearingDistanceCoef: 1.3,
-                        AggressionCoef: 1.2,
-                        PRECISION_SPEED_COEF: 0.8,
-                        ACCURACY_SPEED_COEF: 1.0
-                    },
-                },
-                {
-                    levelRange: [5, 14],
-                    settings: {
-                        VisibleDistCoef: 1.5,
-                        GainSightCoef: 1.3,
-                        ScatteringCoef: 0.7,
-                        HearingDistanceCoef: 1.3,
-                        AggressionCoef: 1.2,
-                        PRECISION_SPEED_COEF: 0.8,
-                        ACCURACY_SPEED_COEF: 1.0,
-                    },
-                },
-                {
-                    levelRange: [15, 29],
-                    settings: {
-                        VisibleDistCoef: 2.0,
-                        GainSightCoef: 1.5,
-                        ScatteringCoef: 0.4,
-                        HearingDistanceCoef: 1.6,
-                        AggressionCoef: 1.3,
-                        PRECISION_SPEED_COEF: 1.2,
-                        ACCURACY_SPEED_COEF: 0.8,
-                    },
-                },
-                {
-                    levelRange: [30, 39],
-                    settings: {
-                        VisibleDistCoef: 2.3,
-                        GainSightCoef: 2.5,
-                        ScatteringCoef: 0.2,
-                        HearingDistanceCoef: 1.8,
-                        AggressionCoef: 1.4,
-                        PRECISION_SPEED_COEF: 2.0,
-                        ACCURACY_SPEED_COEF: 0.6,
-                    },
-                },
-                {
-                    levelRange: [40, 49],
-                    settings: {
-                        VisibleDistCoef: 2.5,
-                        GainSightCoef: 3.0,
-                        ScatteringCoef: 0.1,
-                        HearingDistanceCoef: 1.9,
-                        AggressionCoef: 1.5,
-                        PRECISION_SPEED_COEF: 4.0,
-                        ACCURACY_SPEED_COEF: 0.3,
-                    },
-                },
-                {
-                    levelRange: [50, 59],
-                    settings: {
-                        VisibleDistCoef: 3.0,
-                        GainSightCoef: 4.0,
-                        ScatteringCoef: 0.01,
-                        HearingDistanceCoef: 1.0,
-                        AggressionCoef: 1.0,
-                        PRECISION_SPEED_COEF: 6.0,
-                        ACCURACY_SPEED_COEF: 0.1
-                    },
-                },
-                {
-                    levelRange: [60, 99],
-                    settings: {
-                        VisibleDistCoef: 3.2,
-                        GainSightCoef: 5.0,
-                        ScatteringCoef: 0.01,
-                        HearingDistanceCoef: 2.2,
-                        AggressionCoef: 1.5,
-                        PRECISION_SPEED_COEF: 6.5,
-                        ACCURACY_SPEED_COEF: 0.05
-                    },
-                },
-            ];
-
-            const tier = tiers.find((t) => playerLevel >= t.levelRange[0] && playerLevel <= t.levelRange[1]);
-            return tier ? { tierIndex: tiers.indexOf(tier) + 1, settings: tier.settings } : { tierIndex: 1, settings: tiers[0].settings }; // Defaulting to 1st tier if no match was found (should never happen tbh)
-        }
-
-        function adjustDifficulty(playerLevel, silent) {
-            if (!silent)
-                logger.log(`[Twitch Players] Adjusting global difficulties for our SAIN preset...`, "cyan")
-
-            const difficultyData = calculateDifficulty(playerLevel);
-
-            const globalSettingsPath = path.join(__dirname, '../preset/Death Wish [Twitch Players]/GlobalSettings.json');
-            const source = path.resolve(__dirname, '../preset/Death Wish [Twitch Players]/GlobalSettings.json');
-            const destination = path.resolve(process.cwd(), 'BepInEx/plugins/SAIN/Presets/Death Wish [Twitch Players]/GlobalSettings.json');
-
-            // Update GlobalSettings.json
-            const globalSettings = JSON.parse(fs.readFileSync(globalSettingsPath, 'utf-8'));
-            globalSettings.Difficulty = difficultyData.settings;
-            fs.writeFileSync(globalSettingsPath, JSON.stringify(globalSettings, null, 2));
-
-            // Push GlobalSettings.json
-            fs.cpSync(source, destination, { recursive: true, force: true });
-
-            if (!silent)
-                logger.log(`[Twitch Players] Done adjusting! Your PMC Level: ${playerLevel}. Twitch Players SAIN preset difficulty tier: ${difficultyData.tierIndex}. Have fun! :)`, "cyan")
-        }
-
-        //*************************************************
         //*           SAIN PRESET AUTO-UPDATE             *
         //*************************************************
         function checkForUpdate(localVersionPath, remoteVersionPath) {
@@ -584,6 +451,9 @@ class TwitchPlayers {
             }
         }
 
+        //*************************************************
+        //*               ROUTERS AND UTILS               *
+        //*************************************************
         function compareDates(date1, date2) {
             const d1 = new Date(date1);
             const d2 = new Date(date2);
@@ -592,48 +462,6 @@ class TwitchPlayers {
             if (d1 < d2) return -1;
             return 0;
         }
-
-        //*************************************************
-        //*               ROUTERS AND UTILS               *
-        //*************************************************
-        RouterService.registerStaticRouter("TTVGetProfileInfo", [{
-            url: "/launcher/profile/info",
-            action: async (url, info, sessionId, output) => {
-                const profile = JSON.parse(output);
-                const playerLevel = profile.currlvl;
-
-                if (playerLevel >= 1 && config.SAINProgressiveDifficulty && runOnce) {
-                    if (config.SAINProgressiveDifficultyDesiredProfile == sessionId) {
-                        logger.log(`[Twitch Players] Desired profile ${config.SAINProgressiveDifficultyDesiredProfile} logged in.`, "cyan")
-                        adjustDifficulty(playerLevel, false);
-                        runOnce = 0;
-                    } else if (!config.SAINProgressiveDifficultyDesiredProfile && runOnce) {
-                        adjustDifficulty(playerLevel, false);
-                        runOnce = 0;
-                    } else if (config.SAINProgressiveDifficultyDesiredProfile != sessionId && config.SAINProgressiveDifficulty && runOnce) {
-                        adjustDifficulty(playerLevel, false);
-                        runOnce = 0;
-                    }
-                }
-
-                return output;
-            }
-        }], "aki");
-
-        RouterService.registerStaticRouter("TTVCheckProfileLogOut", [{
-            url: "/launcher/profiles",
-            action: async (url, info, sessionId, output) => {
-
-                // Can run level and difficulty tiering once again
-                if (config.SAINProgressiveDifficulty && config.SAINProgressiveDifficultyDesiredProfile == sessionId || config.SAINProgressiveDifficulty && !config.SAINProgressiveDifficultyDesiredProfile) {
-                    runOnce = 1;
-                    logger.log(`[Twitch Players] Waiting for user to log in.`, "cyan")
-                    adjustDifficulty(1, true);
-                }
-
-                return output;
-            }
-        }], "aki");
 
         function getRandomPersonalityWithWeighting(personalities) {
             const totalWeight = Object.values(personalities).reduce((sum, weight) => sum + weight, 0);

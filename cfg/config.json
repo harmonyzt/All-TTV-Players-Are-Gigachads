@@ -6,9 +6,6 @@
         "Chad": 20
     },
 
-    "_NOTE_SAIN": "SAIN Preset Settings",
-    "SAINProgressiveDifficulty": true,
-    "SAINAlwaysSetPresetDefaults": true,
     "SAINAutoUpdatePreset": true,
 
     "globalMode": false,
