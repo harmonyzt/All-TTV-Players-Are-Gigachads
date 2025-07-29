@@ -120,10 +120,10 @@
   "Difficulty": {
     "VisibleDistCoef": 1.0,
     "GainSightCoef": 1.0,
-    "ScatteringCoef": 2.0,
+    "ScatteringCoef": 1.0,
     "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 0.8,
+    "AggressionCoef": 1.0,
     "PRECISION_SPEED_COEF": 1.0,
-    "ACCURACY_SPEED_COEF": 0.5
+    "ACCURACY_SPEED_COEF": 1.0
   }
 }
