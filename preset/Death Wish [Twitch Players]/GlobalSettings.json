@@ -1,7 +1,7 @@
 {
     "Difficulty": {
         "VisibleDistCoef": 3.0,
-        "GainSightCoef": 2.5,
+        "GainSightCoef": 4.0,
         "ScatteringCoef": 0.01,
         "HearingDistanceCoef": 1.0,
         "AggressionCoef": 1.0,
@@ -671,22 +671,22 @@
                 "SmoothingMode": "SmoothDamp"
             },
             "Combat": {
-                "SmoothingValue": 0.25,
+                "SmoothingValue": 0.45,
                 "MaxTurnSpeed": 300.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatSprint": {
-                "SmoothingValue": 0.25,
+                "SmoothingValue": 0.45,
                 "MaxTurnSpeed": 300.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "CombatVisibleEnemy": {
-                "SmoothingValue": 0.25,
+                "SmoothingValue": 0.45,
                 "MaxTurnSpeed": 360.0,
                 "SmoothingMode": "SmoothDamp"
             },
             "Aiming": {
-                "SmoothingValue": 0.25,
+                "SmoothingValue": 0.45,
                 "MaxTurnSpeed": 360.0,
                 "SmoothingMode": "SmoothDamp"
             }

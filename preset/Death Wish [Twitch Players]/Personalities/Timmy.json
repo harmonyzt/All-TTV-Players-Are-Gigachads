@@ -6,7 +6,7 @@
     "CanBeRandomlyAssigned": false,
     "RandomlyAssignedChance": 0.0,
     "MinLevel": 0.0,
-    "MaxLevel": 15.0,
+    "MaxLevel": 20.0,
     "PowerLevelScaleStart": 0.0,
     "PowerLevelScaleEnd": 150.0,
     "InverseScale": true,
@@ -119,11 +119,11 @@
   },
   "Difficulty": {
     "VisibleDistCoef": 1.0,
-    "GainSightCoef": 2,
-    "ScatteringCoef": 1.5,
+    "GainSightCoef": 1.0,
+    "ScatteringCoef": 1.0,
     "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 0.7,
-    "PRECISION_SPEED_COEF": 0.4,
-    "ACCURACY_SPEED_COEF": 0.4
+    "AggressionCoef": 1.0,
+    "PRECISION_SPEED_COEF": 1.0,
+    "ACCURACY_SPEED_COEF": 1.0
   }
 }
