@@ -110,7 +110,7 @@
       "CanTaunt": false,
       "FrequentTaunt": false,
       "ConstantTaunt": false,
-      "CanRespondToEnemyVoice": true,
+      "CanRespondToEnemyVoice": false,
       "TauntFrequency": 10.0,
       "TauntChance": 50.0,
       "TauntMaxDistance": 50.0,

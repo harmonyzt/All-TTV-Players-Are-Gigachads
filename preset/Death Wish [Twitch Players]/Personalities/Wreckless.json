@@ -4,7 +4,7 @@
   "Assignment": {
     "Enabled": true,
     "CanBeRandomlyAssigned": false,
-    "RandomlyAssignedChance": 1.0,
+    "RandomlyAssignedChance": 0.0,
     "MinLevel": 99.0,
     "MaxLevel": 100.0,
     "PowerLevelScaleStart": 250.0,
@@ -12,7 +12,7 @@
     "InverseScale": false,
     "PowerLevelMin": 250.0,
     "PowerLevelMax": 1000.0,
-    "MaxChanceIfMeetRequirements": 5.0,
+    "MaxChanceIfMeetRequirements": 0.0,
     "AllowedTypes": [
       "assault",
       "assaultGroup",
@@ -107,10 +107,10 @@
       "MoveToCoverHasEnemyPose": 1.0
     },
     "Talk": {
-      "CanTaunt": true,
-      "FrequentTaunt": true,
-      "ConstantTaunt": true,
-      "CanRespondToEnemyVoice": true,
+      "CanTaunt": false,
+      "FrequentTaunt": false,
+      "ConstantTaunt": false,
+      "CanRespondToEnemyVoice": false,
       "TauntFrequency": 4.0,
       "TauntChance": 33.0,
       "TauntMaxDistance": 75.0,
@@ -120,12 +120,12 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 1.0,
-    "GainSightCoef": 1.0,
-    "ScatteringCoef": 1.0,
-    "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 1.0,
-    "PRECISION_SPEED_COEF": 1.0,
-    "ACCURACY_SPEED_COEF": 1.0
+    "VisibleDistCoef": 2.0,
+    "GainSightCoef": 2.0,
+    "ScatteringCoef": 0.1,
+    "HearingDistanceCoef": 1.15,
+    "AggressionCoef": 1.15,
+    "PRECISION_SPEED_COEF": 2.0,
+    "ACCURACY_SPEED_COEF": 2.0
   }
 }

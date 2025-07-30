@@ -6,7 +6,7 @@
     "CanBeRandomlyAssigned": false,
     "RandomlyAssignedChance": 0.0,
     "MinLevel": 0.0,
-    "MaxLevel": 20.0,
+    "MaxLevel": 15.0,
     "PowerLevelScaleStart": 0.0,
     "PowerLevelScaleEnd": 150.0,
     "InverseScale": true,

@@ -5,14 +5,14 @@
     "Enabled": true,
     "CanBeRandomlyAssigned": false,
     "RandomlyAssignedChance": 0.0,
-    "MinLevel": 99.0,
+    "MinLevel": 15.0,
     "MaxLevel": 100.0,
     "PowerLevelScaleStart": 150.0,
     "PowerLevelScaleEnd": 500.0,
     "InverseScale": false,
     "PowerLevelMin": 150.0,
     "PowerLevelMax": 1000.0,
-    "MaxChanceIfMeetRequirements": 30.0,
+    "MaxChanceIfMeetRequirements": 0.0,
     "AllowedTypes": [
       "pmcUSEC",
       "pmcBEAR"
@@ -72,7 +72,7 @@
       "MoveToCoverHasEnemyPose": 1.0
     },
     "Talk": {
-      "CanTaunt": true,
+      "CanTaunt": false,
       "FrequentTaunt": false,
       "ConstantTaunt": false,
       "CanRespondToEnemyVoice": false,
@@ -85,8 +85,8 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 1.0,
-    "GainSightCoef": 1.0,
+    "VisibleDistCoef": 2.0,
+    "GainSightCoef": 2.5,
     "ScatteringCoef": 1.0,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,

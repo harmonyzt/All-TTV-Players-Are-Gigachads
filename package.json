@@ -1,6 +1,6 @@
 {
     "name": "[SAIN] Twitch Players",
-    "version": "1.9.6",
+    "version": "2.0.0",
     "main": "src/mod.js",
     "license": "MIT",
     "author": "harmony",
