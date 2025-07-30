@@ -27,7 +27,6 @@ class TwitchPlayers {
         const { CFG: config, CallsignsConfig: CallsignConfig } = this;
 
         // Other
-        const RouterService = container.resolve("StaticRouterModService");
         const logger = container.resolve("WinstonLogger");
 
         // File/Folder Paths
