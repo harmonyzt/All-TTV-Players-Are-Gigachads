@@ -10,10 +10,5 @@
 
     "globalMode": false,
     "debugLogging": false,
-    "forceMainFileRewrite": false,
-
-    "_NOTE_FIKA": "USE THIS IF YOU'RE RUNNING FIKA!",
-    "_NOTE_FIKA2": "This ensures that changes only apply if selected profile ID logs in/starts the game (tarkov itself, not the raid)",
-    "_NOTE_FIKA3": "You can find your profile ID in your SPT Launcher right below your username when you login. It will look like this - 675c0c2d00043b5241599235",
-    "SAINProgressiveDifficultyDesiredProfile": ""
+    "forceMainFileRewrite": false
 }
