@@ -40,9 +40,6 @@ class TwitchPlayers {
         const tempNamesPath = path.resolve(process.cwd(), 'user/mods/TwitchPlayers/temp/dont_touch.json')
         const customNamesPath = path.resolve(process.cwd(), 'user/mods/TwitchPlayers/names/your_names.json')
 
-        // For running RouterService once
-        let runOnce = 1
-
         // Check for custom names and personalities file and create if doesn't exist
         if (!fs.existsSync(customNamesPath)) {
             const defaultStructure = {

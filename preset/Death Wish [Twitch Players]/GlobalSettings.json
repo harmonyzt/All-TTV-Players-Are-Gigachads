@@ -1,12 +1,12 @@
 {
   "Difficulty": {
-    "VisibleDistCoef": 1.0,
-    "GainSightCoef": 2.1,
-    "ScatteringCoef": 0.65,
+    "VisibleDistCoef": 2.0,
+    "GainSightCoef": 2.0,
+    "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
-    "PRECISION_SPEED_COEF": 2.0,
-    "ACCURACY_SPEED_COEF": 1.0
+    "PRECISION_SPEED_COEF": 3.0,
+    "ACCURACY_SPEED_COEF": 0.1
   },
   "General": {
     "BotsUseGrenades": true,
@@ -147,7 +147,7 @@
       "DAMAGE_MIN_MOD": 0.2,
       "DAMAGE_MAX_MOD": 3.0
     },
-    "AimCenterMassGlobal": true,
+    "AimCenterMassGlobal": false,
     "EnemyVelocityMaxBuff": 1.2,
     "EnemyVelocityMaxDebuff": 0.8,
     "EnemySprintingScatterMulti": 0.66,
@@ -165,7 +165,7 @@
     "IronSightFarMulti": 0.7,
     "IronSightScaleDistanceStart": 40.0,
     "IronSightScaleDistanceEnd": 75.0,
-    "CenterMassVal": 0.275,
+    "CenterMassVal": 0.3,
     "FasterCQBReactionsGlobal": true,
     "AimDownSightsAimTimeMultiplier": 0.7
   },
@@ -503,7 +503,7 @@
       "NightVisionOffRatio": 0.66
     },
     "NotLooking": {
-      "NotLookingToggle": true,
+      "NotLookingToggle": false,
       "NotLookingTimeLimit": 4.0,
       "NotLookingAngle": 45.0,
       "NotLookingVisionSpeedModifier": 1.1,
