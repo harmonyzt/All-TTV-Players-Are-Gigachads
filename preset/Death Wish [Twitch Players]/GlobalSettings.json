@@ -1,12 +1,12 @@
 {
   "Difficulty": {
     "VisibleDistCoef": 2.0,
-    "GainSightCoef": 2.0,
+    "GainSightCoef": 1.7,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
-    "PRECISION_SPEED_COEF": 3.0,
-    "ACCURACY_SPEED_COEF": 0.1
+    "PRECISION_SPEED_COEF": 2.8,
+    "ACCURACY_SPEED_COEF": 0.5
   },
   "General": {
     "BotsUseGrenades": true,

@@ -126,6 +126,6 @@
     "HearingDistanceCoef": 1.15,
     "AggressionCoef": 1.15,
     "PRECISION_SPEED_COEF": 2.0,
-    "ACCURACY_SPEED_COEF": 2.0
+    "ACCURACY_SPEED_COEF": 0.1
   }
 }
