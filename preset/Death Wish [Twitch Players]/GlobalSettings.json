@@ -25,20 +25,20 @@
       "PerformanceMode": false
     },
     "AILimit": {
-      "LimitAIvsAIGlobal": true,
+      "LimitAIvsAIGlobal": false,
       "AILimitUpdateFrequency": 3.0,
       "AILimitRanges": {
         "Far": 150.0,
         "VeryFar": 250.0,
         "Narnia": 400.0
       },
-      "LimitAIvsAIVision": true,
+      "LimitAIvsAIVision": false,
       "MaxVisionRanges": {
         "Far": 200.0,
         "VeryFar": 100.0,
         "Narnia": 50.0
       },
-      "LimitAIvsAIHearing": true,
+      "LimitAIvsAIHearing": false,
       "MaxHearingRanges": {
         "Far": 100.0,
         "VeryFar": 60.0,
