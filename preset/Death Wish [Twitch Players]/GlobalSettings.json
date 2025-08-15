@@ -1,12 +1,12 @@
 {
   "Difficulty": {
     "VisibleDistCoef": 2.0,
-    "GainSightCoef": 1.7,
+    "GainSightCoef": 1.6,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
-    "PRECISION_SPEED_COEF": 2.8,
-    "ACCURACY_SPEED_COEF": 0.5
+    "PRECISION_SPEED_COEF": 3.0,
+    "ACCURACY_SPEED_COEF": 0.35
   },
   "General": {
     "BotsUseGrenades": true,
@@ -63,7 +63,7 @@
       "DisableAllDoors": false
     },
     "Extract": {
-      "SAIN_EXTRACT_TOGGLE": false
+      "SAIN_EXTRACT_TOGGLE": true
     },
     "Flashlight": {
       "DazzleEffectiveness": 3.0,
@@ -167,7 +167,7 @@
     "IronSightScaleDistanceEnd": 75.0,
     "CenterMassVal": 0.3,
     "FasterCQBReactionsGlobal": true,
-    "AimDownSightsAimTimeMultiplier": 0.7
+    "AimDownSightsAimTimeMultiplier": 0.1
   },
   "Hearing": {
     "DOOR_OPEN_SOUND_RANGE": 40.0,
@@ -633,8 +633,8 @@
     "LEAN_INCOVER_TOGGLE": true,
     "JUMP_TOGGLE": true,
     "AUTOCROUCH_TOGGLE": true,
-    "PRONE_TOGGLE": true,
-    "PRONE_SUPPRESS_TOGGLE": true,
+    "PRONE_TOGGLE": false,
+    "PRONE_SUPPRESS_TOGGLE": false,
     "VAULT_TOGGLE": true,
     "VAULT_UNSTUCK_TOGGLE": true,
     "EditSprintSpeed": false,
@@ -691,7 +691,7 @@
         "SmoothingMode": "SmoothDamp"
       }
     },
-    "ConvergenceBoost": 1.1,
+    "ConvergenceBoost": 1.8,
     "PathVisionMinCommandsPerJob": 256.0
   },
   "Shoot": {
@@ -827,9 +827,9 @@
     "DisableBotTalkPatching": false
   },
   "SquadTalk": {
-    "_reportReloadingChance": 33.0,
-    "_reportReloadingFreq": 4.0,
-    "_reportLostVisualChance": 40.0,
+    "_reportReloadingChance": 5.0,
+    "_reportReloadingFreq": 2.2,
+    "_reportLostVisualChance": 10.0,
     "_reportRatChance": 33.0,
     "_reportRatTimeSinceSeen": 60.0,
     "_reportEnemyConversationChance": 10.0,

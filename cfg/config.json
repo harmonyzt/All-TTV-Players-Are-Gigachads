@@ -2,8 +2,7 @@
     "randomizePersonalitiesOnServerStart": true,
     "personalitiesToUse": {
         "Wreckless": 50,
-        "GigaChad": 30,
-        "Chad": 20
+        "SnappingTurtle": 50
     },
 
     "SAINAutoUpdatePreset": true,
