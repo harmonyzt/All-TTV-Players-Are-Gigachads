@@ -4,9 +4,9 @@
     "GainSightCoef": 1.6,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 1.0,
-    "PRECISION_SPEED_COEF": 3.0,
-    "ACCURACY_SPEED_COEF": 0.35
+    "AggressionCoef": 1.75,
+    "PRECISION_SPEED_COEF": 3.6,
+    "ACCURACY_SPEED_COEF": 0.7
   },
   "General": {
     "BotsUseGrenades": true,
@@ -518,7 +518,7 @@
     }
   },
   "Mind": {
-    "TARGET_SUPPRESS_TOGGLE": true,
+    "TARGET_SUPPRESS_TOGGLE": false,
     "ForcePersonality": {
       "Wreckless": false,
       "GigaChad": false,
@@ -547,7 +547,7 @@
     "SneakyBots": true,
     "OnlySneakyPersonalitiesSneaky": true,
     "MaximumDistanceToBeSneaky": 80.0,
-    "SUPP_TOGGLE": true,
+    "SUPP_TOGGLE": false,
     "SUPP_DISTANCE_SCALE_START": 4.0,
     "SUPP_DISTANCE_SCALE_END": 10.0,
     "SUPP_DISTANCE_AMP_DIST": 0.5,
@@ -591,7 +591,7 @@
         "HearingDistCoef": 0.25
       }
     },
-    "SUPP_AMOUNT_MULTI": 1.0,
+    "SUPP_AMOUNT_MULTI": 0.15,
     "SUPP_STRENGTH_MULTI": 1.0,
     "SUP_DECAY_AMOUNT": 0.25,
     "SUP_DECAY_FREQ": 0.25,

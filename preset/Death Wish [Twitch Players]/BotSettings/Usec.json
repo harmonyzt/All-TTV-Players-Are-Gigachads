@@ -82,7 +82,7 @@
         "MinExtractPercentage": 5.0
       },
       "Move": {
-        "STRAFE_SPEED": 0.75,
+        "STRAFE_SPEED": 1.0,
         "LEAN_TOGGLE": true,
         "LEAN_INCOVER_TOGGLE": true,
         "JUMP_TOGGLE": true,
@@ -94,7 +94,7 @@
       },
       "Patrol": {},
       "Scattering": {
-        "HandDamageScatteringMinMax": 1.5,
+        "HandDamageScatteringMinMax": 1.2,
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
@@ -102,7 +102,7 @@
         "BurstMulti": 3.0,
         "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
-        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5
+        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.2
       }
     },
     "normal": {
@@ -184,7 +184,7 @@
         "MinExtractPercentage": 5.0
       },
       "Move": {
-        "STRAFE_SPEED": 0.9,
+        "STRAFE_SPEED": 1.0,
         "LEAN_TOGGLE": true,
         "LEAN_INCOVER_TOGGLE": true,
         "JUMP_TOGGLE": true,
@@ -196,7 +196,7 @@
       },
       "Patrol": {},
       "Scattering": {
-        "HandDamageScatteringMinMax": 1.5,
+        "HandDamageScatteringMinMax": 1.2,
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
@@ -204,7 +204,7 @@
         "BurstMulti": 3.0,
         "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
-        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5
+        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.2
       }
     },
     "hard": {
@@ -252,7 +252,7 @@
       "Change": {},
       "Grenade": {
         "CanThrowWhileSprinting": false,
-        "CAN_THROW_STRAIGHT_CONTACT": false,
+        "CAN_THROW_STRAIGHT_CONTACT": true,
         "TimeSinceSeenBeforeThrow": 4.0,
         "ThrowGrenadeFrequency": 5.0,
         "ThrowGrenadeFrequency_MAX": 10.0,
@@ -298,7 +298,7 @@
       },
       "Patrol": {},
       "Scattering": {
-        "HandDamageScatteringMinMax": 1.5,
+        "HandDamageScatteringMinMax": 1.2,
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
@@ -306,7 +306,7 @@
         "BurstMulti": 3.0,
         "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
-        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5
+        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.2
       }
     },
     "impossible": {
@@ -353,8 +353,8 @@
       },
       "Change": {},
       "Grenade": {
-        "CanThrowWhileSprinting": false,
-        "CAN_THROW_STRAIGHT_CONTACT": false,
+        "CanThrowWhileSprinting": true,
+        "CAN_THROW_STRAIGHT_CONTACT": true,
         "TimeSinceSeenBeforeThrow": 4.0,
         "ThrowGrenadeFrequency": 5.0,
         "ThrowGrenadeFrequency_MAX": 10.0,
@@ -400,7 +400,7 @@
       },
       "Patrol": {},
       "Scattering": {
-        "HandDamageScatteringMinMax": 1.5,
+        "HandDamageScatteringMinMax": 1.2,
         "HandDamageAccuracySpeed": 1.5
       },
       "Shoot": {
@@ -408,7 +408,7 @@
         "BurstMulti": 3.0,
         "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
-        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5
+        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.2
       }
     }
   }

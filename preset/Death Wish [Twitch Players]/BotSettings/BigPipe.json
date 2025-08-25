@@ -15,10 +15,10 @@
       },
       "Core": {
         "VisibleAngle": 180.0,
-        "VisibleDistance": 150.0,
+        "VisibleDistance": 225.0,
         "GainSightCoef": 0.2,
         "AccuratySpeed": 0.1,
-        "ScatteringPerMeter": 0.1,
+        "ScatteringPerMeter": 0.045,
         "ScatteringClosePerMeter": 0.12,
         "HearingDistanceMulti": 1.0,
         "CanGrenade": true
@@ -120,7 +120,7 @@
         "VisibleDistance": 225.0,
         "GainSightCoef": 0.2,
         "AccuratySpeed": 0.1,
-        "ScatteringPerMeter": 0.1,
+        "ScatteringPerMeter": 0.045,
         "ScatteringClosePerMeter": 0.12,
         "HearingDistanceMulti": 1.0,
         "CanGrenade": true
@@ -222,7 +222,7 @@
         "VisibleDistance": 250.0,
         "GainSightCoef": 0.2,
         "AccuratySpeed": 0.1,
-        "ScatteringPerMeter": 0.1,
+        "ScatteringPerMeter": 0.045,
         "ScatteringClosePerMeter": 0.12,
         "HearingDistanceMulti": 1.0,
         "CanGrenade": true
@@ -324,7 +324,7 @@
         "VisibleDistance": 275.0,
         "GainSightCoef": 0.2,
         "AccuratySpeed": 0.1,
-        "ScatteringPerMeter": 0.1,
+        "ScatteringPerMeter": 0.045,
         "ScatteringClosePerMeter": 0.12,
         "HearingDistanceMulti": 1.0,
         "CanGrenade": true
