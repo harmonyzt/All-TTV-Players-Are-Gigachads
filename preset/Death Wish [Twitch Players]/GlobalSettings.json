@@ -6,7 +6,7 @@
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.75,
     "PRECISION_SPEED_COEF": 3.6,
-    "ACCURACY_SPEED_COEF": 0.7
+    "ACCURACY_SPEED_COEF": 1.2
   },
   "General": {
     "BotsUseGrenades": true,
