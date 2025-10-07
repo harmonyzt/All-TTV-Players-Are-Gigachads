@@ -45,7 +45,6 @@ class TwitchPlayers {
             const defaultStructure = {
                 customNames: {
                     "RealCustomsRat": "Rat",
-                    "jinglemyballs": "Chad",
                     "Chad_Slayer": "GigaChad",
                     "Solaraint": "Wreckless",
                     "LVNDMARK": "SnappingTurtle",
@@ -80,8 +79,6 @@ class TwitchPlayers {
                     "Amands2Mello": "Wreckless",
                     "CWX": "SnappingTurtle",
                     "Jehree": "Wreckless",
-                    "BigShlongHaver": "SnappingTurtle",
-                    "BIGDICK18CM": "Wreckless",
                     "Legion": "Wreckless"
                 }
             };

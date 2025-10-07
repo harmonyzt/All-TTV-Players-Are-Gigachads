@@ -121,7 +121,7 @@
   },
   "Difficulty": {
     "VisibleDistCoef": 2.0,
-    "GainSightCoef": 2.0,
+    "GainSightCoef": 2.4,
     "ScatteringCoef": 0.1,
     "HearingDistanceCoef": 1.15,
     "AggressionCoef": 1.15,
